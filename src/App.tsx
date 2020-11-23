@@ -4,14 +4,13 @@ import AppProvider from './hooks';
 
 import GlobalStyle from './styles/global';
 
-import Layout from './components/Layout';
 import Routes from './routes';
 
 const App: React.FC = () => {
   return (
     <Router>
       <AppProvider>
-        <Layout />
+        <Routes />
         <GlobalStyle />
       </AppProvider>
     </Router>

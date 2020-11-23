@@ -7,7 +7,7 @@ import { Container } from './styles';
 
 const Customer: React.FC = () => {
   return (
-    <Container>
+    <Container initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div>
         <header>
           <img

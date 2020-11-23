@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { Container, Slides, Navigation } from './styles';
-import SignInBackground from '../../assets/bg_signin.svg';
-import SignInBackground2 from '../../assets/bg_signin2.svg';
+import SignInBackground from '../../assets/bg_signin.jpg';
+import SignInBackground2 from '../../assets/bg_signin2.jpg';
 import logoImg from '../../assets/logo_branca.svg';
 import {
   FaFacebookF,

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Form } from '@unform/web';
 
+import { useHistory } from 'react-router-dom';
 import Input from '../Input';
 
 import { Container, InputsGroup, SeeMore, Separator } from './styles';
@@ -10,6 +11,7 @@ interface DisplayProps {
 }
 
 const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
+  const history = useHistory();
   const handleSubmit = useCallback((data: object) => {
     console.log(data);
   }, []);
@@ -121,7 +123,11 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
           )}
         </Form>
       </Container>
-      {display ? null : <SeeMore type="button">Ver mais</SeeMore>}
+      {display ? null : (
+        <SeeMore onClick={() => history.push('/customer')} type="button">
+          Ver mais
+        </SeeMore>
+      )}
     </>
   );
 };

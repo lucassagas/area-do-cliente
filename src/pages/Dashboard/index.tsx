@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { IoIosArrowDropdownCircle, HiOutlineUser } from '../../styles/icon';
+import CustomerData from '../../components/CustomerData';
+import Finances from '../../components/FinancesData';
+
+import {
+  IoIosArrowDropdownCircle,
+  HiOutlineUser,
+  FaDollarSign,
+} from '../../styles/icon';
 
 import bgHome from '../../assets/bg_home.svg';
 
@@ -11,11 +18,12 @@ import {
   ContainerImg,
   RollToDown,
   Main,
-  YourAccount,
-  Customer,
 } from './styles';
+import { useAuth } from '../../hooks/auth';
+import Footer from '../../components/Footer';
 
 const Dashboard: React.FC = () => {
+  const { user } = useAuth();
   return (
     <Container>
       <Main>
@@ -25,7 +33,7 @@ const Dashboard: React.FC = () => {
             <h1>Bem-Vindo</h1>
 
             <span>
-              Olá <strong>Lucas Sagás.</strong>
+              Olá <strong>{user.name}</strong>
             </span>
           </div>
 
@@ -52,12 +60,20 @@ const Dashboard: React.FC = () => {
       </Main>
 
       <section>
-        <YourAccount>
+        <div className="YourAccount">
           <HiOutlineUser size={30} color="#FFF" />
           <span>Sua Conta</span>
-        </YourAccount>
-        <Customer />
+        </div>
+        <CustomerData />
+
+        <div className="YourAccount Green">
+          <FaDollarSign size={30} color="#FFF" />
+          <span>Fatura</span>
+        </div>
+        <Finances />
       </section>
+
+      <Footer />
     </Container>
   );
 };

@@ -24,7 +24,7 @@ export const Container = styled.div`
     padding: 10px 20px 0 20px;
   }
 
-  div {
+  > div {
     display: flex;
     height: 70px;
     justify-content: flex-end;
@@ -42,7 +42,21 @@ export const Container = styled.div`
       font-weight: 300;
     }
 
-    button {
+    > section {
+      > button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: transparent;
+
+        @media (max-width: 430px) {
+          margin-right: 30px;
+        }
+      }
+    }
+
+    > button {
       background: transparent;
       border: 0;
       color: var(--icons);
@@ -54,6 +68,10 @@ export const Container = styled.div`
       &:hover {
         color: var(--orange);
       }
+    }
+
+    .MyAccount {
+      position: relative;
     }
   }
 `;

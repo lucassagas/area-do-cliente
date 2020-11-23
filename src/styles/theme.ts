@@ -8,6 +8,9 @@ export const themes = {
     error: '#c53030',
     purple: '#445495',
     green: '#44956A',
+    greenopacity: 'rgba(69, 150, 107, 0.5)',
+    backgroundcard: '#fafafa',
+    backgroundmenu: '#cccc',
   },
 };
 

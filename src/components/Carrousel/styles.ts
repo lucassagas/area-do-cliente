@@ -66,6 +66,7 @@ export const Navigation = styled.div`
       width: 60px;
       height: 4px;
       cursor: pointer;
+      border-radius: 10px;
       transition: 1s;
       background: var(--lightgray);
 

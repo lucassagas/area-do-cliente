@@ -16,21 +16,34 @@ export const Content = styled.div`
   width: 100%;
   max-width: 500px;
 
-  > button {
-    display: none;
-    @media (max-width: 768px) {
-      background: var(--orange);
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3px 7px;
-      border-radius: 0 8px 8px 0;
-      position: absolute;
+  position: relative;
 
-      left: 0;
-      top: 40px;
+  section {
+    position: absolute;
+    bottom: 30px;
+    display: none;
+
+    svg + svg {
+      margin-left: 10px;
     }
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  > button {
+    background: var(--orange);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 7px;
+    border-radius: 0 8px 8px 0;
+    position: absolute;
+
+    left: 0;
+    top: 40px;
   }
 
   @media (max-width: 768px) {
@@ -90,15 +103,6 @@ export const AnimationContainer = styled.div`
 
     &:hover {
       opacity: 0.8;
-    }
-  }
-
-  section {
-    position: absolute;
-    bottom: 30px;
-
-    svg + svg {
-      margin-left: 10px;
     }
   }
 `;

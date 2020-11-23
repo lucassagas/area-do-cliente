@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   width: 100%;
   height: 100%;
   padding: 0 60px;
@@ -12,6 +13,10 @@ export const Container = styled.div`
 
   @media (min-height: 1080px) {
     min-height: 91vh;
+  }
+
+  @media (max-width: 430px) {
+    padding: 0 10px;
   }
 
   header {

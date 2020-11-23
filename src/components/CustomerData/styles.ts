@@ -17,6 +17,10 @@ export const Container = styled.div`
       padding: 10px;
     }
   }
+
+  @media (max-width: 1440px) {
+    max-width: 1100px;
+  }
 `;
 
 export const InputsGroup = styled.div`
@@ -93,10 +97,71 @@ export const InputsGroup = styled.div`
       width: 40%;
     }
   }
+
+  @media (max-width: 430px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    #cep {
+      width: 100%;
+    }
+
+    #nickname {
+      width: 100%;
+    }
+
+    #address,
+    #neighborhood {
+      width: 100%;
+      margin-right: 0;
+    }
+
+    #number {
+      width: 40%;
+    }
+
+    #dateofbirth {
+      width: 80%;
+      margin-right: 0;
+    }
+    #complement {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    #reference,
+    #name {
+      width: 100%;
+      margin-right: 0;
+    }
+
+    #state {
+      width: 30%;
+      margin-right: 0;
+    }
+
+    #city {
+      width: 100%;
+    }
+
+    #phone,
+    #optionalphone,
+    #celphone,
+    #optionalcelphone {
+      width: 70%;
+      margin-right: 0;
+    }
+
+    #email {
+      width: 100%;
+    }
+  }
 `;
 
 export const SeeMore = styled.button`
-  background: var(--green);
+  background: var(--purple);
   max-width: 110px;
   padding: 5px 10px;
   border-radius: 7px;
