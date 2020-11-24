@@ -7,6 +7,7 @@ interface AuthState {
   user: {
     name: string;
     document: string;
+    code: string;
   };
 }
 
@@ -20,6 +21,7 @@ interface AuthContextData {
   user: {
     name: string;
     document: string;
+    code: string;
   };
   loading: boolean;
   setLoading(data: boolean): void;
@@ -36,6 +38,8 @@ const AuthProvider: React.FC = ({ children }) => {
     const user = localStorage.getItem('@NeoCliente:user');
 
     if (token && user) {
+      api.defaults.headers.tokenaccess = token;
+
       return { token, user: JSON.parse(user) };
     }
 
@@ -53,6 +57,7 @@ const AuthProvider: React.FC = ({ children }) => {
     });
     const { token, user } = response.data;
 
+    api.defaults.headers.tokenaccess = token;
     localStorage.setItem('@NeoCliente:token', token);
     localStorage.setItem('@NeoCliente:user', JSON.stringify(user));
 
@@ -66,7 +71,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     setData({} as AuthState);
     history.push('/');
-  }, []);
+  }, [history]);
 
   return (
     <AuthContext.Provider

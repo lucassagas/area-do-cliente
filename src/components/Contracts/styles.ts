@@ -13,6 +13,12 @@ export const Container = styled.div`
 
   overflow-x: auto;
 
+  .active {
+    background: #e6fffa;
+    border-left: 4px solid var(--green);
+    border-radius: 0 10px 10px 0;
+  }
+
   h2 {
     margin-bottom: 10px;
   }
@@ -80,17 +86,18 @@ export const Card = styled.button`
   min-width: 270px;
   padding: 10px;
 
-  height: 90px;
-
   border: solid 1px var(--lightgray);
-  border-left: 4px solid var(--green);
-  border-radius: 0 10px 10px 0;
+  border-radius: 10px;
+
+  transition: background 0.5s;
+  transition: border 0.4s;
 
   background: transparent;
 
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 15px;
   flex-direction: column;
   text-align: left;
 

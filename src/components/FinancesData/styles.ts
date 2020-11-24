@@ -94,6 +94,12 @@ export const Card = styled(motion.div)`
       margin-right: 5px;
       background: var(--orange);
     }
+    .delay {
+      background: var(--error);
+    }
+    .pay {
+      background: var(--green);
+    }
   }
 
   p {

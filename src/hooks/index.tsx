@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeName, themes } from '../styles/theme';
 import { AuthProvider } from './auth';
+import { CustomerProvider } from './customer';
 import { ToastProvider } from './toast';
 
 const AppProvider: React.FC = ({ children }) => {
@@ -12,7 +13,9 @@ const AppProvider: React.FC = ({ children }) => {
   return (
     <AuthProvider>
       <ToastProvider>
-        <ThemeProvider theme={currentTheme}>{children}</ThemeProvider>
+        <CustomerProvider>
+          <ThemeProvider theme={currentTheme}>{children}</ThemeProvider>
+        </CustomerProvider>
       </ToastProvider>
     </AuthProvider>
   );

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -11,12 +11,16 @@ import {
   VscColorMode,
 } from '../../styles/icon';
 import MyAccountMenu from '../MyAccountMenu';
+import { useAuth } from '../../hooks/auth';
+import { useCustomer } from '../../hooks/customer';
 
 const Header: React.FC = () => {
   const [displayMyAccount, setDisplayMyAccount] = useState(false);
 
+  const { user } = useAuth();
+  const { handleLoadCustomer } = useCustomer();
+
   const toggleMyAccount = useCallback(() => {
-    console.log('click');
     setDisplayMyAccount(!displayMyAccount);
   }, [displayMyAccount]);
 
@@ -25,6 +29,14 @@ const Header: React.FC = () => {
       setDisplayMyAccount(false);
     }, 200);
   }, []);
+
+  useEffect(() => {
+    async function loadData() {
+      await handleLoadCustomer();
+    }
+
+    loadData();
+  }, [handleLoadCustomer]);
 
   return (
     <Container>
@@ -37,7 +49,7 @@ const Header: React.FC = () => {
           <VscColorMode size={19} />
         </button>
 
-        <span>Lucas S.</span>
+        <span>{user.name}</span>
         <img
           src="https://pbs.twimg.com/profile_images/537699494/BartSimpson.jpg"
           alt="Perfil"
