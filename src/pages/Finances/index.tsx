@@ -1,7 +1,6 @@
 import React from 'react';
 import Contracts from '../../components/Contracts';
 import FinancesData from '../../components/FinancesData';
-import Footer from '../../components/Footer';
 
 import { FaDollarSign } from '../../styles/icon';
 
@@ -17,8 +16,6 @@ const Finances: React.FC = () => {
         <strong>Faturas</strong>
       </span>
       <FinancesData />
-
-      <Footer />
     </Container>
   );
 };

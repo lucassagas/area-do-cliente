@@ -1,7 +1,6 @@
 import React from 'react';
 
 import CustomerData from '../../components/CustomerData';
-import Footer from '../../components/Footer';
 import { useAuth } from '../../hooks/auth';
 
 import { Container } from './styles';
@@ -24,8 +23,6 @@ const Customer: React.FC = () => {
 
         <CustomerData display />
       </div>
-
-      <Footer />
     </Container>
   );
 };

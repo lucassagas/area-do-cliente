@@ -1,9 +1,17 @@
-import React, { useEffect } from 'react';
+import { KeyType } from 'crypto';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useCustomer } from '../../hooks/customer';
+import { useToast } from '../../hooks/toast';
 
-import { IoMdDownload, RiFileCopyLine } from '../../styles/icon';
+import {
+  AiOutlineEye,
+  FaWhatsapp,
+  SiMailDotRu,
+  RiFileCopyLine,
+  FiXCircle,
+} from '../../styles/icon';
 
-import { Container, Card } from './styles';
+import { Container, Card, Modal, Actions } from './styles';
 
 const variants = {
   hidden: { opacity: 0 },
@@ -30,13 +38,41 @@ const item = {
 };
 
 const FinancesData: React.FC = () => {
+  const [displayModal, setDisplayModal] = useState('');
+  const { addToast } = useToast();
+
+  const InputRef = useRef<HTMLInputElement>(null);
   const { billets, handleLoadBillets, customer } = useCustomer();
 
   useEffect(() => {
     if (customer) {
       handleLoadBillets(customer?.contracts[0].id);
     }
+
+    const listener = (e: any) => {
+      if (e.key === 'Escape') {
+        setDisplayModal('');
+      }
+    };
+
+    window.addEventListener('keydown', listener);
+
+    return () => {
+      window.removeEventListener('keydown', listener);
+    };
   }, [customer, handleLoadBillets]);
+
+  const copyCodeBar = useCallback(() => {
+    InputRef.current?.select();
+
+    document.execCommand('copy');
+
+    addToast({
+      type: 'success',
+      title: 'Copiado !',
+      description: 'Código de barra copiado para área de transferencia',
+    });
+  }, []);
 
   if (!billets) {
     return <h1>loading</h1>;
@@ -61,14 +97,12 @@ const FinancesData: React.FC = () => {
               <span>
                 Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
               </span>
-              <div className="buttons">
-                <button type="button">
-                  <IoMdDownload size={24} />
-                </button>
-                <button type="button">
-                  <RiFileCopyLine size={24} />
-                </button>
-              </div>
+              <button type="button">
+                <AiOutlineEye
+                  onClick={() => setDisplayModal(billet.linha_digitavel)}
+                  size={24}
+                />
+              </button>
             </Card>
           );
         })}
@@ -91,14 +125,12 @@ const FinancesData: React.FC = () => {
               <span>
                 Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
               </span>
-              <div className="buttons">
-                <button type="button">
-                  <IoMdDownload size={24} />
-                </button>
-                <button type="button">
-                  <RiFileCopyLine size={24} />
-                </button>
-              </div>
+              <button type="button">
+                <AiOutlineEye
+                  onClick={() => setDisplayModal(billet.linha_digitavel)}
+                  size={24}
+                />
+              </button>
             </Card>
           );
         })}
@@ -121,18 +153,51 @@ const FinancesData: React.FC = () => {
               <span>
                 Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
               </span>
-              <div className="buttons">
-                <button type="button">
-                  <IoMdDownload size={24} />
-                </button>
-                <button type="button">
-                  <RiFileCopyLine size={24} />
-                </button>
-              </div>
+              <button type="button">
+                <AiOutlineEye
+                  onClick={() => setDisplayModal(billet.linha_digitavel)}
+                  size={24}
+                />
+              </button>
             </Card>
           );
         })}
       </Container>
+      {displayModal && (
+        <Modal>
+          <div>
+            <header>
+              <h1>Boleto</h1>
+              <button onClick={() => setDisplayModal('')} type="button">
+                <FiXCircle size={20} />
+              </button>
+            </header>
+            <div>
+              <p>Código de barras para pagamento:</p>
+              <section>
+                <input ref={InputRef} type="text" defaultValue={displayModal} />
+              </section>
+
+              <Actions>
+                <button type="button">
+                  <FaWhatsapp size={20} />
+                  Whatsapp
+                </button>
+
+                <button type="button">
+                  <SiMailDotRu size={20} />
+                  Enviar 2̣° via por email
+                </button>
+
+                <button onClick={copyCodeBar} type="button">
+                  <RiFileCopyLine size={20} />
+                  Copiar Código
+                </button>
+              </Actions>
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

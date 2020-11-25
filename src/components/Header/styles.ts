@@ -5,6 +5,8 @@ export const Container = styled.div`
   position: fixed;
   padding: 30px 60px 0 60px;
 
+  background: var(--background);
+
   display: flex;
 
   > img {

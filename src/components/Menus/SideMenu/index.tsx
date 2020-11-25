@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../../assets/logo.svg';
 
 import {
   VscHome,
   HiOutlineUser,
   FaDollarSign,
   GiSpeedometer,
-} from '../../styles/icon';
+} from '../../../styles/icon';
 
 import { Container } from './styles';
 

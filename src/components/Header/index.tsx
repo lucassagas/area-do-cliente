@@ -10,7 +10,7 @@ import {
   RiArrowDownSLine,
   VscColorMode,
 } from '../../styles/icon';
-import MyAccountMenu from '../MyAccountMenu';
+import MyAccountMenu from '../Menus/MyAccountMenu';
 import { useAuth } from '../../hooks/auth';
 import { useCustomer } from '../../hooks/customer';
 

@@ -28,6 +28,7 @@ export const Container = styled.div`
     .selected {
       border-color: var(--orange);
       color: var(--orange);
+      transition: border 0.5s;
     }
 
     ul {

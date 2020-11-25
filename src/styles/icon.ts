@@ -1,4 +1,4 @@
-export { AiOutlineBell } from 'react-icons/ai';
+export { AiOutlineBell, AiOutlineEye } from 'react-icons/ai';
 
 export {
   IoLogoWhatsapp,
@@ -15,9 +15,16 @@ export {
   FiCheckCircle,
   FiInfo,
   FiXCircle,
+  FiMenu,
 } from 'react-icons/fi';
 
-export { FaCheck, FaFacebookF, FaTwitter, FaDollarSign } from 'react-icons/fa';
+export {
+  FaCheck,
+  FaFacebookF,
+  FaTwitter,
+  FaDollarSign,
+  FaWhatsapp,
+} from 'react-icons/fa';
 
 export { GrInstagram, GrLogout } from 'react-icons/gr';
 
@@ -26,3 +33,7 @@ export { GiSpeedometer } from 'react-icons/gi';
 export { BsGear } from 'react-icons/bs';
 
 export { RiArrowDownSLine, RiFileCopyLine } from 'react-icons/ri';
+
+export { SiMailDotRu } from 'react-icons/si';
+
+export { ImBarcode } from 'react-icons/im';

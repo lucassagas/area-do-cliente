@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../../../hooks/auth';
 
-import { HiOutlineUser, GrLogout } from '../../styles/icon';
+import { HiOutlineUser, GrLogout } from '../../../styles/icon';
 
 import { Container, Separator } from './styles';
 

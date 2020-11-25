@@ -50,46 +50,46 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
           <InputsGroup>
             <label id="name" htmlFor="name">
               Nome
-              <Input className="menor" id="name" name="name" />
+              <Input readOnly className="menor" id="name" name="name" />
             </label>
 
             <label id="nickname" htmlFor="nickname">
               Apelido
-              <Input id="nickname" name="nickname" />
+              <Input readOnly id="nickname" name="nickname" />
             </label>
           </InputsGroup>
 
           <InputsGroup>
             <label id="dateofbirth" htmlFor="name">
               Data de Nascimento
-              <Input id="dateofbirth" name="dateofbirth" />
+              <Input readOnly id="dateofbirth" name="dateofbirth" />
             </label>
 
             <label id="phone" htmlFor="name">
               Telefone
-              <Input id="phone" name="phone" />
+              <Input readOnly id="phone" name="phone" />
             </label>
 
             <label id="optionalphone" htmlFor="name">
               Telefone Opcional
-              <Input id="optionalphone" name="optionalphone" />
+              <Input readOnly id="optionalphone" name="optionalphone" />
             </label>
           </InputsGroup>
 
           <InputsGroup>
             <label id="celphone" htmlFor="name">
               Celular
-              <Input id="celphone" name="celphone" />
+              <Input readOnly id="celphone" name="celphone" />
             </label>
 
             <label id="optionalcelphone" htmlFor="name">
               Celular Opcional
-              <Input id="optionalcelphone" name="optionalcelphone" />
+              <Input readOnly id="optionalcelphone" name="optionalcelphone" />
             </label>
 
             <label id="email" htmlFor="name">
               Email
-              <Input id="email" name="email" />
+              <Input readOnly id="email" name="email" />
             </label>
           </InputsGroup>
 
@@ -99,46 +99,46 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
               <InputsGroup>
                 <label id="cep" htmlFor="cep">
                   CEP
-                  <Input id="cep" name="cep" />
+                  <Input readOnly id="cep" name="cep" />
                 </label>
 
                 <label id="address" htmlFor="address">
                   Endereço
-                  <Input id="address" name="address" />
+                  <Input readOnly id="address" name="address" />
                 </label>
 
                 <label id="number" htmlFor="number">
                   Número
-                  <Input id="number" name="number" />
+                  <Input readOnly id="number" name="number" />
                 </label>
               </InputsGroup>
 
               <InputsGroup style={{ justifyContent: 'flex-start' }}>
                 <label id="neighborhood" htmlFor="neighborhood">
                   Bairro
-                  <Input id="neighborhood" name="neighborhood" />
+                  <Input readOnly id="neighborhood" name="neighborhood" />
                 </label>
 
                 <label id="complement" htmlFor="complement">
                   Complemento
-                  <Input id="complement" name="complement" />
+                  <Input readOnly id="complement" name="complement" />
                 </label>
               </InputsGroup>
 
               <InputsGroup>
                 <label id="reference" htmlFor="reference">
                   Referência
-                  <Input id="reference" name="reference" />
+                  <Input readOnly id="reference" name="reference" />
                 </label>
 
                 <label id="state" htmlFor="state">
                   Estado
-                  <Input id="state" name="state" />
+                  <Input readOnly id="state" name="state" />
                 </label>
 
                 <label id="city" htmlFor="city">
                   Cidade
-                  <Input id="city" name="city" />
+                  <Input readOnly id="city" name="city" />
                 </label>
               </InputsGroup>
 

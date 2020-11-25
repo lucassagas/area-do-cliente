@@ -20,7 +20,6 @@ import {
   Main,
 } from './styles';
 import { useAuth } from '../../hooks/auth';
-import Footer from '../../components/Footer';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
@@ -72,8 +71,6 @@ const Dashboard: React.FC = () => {
         </div>
         <Finances />
       </section>
-
-      <Footer />
     </Container>
   );
 };
