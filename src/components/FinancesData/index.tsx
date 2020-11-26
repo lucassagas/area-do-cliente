@@ -1,7 +1,8 @@
-import { KeyType } from 'crypto';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useCustomer } from '../../hooks/customer';
 import { useToast } from '../../hooks/toast';
+
+import FinancesShimmer from '../Shimmer/FinancesData';
 
 import {
   AiOutlineEye,
@@ -72,10 +73,15 @@ const FinancesData: React.FC = () => {
       title: 'Copiado !',
       description: 'Código de barra copiado para área de transferencia',
     });
-  }, []);
+  }, [addToast]);
 
   if (!billets) {
-    return <h1>loading</h1>;
+    return (
+      <>
+        <FinancesShimmer rows={10} />
+        <FinancesShimmer rows={10} />
+      </>
+    );
   }
 
   return (

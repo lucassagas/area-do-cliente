@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useCustomer } from '../../hooks/customer';
 
-import { FaDollarSign } from '../../styles/icon';
+import ShimmerContracts from '../Shimmer/Contracts';
 
-import { Container, Card, ContractTitle } from './styles';
+import { Container, Card } from './styles';
 
 const Contracts: React.FC = () => {
   const [active, setActive] = useState<string>();
@@ -24,34 +24,28 @@ const Contracts: React.FC = () => {
   }, [customer]);
 
   if (!customer) {
-    return <h1>looading</h1>;
+    return <ShimmerContracts />;
   }
 
   return (
-    <>
-      <ContractTitle>
-        <FaDollarSign size={20} />
-        <strong>Contratos</strong>
-      </ContractTitle>
-      <Container>
-        <section>
-          {customer.contracts.map(contract => {
-            return (
-              <Card
-                onClick={() => handleSelectContract(contract.id)}
-                key={contract.id}
-                type="button"
-                className={active === contract.id ? 'active' : ''}
-              >
-                <h3>{contract.id}</h3>
-                <span>ATIVAÇÃO {contract.ativacao}</span>
-                <p>{contract.plan}</p>
-              </Card>
-            );
-          })}
-        </section>
-      </Container>
-    </>
+    <Container>
+      <section>
+        {customer.contracts.map(contract => {
+          return (
+            <Card
+              onClick={() => handleSelectContract(contract.id)}
+              key={contract.id}
+              type="button"
+              className={active === contract.id ? 'active' : ''}
+            >
+              <h3>{contract.id}</h3>
+              <span>ATIVAÇÃO {contract.ativacao}</span>
+              <p>{contract.plan}</p>
+            </Card>
+          );
+        })}
+      </section>
+    </Container>
   );
 };
 

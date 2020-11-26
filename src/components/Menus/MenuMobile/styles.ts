@@ -10,6 +10,7 @@ export const MenuButton = styled.button`
   width: 40px;
   left: 0;
   top: 100px;
+  z-index: 10;
 
   display: none;
   justify-content: center;

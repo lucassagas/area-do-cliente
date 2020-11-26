@@ -6,10 +6,23 @@ import bgHome from '../../assets/bg_home.svg';
 
 export const Container = styled.div`
   padding: 0 60px;
+  color: var(--text);
 
   > section {
     max-width: 1620px;
     margin: auto;
+
+    > .SeeMore {
+      max-width: 110px;
+      padding: 5px 10px;
+      color: var(--lighttext);
+      border: 0;
+      background: var(--green);
+      float: right;
+      border-radius: 6px;
+      margin-top: -10px;
+      text-decoration: none;
+    }
 
     @media (max-width: 1366px) {
       max-width: 1100px;
@@ -35,7 +48,7 @@ export const Container = styled.div`
       max-width: 170px;
       margin-bottom: 10px;
 
-      color: var(--background);
+      color: var(--lighttext);
       font-weight: 700;
       font-size: 2rem;
 
@@ -137,6 +150,10 @@ export const Content = styled.div`
   span {
     font-size: 3rem;
     font-weight: 300;
+
+    > strong {
+      font-size: 3rem;
+    }
   }
 
   div + div {

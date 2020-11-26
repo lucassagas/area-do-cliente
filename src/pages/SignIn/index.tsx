@@ -4,7 +4,8 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import logoImg from '../../assets/logo_preta.svg';
+import lightLogo from '../../assets/logo_preta.svg';
+import darkLogo from '../../assets/logo_branca.svg';
 import Button from '../../components/Button';
 import CheckboxInput from '../../components/Checkbox';
 import Input from '../../components/Input';
@@ -20,11 +21,14 @@ import {
 } from '../../styles/icon';
 
 import { Container, Content, AnimationContainer } from './styles';
+
 import getValidationErrors from '../../utils/getValidationErrors';
+
 import Carrousel from '../../components/Carrousel';
 import { useAuth } from '../../hooks/auth';
 import LoadingDots from '../../components/LoadingDots';
 import { useToast } from '../../hooks/toast';
+import { useTheme } from '../../hooks/themes';
 
 interface SignInFormData {
   username: string;
@@ -41,9 +45,10 @@ interface CheckboxOption {
 const SignIn: React.FC = () => {
   const history = useHistory();
   const formRef = useRef<FormHandles>(null);
-  const { signIn, loading, setLoading } = useAuth();
 
+  const { signIn, loading, setLoading } = useAuth();
   const { addToast } = useToast();
+  const { toggleChangeTheme, themeName } = useTheme();
 
   const checkboxOptions: CheckboxOption[] = [
     { id: 'connect', value: 'true', label: 'Mantenha-me conectado' },
@@ -95,11 +100,15 @@ const SignIn: React.FC = () => {
       <Carrousel />
 
       <Content>
-        <button type="button">
+        <button onClick={toggleChangeTheme} type="button">
           <VscColorMode size={20} color="var(--background)" />
         </button>
         <AnimationContainer>
-          <img src={logoImg} alt="Neorede Telecom" />
+          {themeName === 'dark' ? (
+            <img src={darkLogo} alt="Neorede Telecom" />
+          ) : (
+            <img src={lightLogo} alt="Neorede Telecom" />
+          )}
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Entre com a sua conta</h1>

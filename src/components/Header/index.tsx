@@ -6,16 +6,18 @@ import { Container } from './styles';
 
 import {
   AiOutlineBell,
-  BsGear,
   RiArrowDownSLine,
   VscColorMode,
 } from '../../styles/icon';
 import MyAccountMenu from '../Menus/MyAccountMenu';
 import { useAuth } from '../../hooks/auth';
 import { useCustomer } from '../../hooks/customer';
+import { useTheme } from '../../hooks/themes';
 
 const Header: React.FC = () => {
   const [displayMyAccount, setDisplayMyAccount] = useState(false);
+
+  const { toggleChangeTheme } = useTheme();
 
   const { user } = useAuth();
   const { handleLoadCustomer } = useCustomer();
@@ -45,7 +47,7 @@ const Header: React.FC = () => {
         <button type="button">
           <AiOutlineBell size={19} />
         </button>
-        <button type="button">
+        <button onClick={toggleChangeTheme} type="button">
           <VscColorMode size={19} />
         </button>
 
@@ -60,7 +62,7 @@ const Header: React.FC = () => {
             onBlur={toggleMyAccountBlur}
             type="button"
           >
-            <RiArrowDownSLine size={24} />
+            <RiArrowDownSLine size={24} color="var(--text)" />
           </button>
           {displayMyAccount && <MyAccountMenu />}
         </section>

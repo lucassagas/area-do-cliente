@@ -31,7 +31,7 @@ export const Container = styled.div`
         content: '\f00c';
         font-weight: 900;
         font-size: 1rem;
-        color: var(--background);
+        color: var(--lighttext);
 
         display: none;
       }

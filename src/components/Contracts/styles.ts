@@ -4,6 +4,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1630px;
   margin: auto auto 20px;
+  color: var(--text);
 
   padding: 10px 20px 20px 0;
 
@@ -14,7 +15,7 @@ export const Container = styled.div`
   overflow-x: auto;
 
   .active {
-    background: #e6fffa;
+    background: var(--lightgreen);
     border-left: 4px solid var(--green);
     border-radius: 0 10px 10px 0;
   }
@@ -63,25 +64,6 @@ export const Container = styled.div`
   }
 `;
 
-export const ContractTitle = styled.div`
-  padding: 10px;
-  background: var(--green);
-  width: 150px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 10px;
-
-  color: var(--background);
-  font-size: 2rem;
-
-  @media (max-width: 430px) {
-    margin-bottom: -10px;
-  }
-`;
-
 export const Card = styled.button`
   min-width: 270px;
   padding: 10px;
@@ -91,6 +73,7 @@ export const Card = styled.button`
 
   transition: background 0.5s;
   transition: border 0.4s;
+  color: var(--text);
 
   background: transparent;
 

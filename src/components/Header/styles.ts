@@ -3,9 +3,12 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   position: fixed;
-  padding: 30px 60px 0 60px;
+  padding: 10px 60px 0 60px;
+
+  z-index: 10;
 
   background: var(--background);
+  color: var(--text);
 
   display: flex;
 

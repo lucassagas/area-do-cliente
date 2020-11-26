@@ -6,6 +6,7 @@ export const Container = styled(motion.div)`
   height: 100%;
   padding: 0 60px;
   min-height: 90.2vh;
+  color: var(--text);
 
   display: flex;
   flex-direction: column;

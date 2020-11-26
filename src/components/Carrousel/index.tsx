@@ -65,10 +65,10 @@ const Carrousel: React.FC = () => {
           </nav>
 
           <section>
-            <FaFacebookF size={27} color="var(--background)" />
-            <IoLogoWhatsapp size={27} color="var(--background)" />
-            <FaTwitter size={27} color="var(--background)" />
-            <GrInstagram size={27} color="var(--background)" />
+            <FaFacebookF size={27} color="var(--lighttext)" />
+            <IoLogoWhatsapp size={27} color="var(--lighttext)" />
+            <FaTwitter size={27} color="var(--lighttext)" />
+            <GrInstagram size={27} color="var(--lighttext)" />
           </section>
         </Navigation>
       </Slides>

@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { ThemeProvider } from 'styled-components';
-import { ThemeName, themes } from '../styles/theme';
 import { AuthProvider } from './auth';
 import { CustomerProvider } from './customer';
+import { ThemesProvider } from './themes';
 import { ToastProvider } from './toast';
 
 const AppProvider: React.FC = ({ children }) => {
-  const [themeName] = useState<ThemeName>('light');
-  const currentTheme = themes[themeName];
-
   return (
     <AuthProvider>
       <ToastProvider>
         <CustomerProvider>
-          <ThemeProvider theme={currentTheme}>{children}</ThemeProvider>
+          <ThemesProvider>{children}</ThemesProvider>
         </CustomerProvider>
       </ToastProvider>
     </AuthProvider>

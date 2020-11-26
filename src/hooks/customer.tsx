@@ -91,7 +91,7 @@ const CustomerProvider: React.FC = ({ children }) => {
   );
 };
 
-function useCustomer() {
+function useCustomer(): CustomerContextData {
   const context = useContext(CustomerContext);
 
   if (!context) {

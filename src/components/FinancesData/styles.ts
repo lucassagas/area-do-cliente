@@ -8,6 +8,7 @@ export const Container = styled(motion.div)`
   border-radius: 10px;
   border: solid 1px var(--lightgray);
   margin: auto auto 20px;
+  color: var(--text);
 
   display: flex;
   flex-wrap: nowrap;
@@ -65,7 +66,7 @@ export const Card = styled(motion.div)`
     right: 10px;
     bottom: -15px;
     background: var(--green);
-    color: var(--background);
+    color: var(--lighttext);
 
     border-radius: 4px;
     border: 0;

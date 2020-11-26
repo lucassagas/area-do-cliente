@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth';
+
 import CustomerData from '../../components/CustomerData';
 import Finances from '../../components/FinancesData';
 
@@ -19,10 +22,10 @@ import {
   RollToDown,
   Main,
 } from './styles';
-import { useAuth } from '../../hooks/auth';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
+
   return (
     <Container>
       <Main>
@@ -70,6 +73,9 @@ const Dashboard: React.FC = () => {
           <span>Fatura</span>
         </div>
         <Finances />
+        <Link className="SeeMore" to="/finances">
+          Ver mais
+        </Link>
       </section>
     </Container>
   );

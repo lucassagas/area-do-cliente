@@ -7,6 +7,7 @@ export const Container = styled.div`
   border: solid 1px var(--lightgray);
   border-radius: 15px;
   padding: 20px;
+  color: var(--text);
 
   label {
     > section {
@@ -166,7 +167,7 @@ export const SeeMore = styled.button`
   padding: 5px 10px;
   border-radius: 7px;
   margin: 10px 0;
-  color: var(--background);
+  color: var(--lighttext);
   float: right;
   border: 0;
   margin-right: 5px;

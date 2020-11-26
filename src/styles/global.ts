@@ -14,17 +14,17 @@ export default createGlobalStyle`
 
   body {
     background: var(--background);
-    color: var(--text);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 
   }
 
-  body, input, button {
+  *, input, button {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.6rem;
-    color: var(--text);
     outline: 0;
+
+    transition: color .2s ease-out;
   }
 
   button {
@@ -38,6 +38,27 @@ export default createGlobalStyle`
   html, body #root {
     width: 100%;
     height: 100%;
+
+    ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px gray;
+    border-radius: 4px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--orangeicons);
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--orangeicons);
+  }
   }
 
   :root {

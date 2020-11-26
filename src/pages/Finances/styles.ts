@@ -25,7 +25,7 @@ export const Container = styled.div`
     border-radius: 10px;
     padding: 10px;
 
-    color: var(--background);
+    color: var(--lighttext);
     font-size: 2rem;
 
     display: flex;
@@ -37,5 +37,24 @@ export const Container = styled.div`
     @media (max-width: 430px) {
       margin-bottom: -30px;
     }
+  }
+`;
+
+export const ContractTitle = styled.div`
+  padding: 10px;
+  background: var(--green);
+  width: 150px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+
+  color: var(--lighttext);
+  font-size: 2rem;
+
+  @media (max-width: 430px) {
+    margin-bottom: -10px;
   }
 `;

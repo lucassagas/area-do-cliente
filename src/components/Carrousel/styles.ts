@@ -29,7 +29,7 @@ export const Slides = styled.div`
 
   #radio1 {
     &:checked ~ div nav .btn1 {
-      background: var(--background);
+      color: var(--lighttext);
     }
     &:checked ~ .first {
       margin-left: 0;
@@ -38,7 +38,7 @@ export const Slides = styled.div`
 
   #radio2 {
     &:checked ~ div nav .btn2 {
-      background: var(--background);
+      color: var(--lighttext);
     }
     &:checked ~ .first {
       margin-left: -20%;
@@ -52,7 +52,7 @@ export const Navigation = styled.div`
   left: 40px;
 
   h1 {
-    color: var(--background);
+    color: var(--lighttext);
   }
 
   img {

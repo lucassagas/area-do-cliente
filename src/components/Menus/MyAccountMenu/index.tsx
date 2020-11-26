@@ -11,9 +11,6 @@ const variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
   },
 };
 
@@ -46,7 +43,7 @@ const MyAccountMenu: React.FC = () => {
       <Separator />
 
       <motion.button variants={item} type="button" onClick={signOut}>
-        Sair <GrLogout size={20} />
+        Sair <GrLogout size={20} color="red" />
       </motion.button>
     </Container>
   );

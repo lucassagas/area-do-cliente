@@ -48,6 +48,8 @@ export const Container = styled(motion.div)`
 
     > svg {
       margin-left: 10px;
+      fill: var(--lighttext);
+      color: var(--lighttext);
     }
   }
 `;
