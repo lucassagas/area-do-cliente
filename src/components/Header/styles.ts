@@ -65,6 +65,7 @@ export const Container = styled.div`
       background: transparent;
       border: 0;
       color: var(--icons);
+      margin-left: 10px;
 
       & + button {
         margin-left: 15px;

@@ -9,6 +9,7 @@ export const Container = styled(motion.div)`
   border-radius: 10px;
   padding: 5px;
   position: absolute;
+  color: var(--lighttext);
 
   top: calc(100% + 12px);
   left: 50%;
@@ -48,8 +49,6 @@ export const Container = styled(motion.div)`
 
     > svg {
       margin-left: 10px;
-      fill: var(--lighttext);
-      color: var(--lighttext);
     }
   }
 `;

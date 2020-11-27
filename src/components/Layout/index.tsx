@@ -16,6 +16,7 @@ const Layout: React.FC = () => {
         <Header />
         <Content>
           <Routes />
+          <Footer />
         </Content>
       </Container>
     </>

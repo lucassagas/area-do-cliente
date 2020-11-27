@@ -8,6 +8,7 @@ import {
   FaDollarSign,
   FiXCircle,
   FiMenu,
+  GiSpeedometer,
 } from '../../../styles/icon';
 
 import { Container, MenuButton } from './styles';
@@ -60,6 +61,17 @@ const MenuMobile: React.FC = () => {
               >
                 <FaDollarSign size={23} />
                 Faturas
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                onClick={toggleMenu}
+                activeClassName="selected"
+                to="speedtest"
+              >
+                <GiSpeedometer size={25} />
+                Teste de velocidade
               </NavLink>
             </li>
           </ul>

@@ -4,16 +4,15 @@ export const Container = styled.div`
   width: 100%;
   height: 70px;
 
-  background: var(--text);
+  background: var(--footer);
   display: flex;
   align-items: center;
   margin-top: 20px;
   justify-content: space-between;
 
-  border-radius: 10px 10px 0 0;
   padding: 20px;
 
-  color: var(--background);
+  color: var(--lighttext);
 
   img {
     width: 100px;

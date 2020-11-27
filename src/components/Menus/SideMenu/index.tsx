@@ -37,11 +37,11 @@ const SideMenu: React.FC = () => {
             </NavLink>
           </li>
 
-          {/* <li>
-            <NavLink activeClassName="selected" to="/login">
+          <li>
+            <NavLink activeClassName="selected" to="/speedtest">
               <GiSpeedometer size={25} />
             </NavLink>
-          </li> */}
+          </li>
         </ul>
       </nav>
     </Container>

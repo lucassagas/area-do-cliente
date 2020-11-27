@@ -2,13 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import logoImg from '../../assets/logo.svg';
 
+import Notification from './Notifications';
+
 import { Container } from './styles';
 
-import {
-  AiOutlineBell,
-  RiArrowDownSLine,
-  VscColorMode,
-} from '../../styles/icon';
+import { RiArrowDownSLine, VscColorMode } from '../../styles/icon';
 import MyAccountMenu from '../Menus/MyAccountMenu';
 import { useAuth } from '../../hooks/auth';
 import { useCustomer } from '../../hooks/customer';
@@ -44,9 +42,34 @@ const Header: React.FC = () => {
     <Container>
       <img src={logoImg} alt="Logo" />
       <div>
-        <button type="button">
-          <AiOutlineBell size={19} />
-        </button>
+        <Notification
+          messages={[
+            {
+              type: 'error',
+              title: 'Atenção',
+              description:
+                'Devido a manutenção preventiva sua conexão poderá ficar indisponivel.',
+            },
+            {
+              type: 'success',
+              title: 'Atenção',
+              description:
+                'Devido a manutenção preventiva sua conexão poderá ficar indisponivel..',
+            },
+            {
+              type: 'info',
+              title: 'Atenção',
+              description:
+                'Devido a manutenção preventiva sua conexão poderá ficar indisponivel...',
+            },
+
+            {
+              type: 'congratulations',
+              title: 'Parabéns !',
+              description: 'Parabéns Isaque Santos',
+            },
+          ]}
+        />
         <button onClick={toggleChangeTheme} type="button">
           <VscColorMode size={19} />
         </button>

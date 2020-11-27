@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 
 import { useHistory } from 'react-router-dom';
 import Input from '../Input';
+import ShimmerCustomer from '../Shimmer/CustomerData';
 
 import { Container, InputsGroup, SeeMore, Separator } from './styles';
 import { useCustomer } from '../../hooks/customer';
@@ -20,7 +21,7 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
   }, []);
 
   if (!customer) {
-    return <h1>loading</h1>;
+    return <ShimmerCustomer />;
   }
 
   return (

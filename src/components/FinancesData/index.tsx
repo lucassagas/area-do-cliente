@@ -13,6 +13,7 @@ import {
 } from '../../styles/icon';
 
 import { Container, Card, Modal, Actions } from './styles';
+import api from '../../services/api';
 
 const variants = {
   hidden: { opacity: 0 },
@@ -73,6 +74,27 @@ const FinancesData: React.FC = () => {
       title: 'Copiado !',
       description: 'Código de barra copiado para área de transferencia',
     });
+  }, [addToast]);
+
+  const sendBilletToEmail = useCallback(async () => {
+    try {
+      const response = await api.get(
+        `/customers/customerBilletInfo/150236/3613256`,
+      );
+      console.log(response);
+
+      addToast({
+        type: 'success',
+        title: 'Email enviado com succeso!',
+        description: 'Segunda via do boleto enviada',
+      });
+    } catch {
+      addToast({
+        type: 'error',
+        title: 'Error',
+        description: 'Ocorreu um erro, tente novamente mais tarde',
+      });
+    }
   }, [addToast]);
 
   if (!billets) {
@@ -190,7 +212,7 @@ const FinancesData: React.FC = () => {
                   Whatsapp
                 </button>
 
-                <button type="button">
+                <button onClick={sendBilletToEmail} type="button">
                   <SiMailDotRu size={20} />
                   Enviar 2̣° via por email
                 </button>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-plusplus */
 import React from 'react';
 import Skeleton from '../../Skeleton';
@@ -15,9 +16,9 @@ const FinancesData: React.FC<rowsProps> = ({ rows }) => {
   }
   return (
     <Container>
-      {Arrayrows.map(() => {
+      {Arrayrows.map((props, index) => {
         return (
-          <div className="skeleton-container">
+          <div key={index} className="skeleton-container">
             <Skeleton className="skeleton-row" />
             <Skeleton className="skeleton-row" />
             <Skeleton className="skeleton-row" />

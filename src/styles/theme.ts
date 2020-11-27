@@ -1,3 +1,5 @@
+import { shade } from 'polished';
+
 export const themes = {
   light: {
     background: '#FFFFFF',
@@ -17,6 +19,13 @@ export const themes = {
     lightgreen: '#e6fffa',
     shimmerOne: '#e7edf1',
     shimmerTwo: '#f8f8f8',
+    blueNotification: '#2959C8',
+    redNotification: '#F40000',
+    yellowNotification: '#ECB800',
+    greenNotification: '#00E25B',
+    darkgray: '#fff',
+    backgroundNotifaction: '#cccc',
+    footer: '#212121',
   },
 
   dark: {
@@ -37,6 +46,13 @@ export const themes = {
     lightgreen: '#353535',
     shimmerOne: '#808080',
     shimmerTwo: '#BEBEBE',
+    blueNotification: shade(0.1, '#2959C8'),
+    redNotification: shade(0.2, '#F40000'),
+    yellowNotification: shade(0.2, '#ECB800'),
+    greenNotification: '#00E25B',
+    darkgray: '#505050',
+    backgroundNotifaction: '#353535',
+    footer: '#353535',
   },
 };
 

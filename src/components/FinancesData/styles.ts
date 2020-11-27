@@ -124,6 +124,7 @@ export const Modal = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
+  color: var(--text);
 
   left: 0;
   top: 0;
@@ -172,6 +173,7 @@ export const Modal = styled.div`
         top: -5px;
         background: transparent;
         border: 0;
+        color: var(--text);
 
         &:hover {
           color: var(--error);
@@ -214,6 +216,7 @@ export const Modal = styled.div`
           width: 100%;
           font-size: 1.4rem;
           text-align: center;
+          color: var(--text);
         }
       }
     }
@@ -232,6 +235,7 @@ export const Actions = styled.div`
     justify-content: center;
     padding: 2px 5px;
     background: transparent;
+    color: var(--text);
 
     font-weight: 300;
 

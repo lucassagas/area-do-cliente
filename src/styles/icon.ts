@@ -1,9 +1,16 @@
-export { AiOutlineBell, AiOutlineEye } from 'react-icons/ai';
+export {
+  AiOutlineBell,
+  AiOutlineEye,
+  AiFillCheckCircle,
+  AiFillInfoCircle,
+  AiFillHeart,
+} from 'react-icons/ai';
 
 export {
   IoLogoWhatsapp,
   IoIosArrowDropdownCircle,
   IoMdDownload,
+  IoMdAlert,
 } from 'react-icons/io';
 
 export { HiOutlineUser } from 'react-icons/hi';

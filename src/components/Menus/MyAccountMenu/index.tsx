@@ -43,7 +43,7 @@ const MyAccountMenu: React.FC = () => {
       <Separator />
 
       <motion.button variants={item} type="button" onClick={signOut}>
-        Sair <GrLogout size={20} color="red" />
+        Sair <GrLogout size={20} />
       </motion.button>
     </Container>
   );

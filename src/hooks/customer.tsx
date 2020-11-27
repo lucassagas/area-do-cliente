@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import api from '../services/api';
 import { useAuth } from './auth';
 
