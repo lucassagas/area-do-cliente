@@ -23,7 +23,7 @@ export const Content = styled.div`
     bottom: 30px;
     display: none;
 
-    svg + svg {
+    a + a {
       margin-left: 10px;
     }
 

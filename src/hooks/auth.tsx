@@ -8,6 +8,8 @@ interface AuthState {
     name: string;
     document: string;
     code: string;
+    name_abbreviate: string;
+    id: string;
   };
 }
 
@@ -22,6 +24,8 @@ interface AuthContextData {
     name: string;
     document: string;
     code: string;
+    name_abbreviate: string;
+    id: string;
   };
   loading: boolean;
   setLoading(data: boolean): void;

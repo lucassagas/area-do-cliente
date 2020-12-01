@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  max-width: 1620px;
   width: 100%;
   height: 70px;
+  margin: auto;
+  border-radius: 10px 10px 0 0;
 
   background: var(--footer);
   display: flex;
@@ -32,5 +35,9 @@ export const Container = styled.div`
     strong {
       font-size: 1rem;
     }
+  }
+
+  @media (max-width: 1440px) {
+    max-width: 1100px;
   }
 `;

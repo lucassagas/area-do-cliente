@@ -10,9 +10,10 @@ import {
   SiMailDotRu,
   RiFileCopyLine,
   FiXCircle,
+  FaDollarSign,
 } from '../../styles/icon';
 
-import { Container, Card, Modal, Actions } from './styles';
+import { Container, Card, Modal, Actions, Header } from './styles';
 import api from '../../services/api';
 
 const variants = {
@@ -97,7 +98,7 @@ const FinancesData: React.FC = () => {
     }
   }, [addToast]);
 
-  if (!billets) {
+  if (!billets || !customer) {
     return (
       <>
         <FinancesShimmer rows={10} />
@@ -108,6 +109,19 @@ const FinancesData: React.FC = () => {
 
   return (
     <>
+      <Header>
+        <section>
+          <FaDollarSign size={25} />
+          <strong>Faturas</strong>
+        </section>
+        <div>
+          <strong>Contrato: {customer.contracts[0].id}</strong>
+
+          <span>{customer.contracts[0].ativacao}</span>
+
+          <span>{customer.contracts[0].plan}</span>
+        </div>
+      </Header>
       <Container
         style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
         variants={variants}

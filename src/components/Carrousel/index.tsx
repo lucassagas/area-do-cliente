@@ -9,6 +9,7 @@ import {
   IoLogoWhatsapp,
   FaTwitter,
   GrInstagram,
+  GiWorld,
 } from '../../styles/icon';
 
 const Carrousel: React.FC = () => {
@@ -65,10 +66,41 @@ const Carrousel: React.FC = () => {
           </nav>
 
           <section>
-            <FaFacebookF size={27} color="var(--lighttext)" />
-            <IoLogoWhatsapp size={27} color="var(--lighttext)" />
-            <FaTwitter size={27} color="var(--lighttext)" />
-            <GrInstagram size={27} color="var(--lighttext)" />
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.facebook.com/Neorede"
+            >
+              <FaFacebookF size={27} color="var(--lighttext)" />
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://api.whatsapp.com/send?phone=554830398888&text=Oi"
+            >
+              <IoLogoWhatsapp size={27} color="var(--lighttext)" />
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://twitter.com/neorede"
+            >
+              <FaTwitter size={27} color="var(--lighttext)" />
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.instagram.com/neoredetelecom/"
+            >
+              <GrInstagram size={27} color="var(--lighttext)" />
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.neorede.com.br"
+            >
+              <GiWorld size={28} color="var(--lighttext)" />
+            </a>
           </section>
         </Navigation>
       </Slides>

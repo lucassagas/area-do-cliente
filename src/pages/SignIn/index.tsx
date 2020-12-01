@@ -18,6 +18,7 @@ import {
   HiOutlineUser,
   VscLock,
   VscColorMode,
+  GiWorld,
 } from '../../styles/icon';
 
 import { Container, Content, AnimationContainer } from './styles';
@@ -134,10 +135,41 @@ const SignIn: React.FC = () => {
         </AnimationContainer>
 
         <section>
-          <FaFacebookF size={27} color="var(--text)" />
-          <IoLogoWhatsapp size={27} color="var(--text)" />
-          <FaTwitter size={27} color="var(--text)" />
-          <GrInstagram size={27} color="var(--text)" />
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.facebook.com/Neorede"
+          >
+            <FaFacebookF size={27} color="var(--text)" />
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://api.whatsapp.com/send?phone=554830398888&text=Oi"
+          >
+            <IoLogoWhatsapp size={27} color="var(--text)" />
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://twitter.com/neorede"
+          >
+            <FaTwitter size={27} color="var(--text)" />
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.instagram.com/neoredetelecom/"
+          >
+            <GrInstagram size={27} color="var(--text)" />
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.neorede.com.br/"
+          >
+            <GiWorld size={28} color="var(--text)" />
+          </a>
         </section>
       </Content>
     </Container>

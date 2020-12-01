@@ -35,7 +35,7 @@ export {
 
 export { GrInstagram, GrLogout } from 'react-icons/gr';
 
-export { GiSpeedometer } from 'react-icons/gi';
+export { GiSpeedometer, GiWorld } from 'react-icons/gi';
 
 export { BsGear } from 'react-icons/bs';
 

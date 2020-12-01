@@ -1,6 +1,56 @@
 import { motion } from 'framer-motion';
 import styled, { keyframes } from 'styled-components';
 
+export const Header = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0 0;
+
+  > section {
+    margin: 10px 10px 10px 0;
+    padding: 8px 10px;
+    color: var(--lighttext);
+
+    border-radius: 10px;
+    background: var(--green);
+
+    max-width: 120px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  > div {
+    max-width: 600px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: solid 1px var(--lightgray);
+    border-radius: 5px;
+
+    padding: 0 10px;
+
+    > span {
+      margin-bottom: -3px;
+      z-index: 10;
+      padding: 10px 0;
+      border-bottom: solid 4px var(--green);
+    }
+
+    > strong {
+      margin-bottom: -3px;
+      z-index: 10;
+      padding: 10px 0;
+      border-bottom: solid 4px var(--green);
+    }
+  }
+`;
+
 export const Container = styled(motion.div)`
   width: 100%;
   max-width: 1630px;

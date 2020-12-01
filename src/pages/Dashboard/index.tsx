@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
             <h1>Bem-Vindo</h1>
 
             <span>
-              Olá <strong>{user.name}</strong>
+              Olá <strong>{user.name_abbreviate}</strong>
             </span>
           </div>
 
@@ -63,15 +63,11 @@ const Dashboard: React.FC = () => {
 
       <section>
         <div className="YourAccount">
-          <HiOutlineUser size={30} color="#FFF" />
+          <HiOutlineUser size={25} color="#FFF" />
           <span>Sua Conta</span>
         </div>
         <CustomerData />
 
-        <div className="YourAccount Green">
-          <FaDollarSign size={30} color="#FFF" />
-          <span>Fatura</span>
-        </div>
         <Finances />
         <Link className="SeeMore" to="/finances">
           Ver mais

@@ -74,7 +74,7 @@ const Header: React.FC = () => {
           <VscColorMode size={19} />
         </button>
 
-        <span>{user.name}</span>
+        <span>{user.name_abbreviate}</span>
         <img
           src="https://pbs.twimg.com/profile_images/537699494/BartSimpson.jpg"
           alt="Perfil"

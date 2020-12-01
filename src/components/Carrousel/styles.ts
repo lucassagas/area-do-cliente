@@ -53,6 +53,7 @@ export const Navigation = styled.div`
 
   h1 {
     color: var(--lighttext);
+    font-size: 3.2rem;
   }
 
   img {
@@ -77,14 +78,15 @@ export const Navigation = styled.div`
   }
 
   section {
-    svg {
+    a + a {
+      margin-left: 10px;
+    }
+
+    a svg {
       cursor: pointer;
       &:hover {
         fill: var(--orange);
       }
-    }
-    svg + svg {
-      margin-left: 10px;
     }
   }
 `;
