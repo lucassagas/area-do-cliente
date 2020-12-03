@@ -6,11 +6,7 @@ import { useAuth } from '../../hooks/auth';
 import CustomerData from '../../components/CustomerData';
 import Finances from '../../components/FinancesData';
 
-import {
-  IoIosArrowDropdownCircle,
-  HiOutlineUser,
-  FaDollarSign,
-} from '../../styles/icon';
+import { IoIosArrowDropdownCircle, HiOutlineUser } from '../../styles/icon';
 
 import bgHome from '../../assets/bg_home.svg';
 
@@ -68,7 +64,7 @@ const Dashboard: React.FC = () => {
         </div>
         <CustomerData />
 
-        <Finances />
+        <Finances show />
         <Link className="SeeMore" to="/finances">
           Ver mais
         </Link>

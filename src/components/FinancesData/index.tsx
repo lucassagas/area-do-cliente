@@ -15,6 +15,7 @@ import {
 
 import { Container, Card, Modal, Actions, Header } from './styles';
 import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 const variants = {
   hidden: { opacity: 0 },
@@ -40,12 +41,23 @@ const item = {
   },
 };
 
-const FinancesData: React.FC = () => {
+interface FinancesProps {
+  show?: boolean;
+}
+
+interface BilletProps {
+  billet_code: string;
+  billet_id: string;
+}
+
+const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
   const [displayModal, setDisplayModal] = useState('');
+  const [billetId, setBilletId] = useState('');
   const { addToast } = useToast();
 
   const InputRef = useRef<HTMLInputElement>(null);
   const { billets, handleLoadBillets, customer } = useCustomer();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (customer) {
@@ -77,12 +89,14 @@ const FinancesData: React.FC = () => {
     });
   }, [addToast]);
 
+  const OpenModal = useCallback(({ billet_code, billet_id }: BilletProps) => {
+    setDisplayModal(billet_code);
+    setBilletId(billet_id);
+  }, []);
+
   const sendBilletToEmail = useCallback(async () => {
     try {
-      const response = await api.get(
-        `/customers/customerBilletInfo/150236/3613256`,
-      );
-      console.log(response);
+      await api.get(`/customers/customerBilletInfo/${user.code}/${billetId}`);
 
       addToast({
         type: 'success',
@@ -96,7 +110,7 @@ const FinancesData: React.FC = () => {
         description: 'Ocorreu um erro, tente novamente mais tarde',
       });
     }
-  }, [addToast]);
+  }, [addToast, billetId, user]);
 
   if (!billets || !customer) {
     return (
@@ -109,19 +123,21 @@ const FinancesData: React.FC = () => {
 
   return (
     <>
-      <Header>
-        <section>
-          <FaDollarSign size={25} />
-          <strong>Faturas</strong>
-        </section>
-        <div>
-          <strong>Contrato: {customer.contracts[0].id}</strong>
+      {show && (
+        <Header>
+          <section>
+            <FaDollarSign size={25} />
+            <strong>Faturas</strong>
+          </section>
+          <div>
+            <strong>Contrato: {customer.contracts[0].id}</strong>
 
-          <span>{customer.contracts[0].ativacao}</span>
+            <span>{customer.contracts[0].ativacao}</span>
 
-          <span>{customer.contracts[0].plan}</span>
-        </div>
-      </Header>
+            <span>{customer.contracts[0].plan}</span>
+          </div>
+        </Header>
+      )}
       <Container
         style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
         variants={variants}
@@ -141,7 +157,12 @@ const FinancesData: React.FC = () => {
               </span>
               <button type="button">
                 <AiOutlineEye
-                  onClick={() => setDisplayModal(billet.linha_digitavel)}
+                  onClick={() =>
+                    OpenModal({
+                      billet_code: billet.linha_digitavel,
+                      billet_id: billet.id,
+                    })
+                  }
                   size={24}
                 />
               </button>
@@ -169,7 +190,12 @@ const FinancesData: React.FC = () => {
               </span>
               <button type="button">
                 <AiOutlineEye
-                  onClick={() => setDisplayModal(billet.linha_digitavel)}
+                  onClick={() =>
+                    OpenModal({
+                      billet_code: billet.linha_digitavel,
+                      billet_id: billet.id,
+                    })
+                  }
                   size={24}
                 />
               </button>
@@ -197,7 +223,12 @@ const FinancesData: React.FC = () => {
               </span>
               <button type="button">
                 <AiOutlineEye
-                  onClick={() => setDisplayModal(billet.linha_digitavel)}
+                  onClick={() =>
+                    OpenModal({
+                      billet_code: billet.linha_digitavel,
+                      billet_id: billet.id,
+                    })
+                  }
                   size={24}
                 />
               </button>

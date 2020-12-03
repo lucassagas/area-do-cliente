@@ -3,6 +3,7 @@ import api from '../services/api';
 import { useAuth } from './auth';
 
 interface ICustomerData {
+  id: string;
   name: string;
   date_birth: string;
   email: string;
@@ -27,6 +28,7 @@ interface ICustomerData {
 }
 
 interface IBilletFormat {
+  id: string;
   valor: string;
   status: string;
   data_vencimento: string;

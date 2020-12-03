@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   position: fixed;
-  padding: 10px 60px 0 60px;
+  padding: 10px 60px 0 120px;
 
   z-index: 10;
 
@@ -34,6 +34,8 @@ export const Container = styled.div`
     height: 70px;
     justify-content: flex-end;
     align-items: center;
+    max-width: 1620px;
+    margin: auto;
     width: 100%;
 
     img {

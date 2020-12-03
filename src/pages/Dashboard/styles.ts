@@ -87,20 +87,20 @@ export const Main = styled.div`
 export const Content = styled.div`
   max-width: 500px;
   width: 100%;
-  margin-top: 90px;
+  margin-top: 25vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-height: 500px;
-  height: 75%;
+  height: 60%;
 
   @media (max-width: 1920px) {
     max-height: 800px;
   }
 
-  @media (max-width: 1366px) {
-    max-height: 650px;
-    margin-top: 50px;
+  @media (max-width: 1440px) {
+    max-height: 700px;
+    margin-top: 15vh;
+    height: 70%;
   }
 
   @media (max-width: 1200px) {
