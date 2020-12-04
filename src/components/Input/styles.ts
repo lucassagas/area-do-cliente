@@ -9,10 +9,16 @@ interface ContainerProps {
   width?: string;
 }
 
+export const Label = styled.span`
+  color: var(--text);
+  font-weight: 400;
+`;
+
 export const Container = styled.div<ContainerProps>`
   background: var(--background);
   border-radius: 10px;
   padding: 10px;
+  max-height: 40px;
 
   ${props =>
     props.width
@@ -57,10 +63,10 @@ export const Container = styled.div<ContainerProps>`
     `}
 
     input {
-    flex: 1;
     background: transparent;
     border: 0;
     color: var(--text);
+    width: 100%;
 
     &::placeholder {
       color: var(--lightgray);

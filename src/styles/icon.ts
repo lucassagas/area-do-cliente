@@ -39,7 +39,12 @@ export { GiSpeedometer, GiWorld } from 'react-icons/gi';
 
 export { BsGear } from 'react-icons/bs';
 
-export { RiArrowDownSLine, RiFileCopyLine } from 'react-icons/ri';
+export {
+  RiArrowDownSLine,
+  RiFileCopyLine,
+  RiArrowLeftSLine,
+  RiCloseLine,
+} from 'react-icons/ri';
 
 export { SiMailDotRu } from 'react-icons/si';
 

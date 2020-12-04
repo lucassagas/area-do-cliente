@@ -12,7 +12,7 @@ const AppRoutes: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/" component={Dashboard} />
-      <Route exact path="/dashboard" component={Dashboard} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/finances" component={Finances} />
       <Route path="/customer" component={Customer} />
       <Route path="/speedtest" component={SpeedTest} />

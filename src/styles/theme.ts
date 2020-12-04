@@ -5,6 +5,7 @@ export const themes = {
     background: '#FFFFFF',
     orange: '#FF4E00',
     orangeicons: '#e76126',
+    opacityorange: 'rgba(240, 100, 40, 0.4)',
     text: '#212121',
     lighttext: '#ffff',
     icons: '#353535',

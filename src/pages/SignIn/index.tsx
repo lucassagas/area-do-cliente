@@ -3,7 +3,7 @@ import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import lightLogo from '../../assets/logo_preta.svg';
 import darkLogo from '../../assets/logo_branca.svg';
 import Button from '../../components/Button';
@@ -130,7 +130,7 @@ const SignIn: React.FC = () => {
             </Button>
           </Form>
 
-          <a href="/">Não sou cliente, Quero adquirir</a>
+          <Link to="signup">Não sou cliente, Quero adquirir</Link>
           <a href="/">Esqueci minha senha</a>
         </AnimationContainer>
 
