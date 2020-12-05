@@ -9,7 +9,6 @@ import notFoundimgWhite from '../../assets/notfoundtextwhite.svg';
 import { useTheme } from '../../hooks/themes';
 
 import { Container } from './styles';
-import Footer from '../../components/Footer';
 
 const Page404: React.FC = () => {
   const { themeName } = useTheme();

@@ -23,11 +23,30 @@ import {
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
 
+interface InputsProps {
+  name?: string;
+  cpf?: string;
+  rg?: string;
+  dateofbirth?: string;
+  email?: string;
+  phone?: string;
+  optionalphone?: string;
+  cellphone?: string;
+  optionalcellphone?: string;
+  reference?: string;
+  address?: string;
+  number?: number;
+  neigh?: string;
+  nameofcondominium?: string;
+  complement?: string;
+  cep?: number;
+}
+
 const SignUp: React.FC = () => {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
   const [nameStep, setNameStep] = useState('Dados Pessoais');
   const [housingType, setHousingType] = useState(true);
-  const [formData, setFormData] = useState<object>();
+  const [formData, setFormData] = useState<InputsProps>();
   const [active, setActive] = useState('');
 
   const formRef = useRef<FormHandles>(null);
@@ -171,13 +190,27 @@ const SignUp: React.FC = () => {
                 animate={{ opacity: 1, transition: { duration: 0.6 } }}
                 className="step1"
               >
-                <Input name="name" label="Nome Completo" />
+                <Input
+                  value={formData?.name}
+                  name="name"
+                  label="Nome Completo"
+                />
                 <div className="inputGroup">
                   <div>
-                    <Input width="140px" name="cpf" label="CPF" />
+                    <Input
+                      value={formData?.cpf}
+                      width="140px"
+                      name="cpf"
+                      label="CPF"
+                    />
                   </div>
                   <div>
-                    <Input width="100px" name="rg" label="RG" />
+                    <Input
+                      value={formData?.rg}
+                      width="100px"
+                      name="rg"
+                      label="RG"
+                    />
                   </div>
                 </div>
                 <Input
@@ -185,6 +218,7 @@ const SignUp: React.FC = () => {
                   name="dateofbirth"
                   label="Data de Nascimento"
                   type="date"
+                  value={formData?.dateofbirth}
                 />
               </motion.main>
             </>
@@ -196,18 +230,35 @@ const SignUp: React.FC = () => {
                 animate={{ opacity: 1, transition: { duration: 0.6 } }}
                 className="step2"
               >
-                <Input width="250px" name="email" label="E-mail" />
-                <Input width="140px" name="cellphone" label="Celular" />
                 <Input
-                  width="140px"
-                  name="cellphoneoptional"
-                  label="Celular Opcional"
+                  width="250px"
+                  value={formData?.email}
+                  name="email"
+                  label="E-mail"
                 />
-                <Input width="140px" name="fone" label="Telefone Fixo" />
+                <Input
+                  value={formData?.cellphone}
+                  width="140px"
+                  name="cellphone"
+                  label="Celular"
+                />
                 <Input
                   width="140px"
-                  name="foneoptional"
+                  name="optionalcellphone"
+                  label="Celular Opcional"
+                  value={formData?.optionalcellphone}
+                />
+                <Input
+                  value={formData?.phone}
+                  width="140px"
+                  name="phone"
+                  label="Telefone Fixo"
+                />
+                <Input
+                  width="140px"
+                  name="optionalphone"
                   label="Telefone Fixo Opcional"
+                  value={formData?.optionalphone}
                 />
               </motion.main>
             </>
@@ -240,7 +291,11 @@ const SignUp: React.FC = () => {
 
                 {housingType ? (
                   <>
-                    <Input name="reference" label="Referência" />
+                    <Input
+                      value={formData?.reference}
+                      name="reference"
+                      label="Referência"
+                    />
 
                     <section />
 
@@ -250,13 +305,29 @@ const SignUp: React.FC = () => {
                         name="cep"
                         type="number"
                         label="CEP"
+                        value={formData?.cep}
                       />
                     </div>
-                    <Input name="address" label="Endereço" />
+                    <Input
+                      name="address"
+                      label="Endereço"
+                      value={formData?.address}
+                    />
 
                     <div>
-                      <Input width="100px" name="number" label="Número" />
-                      <Input width="250px" name="neigh" label="Bairro" />
+                      <Input
+                        width="100px"
+                        name="number"
+                        type="number"
+                        label="Número"
+                        value={formData?.number}
+                      />
+                      <Input
+                        value={formData?.neigh}
+                        width="250px"
+                        name="neigh"
+                        label="Bairro"
+                      />
                     </div>
                   </>
                 ) : (
@@ -264,12 +335,18 @@ const SignUp: React.FC = () => {
                     <Input
                       name="nameofcondominium"
                       label="Nome do Condomínio"
+                      value={formData?.nameofcondominium}
                     />
 
                     <section />
 
                     <div>
-                      <Input width="100px" name="cep" label="CEP" />
+                      <Input
+                        width="100px"
+                        name="cep"
+                        label="CEP"
+                        value={formData?.cep}
+                      />
                     </div>
                     <div
                       style={{
@@ -279,19 +356,33 @@ const SignUp: React.FC = () => {
                       }}
                     >
                       <div>
-                        <Input name="address" label="Endereço" />
+                        <Input
+                          value={formData?.address}
+                          name="address"
+                          label="Endereço"
+                        />
                       </div>
                       <div>
-                        <Input width="80px" name="number" label="Número" />
+                        <Input
+                          value={formData?.number}
+                          width="80px"
+                          name="number"
+                          label="Número"
+                        />
                       </div>
                     </div>
                     <div>
-                      <Input name="neigh" label="Bairro" />
+                      <Input
+                        name="neigh"
+                        label="Bairro"
+                        value={formData?.neigh}
+                      />
 
                       <Input
                         width="100px"
                         name="complement"
                         label="Complemento"
+                        value={formData?.complement}
                       />
                     </div>
                   </>

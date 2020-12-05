@@ -9,13 +9,17 @@ const api = axios.create({
 api.interceptors.response.use(response => {
   if (response.data.error) {
     const history = useHistory();
-    const token: any = localStorage.getItem('@ALAuth:token');
-    jwt.verify(token, 'dsddhksdhgvsyguvygusfjilfeabhj', (error: any) => {
-      if (error) {
-        localStorage.removeItem('@ALAuth:token');
-        history.push('/');
-      }
-    });
+    const token: any = localStorage.getItem('@NeoCliente:token');
+    jwt.verify(
+      token,
+      process.env.REACT_APP_KEY as string,
+      (error: object | null) => {
+        if (error) {
+          localStorage.removeItem('@NeoCliente:token');
+          history.push('/');
+        }
+      },
+    );
 
     return response;
   }
