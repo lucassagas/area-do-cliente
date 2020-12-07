@@ -12,7 +12,7 @@ api.interceptors.response.use(response => {
     const token: any = localStorage.getItem('@NeoCliente:token');
     jwt.verify(
       token,
-      process.env.REACT_APP_KEY as string,
+      `${process.env.REACT_APP_KEY}` as string,
       (error: object | null) => {
         if (error) {
           localStorage.removeItem('@NeoCliente:token');

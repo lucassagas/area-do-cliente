@@ -4,24 +4,6 @@ interface NotificationProps {
   type?: 'info' | 'success' | 'error' | 'congratulations';
 }
 
-const colorVariations = {
-  info: css`
-    color: var(--blueNotification);
-  `,
-
-  success: css`
-    color: var(--greenNotification);
-  `,
-
-  error: css`
-    color: var(--redNotification);
-  `,
-
-  congratulations: css`
-    color: var(--orangeicons);
-  `,
-};
-
 const backgroundVariations = {
   info: css`
     background: var(--blueNotification);
@@ -105,22 +87,6 @@ export const Container = styled.div`
   }
 `;
 
-export const HeartCircle = styled.div`
-  margin: 0 25px;
-  height: 45px;
-  width: 45px;
-  flex-shrink: 0;
-  background: var(--orangeicons);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  color: var(--darkgray);
-  > svg {
-    margin-top: 3px;
-  }
-`;
-
 export const Notification = styled.div<NotificationProps>`
   display: flex;
   justify-content: flex-start;
@@ -134,13 +100,12 @@ export const Notification = styled.div<NotificationProps>`
 
   color: var(--text);
 
-  & + div {
-    margin-top: 10px;
+  > img {
+    margin: 10px;
   }
 
-  > svg {
-    margin: 0 25px;
-    ${props => colorVariations[props.type || 'info']}
+  & + div {
+    margin-top: 10px;
   }
 
   > section {

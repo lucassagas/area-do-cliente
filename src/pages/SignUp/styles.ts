@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 import { motion } from 'framer-motion';
+import lineBG from '../../assets/bg_linhas.svg';
 
 export const Container = styled.div`
   height: 100vh;
@@ -28,13 +29,17 @@ export const Content = styled.div`
   justify-content: center;
 
   width: 100%;
-  max-width: 500px;
+  max-width: 510px;
   margin: auto;
 
   height: 100vh;
   position: relative;
   padding: 60px;
   overflow: auto;
+
+  @media (max-width: 430px) {
+    padding: 20px;
+  }
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -67,6 +72,7 @@ export const Content = styled.div`
 
     > header {
       width: 100%;
+      color: var(--text);
 
       > div {
         display: flex;
@@ -86,12 +92,22 @@ export const Content = styled.div`
           font-size: 5rem;
           color: var(--orange);
           margin-bottom: 18px;
+
+          @media (max-width: 430px) {
+            font-size: 4rem;
+          }
         }
 
         > strong {
           color: var(--text);
           font-size: 2rem;
           font-weight: bold;
+        }
+
+        > p {
+          font-size: 1.4rem;
+          color: var(--lightgray);
+          font-weight: 500;
         }
       }
     }
@@ -107,11 +123,22 @@ export const Content = styled.div`
       display: flex;
       flex-direction: column;
 
+      .cepContainer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        > button {
+          margin-top: 20px;
+        }
+      }
+
       > section {
         width: 100%;
         height: 2px;
         border-radius: 4px;
         background: var(--lightgray);
+        margin-top: 10px;
       }
 
       div {
@@ -122,6 +149,12 @@ export const Content = styled.div`
       .inputGroup {
         display: flex;
         gap: 35px;
+      }
+    }
+
+    > footer {
+      > p {
+        color: var(--text);
       }
     }
   }
@@ -137,7 +170,7 @@ export const ProgressBar = styled.div`
 `;
 
 export const ContentProgressBar = styled(motion.div)`
-  width: 25%;
+  width: 20%;
   background: var(--orange);
   border-radius: 9px 0 0 9px;
   height: 9px;
@@ -145,7 +178,7 @@ export const ContentProgressBar = styled(motion.div)`
   & + div {
     border-radius: 0;
 
-    & + div + div {
+    & + div + div + div {
       border-radius: 0 9px 9px 0;
     }
   }
@@ -153,16 +186,38 @@ export const ContentProgressBar = styled(motion.div)`
 
 export const GroupButton = styled.div`
   display: flex;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 2px;
+    height: 3px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px gray;
+    border-radius: 4px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--orangeicons);
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--orangeicons);
+  }
 `;
 
 export const RadioButton = styled.button`
   background: transparent;
   border: 0;
-  margin-bottom: 10px;
 
   display: flex;
   align-items: center;
   gap: 10px;
+  color: var(--text);
 
   & + button {
     margin-left: 20px;
@@ -191,6 +246,12 @@ export const ContainerCard = styled.div`
     display: flex;
     gap: 20px;
   }
+
+  @media (max-width: 430px) {
+    > div {
+      flex-direction: column;
+    }
+  }
 `;
 
 export const Card = styled.button`
@@ -216,7 +277,7 @@ export const Card = styled.button`
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--lighttext);
+      color: var(--background);
       border: solid 1px var(--lightgray);
       border-radius: 50%;
       width: 24px;
@@ -224,6 +285,7 @@ export const Card = styled.button`
 
       &.active {
         background: var(--orangeicons);
+        color: var(--lighttext);
       }
     }
 
@@ -245,6 +307,90 @@ export const Card = styled.button`
     > h2 {
       font-size: 2.5rem;
       padding-top: 5px;
+    }
+  }
+
+  @media (max-width: 430px) {
+    min-width: 250px;
+  }
+`;
+
+export const Separator = styled.div`
+  width: 100%;
+  height: 2px;
+  background: var(--lightgray);
+`;
+
+export const ContainerFinish = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+
+  height: 100vh;
+  position: relative;
+  padding: 60px;
+  overflow: auto;
+
+  background-image: url(${lineBG});
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  @media (max-width: 430px) {
+    padding: 20px;
+  }
+
+  > header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+
+    > img {
+      width: 100px;
+    }
+
+    > svg {
+      cursor: pointer;
+      &:hover {
+        color: var(--error);
+        transition: 0.3s;
+      }
+    }
+  }
+
+  > main {
+    > h3 {
+      color: var(--text);
+      font-size: 3rem;
+    }
+
+    > h1 {
+      color: var(--orange);
+      font-size: 5rem;
+      font-weight: 800;
+    }
+
+    > p {
+      color: var(--text);
+      margin-top: 20px;
+      line-height: 20px;
+
+      > span {
+        color: var(--orangeicons);
+      }
+    }
+  }
+
+  > footer {
+    > p {
+      color: var(--text);
     }
   }
 `;

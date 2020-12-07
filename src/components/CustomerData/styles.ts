@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 1620px;
+  max-width: 1630px;
   width: 100%;
   margin: auto;
   border: solid 1px var(--lightgray);
@@ -33,7 +33,6 @@ export const InputsGroup = styled.div`
   margin-bottom: 20px;
 
   #cep {
-    width: 23%;
     margin-right: 10px;
   }
 
@@ -52,7 +51,6 @@ export const InputsGroup = styled.div`
   }
 
   #dateofbirth {
-    width: 19%;
     margin-right: 10px;
   }
   #complement {
@@ -67,7 +65,7 @@ export const InputsGroup = styled.div`
   }
 
   #state {
-    width: 10%;
+    width: 15%;
     margin-right: 10px;
   }
 
@@ -79,7 +77,6 @@ export const InputsGroup = styled.div`
   #optionalphone,
   #celphone,
   #optionalcelphone {
-    width: 24.5%;
     margin-right: 10px;
   }
 

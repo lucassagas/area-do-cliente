@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Form } from '@unform/web';
 import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
@@ -9,6 +15,8 @@ import Button from '../../components/Button';
 import Carrousel from '../../components/Carrousel';
 
 import { RiCloseLine, RiArrowLeftSLine, FaCheck } from '../../styles/icon';
+import blackLogoImg from '../../assets/logo_preta.svg';
+import whiteLogoImg from '../../assets/logo_branca.svg';
 
 import {
   Container,
@@ -19,9 +27,14 @@ import {
   GroupButton,
   ContainerCard,
   Card,
+  Separator,
+  ContainerFinish,
 } from './styles';
+
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
+import Textarea from '../../components/Textarea';
+import { useTheme } from '../../hooks/themes';
 
 interface InputsProps {
   name?: string;
@@ -40,6 +53,7 @@ interface InputsProps {
   nameofcondominium?: string;
   complement?: string;
   cep?: number;
+  city?: string;
 }
 
 const SignUp: React.FC = () => {
@@ -47,10 +61,14 @@ const SignUp: React.FC = () => {
   const [nameStep, setNameStep] = useState('Dados Pessoais');
   const [housingType, setHousingType] = useState(true);
   const [formData, setFormData] = useState<InputsProps>();
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState<string | object>();
+  const [dueDate, setDueDate] = useState(1);
+  const [period, setPeriod] = useState('manha');
+  const [cep, setCep] = useState<any>();
 
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
+  const { themeName } = useTheme();
 
   const history = useHistory();
 
@@ -67,11 +85,13 @@ const SignUp: React.FC = () => {
     if (step === 4) {
       setNameStep('Plano');
     }
+    if (step === 5) {
+      setNameStep('Vencimento e Instalação');
+    }
   }, [step]);
 
   const handleSubmit = useCallback(
     async (data: object) => {
-      console.log(formData);
       if (step === 1) {
         try {
           formRef.current?.setErrors({});
@@ -144,6 +164,7 @@ const SignUp: React.FC = () => {
           return;
         }
       }
+
       if (step === 4) {
         if (!active) {
           addToast({
@@ -151,11 +172,24 @@ const SignUp: React.FC = () => {
             title: 'Error',
             description: 'Selecione um plano',
           });
+
+          return;
         }
-        setFormData({ ...formData, ...data });
+        setStep(step + 1);
+      }
+
+      if (step === 5) {
+        const parsedData = {
+          ...data,
+          period,
+          dueDate,
+          plan: active,
+        };
+        setStep(step + 1);
+        setFormData({ ...formData, ...parsedData });
       }
     },
-    [step, formData, active, addToast],
+    [step, formData, active, addToast, period, dueDate],
   );
 
   const close = useCallback(() => {
@@ -166,344 +200,542 @@ const SignUp: React.FC = () => {
     step < 2 ? history.goBack() : setStep(step - 1);
   }, [history, step]);
 
+  const handleDueDate = useCallback((day: number) => {
+    setDueDate(day);
+  }, []);
+
+  const handleChangePeriod = useCallback((data: string) => {
+    setPeriod(data);
+  }, []);
+
+  const searchCEP = useCallback(() => {
+    if (cep?.length !== 8) {
+      addToast({
+        type: 'info',
+        title: 'Erro no CEP',
+        description: 'CEP deve conter 8 digitos',
+      });
+
+      return;
+    }
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response: any) => response.json())
+      .then((data: any) => {
+        if (data.erro) {
+          addToast({
+            type: 'error',
+            title: 'CEP NÃO ENCONTRADO',
+            description: 'CEP informado não encontrado.',
+          });
+
+          return;
+        }
+
+        const parsedData = {
+          city: data.localidade,
+          neigh: data.bairro,
+          address: data.logradouro,
+          cep,
+        };
+
+        setFormData({ ...formData, ...parsedData });
+      });
+  }, [addToast, cep, formData]);
+
   return (
     <Container>
       <Carrousel />
-      <Content>
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <header>
-            <div>
-              <RiArrowLeftSLine onClick={prevStep} size={24} />
-              <RiCloseLine onClick={close} size={24} />
-            </div>
-            <section>
-              <h1>Pré-Cadastro</h1>
-              <strong>
-                {nameStep}: Etapa {step}
-              </strong>
-            </section>
-          </header>
-          {step === 1 && (
-            <>
-              <motion.main
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 0.6 } }}
-                className="step1"
-              >
-                <Input
-                  value={formData?.name}
-                  name="name"
-                  label="Nome Completo"
-                />
-                <div className="inputGroup">
-                  <div>
-                    <Input
-                      value={formData?.cpf}
-                      width="140px"
-                      name="cpf"
-                      label="CPF"
-                    />
+
+      {step <= 5 && (
+        <Content>
+          <Form
+            initialData={{
+              address: formData?.address,
+              reference: formData?.reference,
+              cpf: formData?.cpf,
+              rg: formData?.rg,
+              cep: formData?.cep,
+              email: formData?.email,
+              name: formData?.name,
+              phone: formData?.phone,
+              cellphone: formData?.cellphone,
+              complement: formData?.complement,
+              nameofcondominium: formData?.nameofcondominium,
+              optionalcellphone: formData?.optionalcellphone,
+              optionalphone: formData?.optionalphone,
+              city: formData?.city,
+              number: formData?.number,
+              neigh: formData?.neigh,
+              dateofbirth: formData?.dateofbirth,
+            }}
+            ref={formRef}
+            onSubmit={handleSubmit}
+          >
+            <header>
+              <div>
+                <RiArrowLeftSLine onClick={prevStep} size={24} />
+                <RiCloseLine onClick={close} size={24} />
+              </div>
+              <section>
+                <h1>Pré-Cadastro</h1>
+                <strong>
+                  {nameStep}: Etapa {step}
+                </strong>
+                {active && <p>Plano selecionado: {active}</p>}
+              </section>
+            </header>
+            {step === 1 && (
+              <>
+                <motion.main
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.6 } }}
+                  className="step1"
+                >
+                  <Input name="name" label="Nome Completo" />
+                  <div className="inputGroup">
+                    <div>
+                      <Input width="140px" name="cpf" label="CPF" />
+                    </div>
+                    <div>
+                      <Input width="100px" name="rg" label="RG" />
+                    </div>
                   </div>
-                  <div>
-                    <Input
-                      value={formData?.rg}
-                      width="100px"
-                      name="rg"
-                      label="RG"
-                    />
-                  </div>
-                </div>
-                <Input
-                  width="180px"
-                  name="dateofbirth"
-                  label="Data de Nascimento"
-                  type="date"
-                  value={formData?.dateofbirth}
-                />
-              </motion.main>
-            </>
-          )}
-          {step === 2 && (
-            <>
-              <motion.main
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 0.6 } }}
-                className="step2"
-              >
-                <Input
-                  width="250px"
-                  value={formData?.email}
-                  name="email"
-                  label="E-mail"
-                />
-                <Input
-                  value={formData?.cellphone}
-                  width="140px"
-                  name="cellphone"
-                  label="Celular"
-                />
-                <Input
-                  width="140px"
-                  name="optionalcellphone"
-                  label="Celular Opcional"
-                  value={formData?.optionalcellphone}
-                />
-                <Input
-                  value={formData?.phone}
-                  width="140px"
-                  name="phone"
-                  label="Telefone Fixo"
-                />
-                <Input
-                  width="140px"
-                  name="optionalphone"
-                  label="Telefone Fixo Opcional"
-                  value={formData?.optionalphone}
-                />
-              </motion.main>
-            </>
-          )}
-          {step === 3 && (
-            <>
-              <motion.main
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 0.6 } }}
-                className="step2"
-              >
-                <p>Tipo de Moradia</p>
-                <GroupButton>
-                  <RadioButton
-                    onClick={() => setHousingType(true)}
-                    type="button"
-                  >
-                    <div className={housingType ? 'active' : ''} />
-                    <p>Casa</p>
-                  </RadioButton>
-
-                  <RadioButton
-                    onClick={() => setHousingType(false)}
-                    type="button"
-                  >
-                    <div className={!housingType ? 'active' : ''} />
-                    <p>Apartamento</p>
-                  </RadioButton>
-                </GroupButton>
-
-                {housingType ? (
-                  <>
-                    <Input
-                      value={formData?.reference}
-                      name="reference"
-                      label="Referência"
-                    />
-
-                    <section />
-
-                    <div>
-                      <Input
-                        width="100px"
-                        name="cep"
-                        type="number"
-                        label="CEP"
-                        value={formData?.cep}
-                      />
-                    </div>
-                    <Input
-                      name="address"
-                      label="Endereço"
-                      value={formData?.address}
-                    />
-
-                    <div>
-                      <Input
-                        width="100px"
-                        name="number"
-                        type="number"
-                        label="Número"
-                        value={formData?.number}
-                      />
-                      <Input
-                        value={formData?.neigh}
-                        width="250px"
-                        name="neigh"
-                        label="Bairro"
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <Input
-                      name="nameofcondominium"
-                      label="Nome do Condomínio"
-                      value={formData?.nameofcondominium}
-                    />
-
-                    <section />
-
-                    <div>
-                      <Input
-                        width="100px"
-                        name="cep"
-                        label="CEP"
-                        value={formData?.cep}
-                      />
-                    </div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        gap: '20px',
-                        margin: '-10px 0',
-                      }}
+                  <Input
+                    width="180px"
+                    name="dateofbirth"
+                    label="Data de Nascimento"
+                    type="date"
+                  />
+                </motion.main>
+              </>
+            )}
+            {step === 2 && (
+              <>
+                <motion.main
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.6 } }}
+                  className="step2"
+                >
+                  <Input
+                    width="250px"
+                    name="email"
+                    label="E-mail"
+                    type="email"
+                  />
+                  <Input
+                    width="140px"
+                    name="cellphone"
+                    label="Celular"
+                    type="phone"
+                  />
+                  <Input
+                    width="140px"
+                    name="optionalcellphone"
+                    label="Celular Opcional"
+                  />
+                  <Input width="140px" name="phone" label="Telefone Fixo" />
+                  <Input
+                    width="140px"
+                    name="optionalphone"
+                    label="Telefone Fixo Opcional"
+                  />
+                </motion.main>
+              </>
+            )}
+            {step === 3 && (
+              <>
+                <motion.main
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.6 } }}
+                  className="step2"
+                >
+                  <p>Tipo de Moradia</p>
+                  <GroupButton>
+                    <RadioButton
+                      onClick={() => setHousingType(true)}
+                      type="button"
                     >
-                      <div>
-                        <Input
-                          value={formData?.address}
-                          name="address"
-                          label="Endereço"
-                        />
+                      <div className={housingType ? 'active' : ''} />
+                      <p>Casa</p>
+                    </RadioButton>
+
+                    <RadioButton
+                      onClick={() => setHousingType(false)}
+                      type="button"
+                    >
+                      <div className={!housingType ? 'active' : ''} />
+                      <p>Apartamento</p>
+                    </RadioButton>
+                  </GroupButton>
+
+                  {housingType ? (
+                    <>
+                      <Input name="reference" label="Referência" />
+
+                      <section />
+
+                      <div className="cepContainer">
+                        <div>
+                          <Input
+                            width="140px"
+                            name="cep"
+                            type="number"
+                            label="CEP"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                              setCep(e.target.value);
+                            }}
+                          />
+                        </div>
+                        <Button
+                          onClick={searchCEP}
+                          style={{ width: 100 }}
+                          type="button"
+                        >
+                          Buscar
+                        </Button>
                       </div>
+                      <Input name="city" label="Cidade" />
+                      <Input name="address" label="Endereço" />
+
                       <div>
                         <Input
-                          value={formData?.number}
-                          width="80px"
+                          width="100px"
                           name="number"
+                          type="number"
                           label="Número"
                         />
+                        <Input width="250px" name="neigh" label="Bairro" />
                       </div>
-                    </div>
+                    </>
+                  ) : (
+                    <>
+                      <Input
+                        name="nameofcondominium"
+                        label="Nome do Condomínio"
+                      />
+
+                      <section />
+
+                      <div>
+                        <Input width="100px" name="cep" label="CEP" />
+                      </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          gap: '20px',
+                          margin: '-10px 0',
+                        }}
+                      >
+                        <div>
+                          <Input name="address" label="Endereço" />
+                        </div>
+                        <div>
+                          <Input width="80px" name="number" label="Número" />
+                        </div>
+                      </div>
+                      <div>
+                        <Input name="neigh" label="Bairro" />
+
+                        <Input
+                          width="100px"
+                          name="complement"
+                          label="Complemento"
+                        />
+                      </div>
+                    </>
+                  )}
+                </motion.main>
+              </>
+            )}
+            {step === 4 && (
+              <>
+                <motion.main
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.6 } }}
+                  className="step2"
+                >
+                  <ContainerCard>
                     <div>
-                      <Input
-                        name="neigh"
-                        label="Bairro"
-                        value={formData?.neigh}
-                      />
+                      <section>
+                        <Card
+                          type="button"
+                          onClick={() => setActive('60Mb 20Up, R$80,00')}
+                          className={
+                            active === '60Mb 20Up, R$80,00' ? 'active' : ''
+                          }
+                        >
+                          <div>
+                            <span
+                              className={
+                                active === '60Mb 20Up, R$80,00' ? 'active' : ''
+                              }
+                            >
+                              <FaCheck size={16} />
+                            </span>
+                          </div>
+                          <div>
+                            <h1>60Mb</h1>
+                            <strong>20Upload</strong>
+                            <h2>R$80,00</h2>
+                          </div>
+                        </Card>
 
-                      <Input
-                        width="100px"
-                        name="complement"
-                        label="Complemento"
-                        value={formData?.complement}
-                      />
+                        <Card
+                          type="button"
+                          className={
+                            active === '1Gb 100Up, R$150,00' ? 'active' : ''
+                          }
+                          onClick={() => setActive('1Gb 100Up, R$150,00')}
+                        >
+                          <div>
+                            <span
+                              className={
+                                active === '1Gb 100Up, R$150,00' ? 'active' : ''
+                              }
+                            >
+                              <FaCheck size={16} />
+                            </span>
+                          </div>
+                          <div>
+                            <h1>1Gb</h1>
+                            <strong>100Upload</strong>
+                            <h2>R$150,00</h2>
+                          </div>
+                        </Card>
+                      </section>
+
+                      <section>
+                        <Card
+                          type="button"
+                          className={
+                            active === '150Mb 50Up, R$100,00' ? 'active' : ''
+                          }
+                          onClick={() => setActive('150Mb 50Up, R$100,00')}
+                        >
+                          <div>
+                            <span
+                              className={
+                                active === '150Mb 50Up, R$100,00'
+                                  ? 'active'
+                                  : ''
+                              }
+                            >
+                              <FaCheck size={16} />
+                            </span>
+                          </div>
+                          <div>
+                            <h1>150Mb</h1>
+                            <strong>50Upload</strong>
+                            <h2>R$100,00</h2>
+                          </div>
+                        </Card>
+
+                        <Card
+                          type="button"
+                          className={
+                            active === '1Gb 300Up, R$200,00' ? 'active' : ''
+                          }
+                          onClick={() => setActive('1Gb 300Up, R$200,00')}
+                        >
+                          <div>
+                            <span
+                              className={
+                                active === '1Gb 300Up, R$200,00' ? 'active' : ''
+                              }
+                            >
+                              <FaCheck size={16} />
+                            </span>
+                          </div>
+                          <div>
+                            <h1>1Gb</h1>
+                            <strong>300Upload</strong>
+                            <h2>R$200,00</h2>
+                          </div>
+                        </Card>
+                      </section>
                     </div>
-                  </>
+                  </ContainerCard>
+                </motion.main>
+              </>
+            )}
+            {step === 5 && (
+              <>
+                <motion.main
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.6 } }}
+                  className="step2"
+                >
+                  <p>Data de Vencimento</p>
+                  <GroupButton>
+                    <RadioButton onClick={() => handleDueDate(1)} type="button">
+                      <div className={dueDate === 1 ? 'active' : ''} />
+                      <p>01</p>
+                    </RadioButton>
+
+                    <RadioButton onClick={() => handleDueDate(2)} type="button">
+                      <div className={dueDate === 2 ? 'active' : ''} />
+                      <p>02</p>
+                    </RadioButton>
+
+                    <RadioButton onClick={() => handleDueDate(3)} type="button">
+                      <div className={dueDate === 3 ? 'active' : ''} />
+                      <p>03</p>
+                    </RadioButton>
+
+                    <RadioButton onClick={() => handleDueDate(5)} type="button">
+                      <div className={dueDate === 5 ? 'active' : ''} />
+                      <p>05</p>
+                    </RadioButton>
+
+                    <RadioButton onClick={() => handleDueDate(7)} type="button">
+                      <div className={dueDate === 7 ? 'active' : ''} />
+                      <p>07</p>
+                    </RadioButton>
+
+                    <RadioButton
+                      onClick={() => handleDueDate(10)}
+                      type="button"
+                    >
+                      <div className={dueDate === 10 ? 'active' : ''} />
+                      <p>10</p>
+                    </RadioButton>
+                  </GroupButton>
+
+                  <Separator />
+
+                  <GroupButton>
+                    <RadioButton
+                      onClick={() => handleChangePeriod('manha')}
+                      type="button"
+                    >
+                      <div className={period === 'manha' ? 'active' : ''} />
+                      <p>Manhã</p>
+                    </RadioButton>
+
+                    <RadioButton
+                      onClick={() => handleChangePeriod('tarde')}
+                      type="button"
+                    >
+                      <div className={period === 'tarde' ? 'active' : ''} />
+                      <p>Tarde</p>
+                    </RadioButton>
+
+                    <RadioButton
+                      onClick={() => handleChangePeriod('integral')}
+                      type="button"
+                    >
+                      <div className={period === 'integral' ? 'active' : ''} />
+                      <p>Integral</p>
+                    </RadioButton>
+
+                    <RadioButton
+                      onClick={() => handleChangePeriod('sabado')}
+                      type="button"
+                    >
+                      <div className={period === 'sabado' ? 'active' : ''} />
+                      <p>Sábado</p>
+                    </RadioButton>
+                  </GroupButton>
+
+                  <Separator />
+
+                  <Input
+                    type="text"
+                    label="Onde você nos conheceu ?"
+                    name="youknowus"
+                    list="knowus"
+                  />
+
+                  <datalist id="knowus">
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Twitter">Twitter</option>
+                    <option value="Parceiros Comerciais">
+                      Parceiros Comerciais
+                    </option>
+                  </datalist>
+
+                  <Separator />
+
+                  <Textarea label="Observações" name="obs" rows={5} />
+                </motion.main>
+              </>
+            )}
+            <footer>
+              <Button type="submit">
+                {step === 5 ? 'Concluir' : 'Avançar'}
+              </Button>
+
+              <ProgressBar>
+                <ContentProgressBar />
+                {step >= 2 && (
+                  <ContentProgressBar
+                    initial={{ x: -70 }}
+                    animate={{ x: 0, transition: { duration: 1 } }}
+                  />
                 )}
-              </motion.main>
-            </>
-          )}
-          {step === 4 && (
-            <>
-              <motion.main
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 0.6 } }}
-                className="step2"
-              >
-                <ContainerCard>
-                  <div>
-                    <section>
-                      <Card
-                        type="button"
-                        onClick={() => setActive('60Mb')}
-                        className={active === '60Mb' ? 'active' : ''}
-                      >
-                        <div>
-                          <span className={active === '60Mb' ? 'active' : ''}>
-                            <FaCheck size={16} />
-                          </span>
-                        </div>
-                        <div>
-                          <h1>60Mb</h1>
-                          <strong>20Upload</strong>
-                          <h2>R$80,00</h2>
-                        </div>
-                      </Card>
+                {step >= 3 && (
+                  <ContentProgressBar
+                    initial={{ x: -70 }}
+                    animate={{ x: 0, transition: { duration: 1 } }}
+                  />
+                )}
+                {step >= 4 && (
+                  <ContentProgressBar
+                    initial={{ x: -70 }}
+                    animate={{ x: 0, transition: { duration: 1 } }}
+                  />
+                )}
 
-                      <Card
-                        type="button"
-                        className={active === '1Gb' ? 'active' : ''}
-                        onClick={() => setActive('1Gb')}
-                      >
-                        <div>
-                          <span className={active === '1Gb' ? 'active' : ''}>
-                            <FaCheck size={16} />
-                          </span>
-                        </div>
-                        <div>
-                          <h1>1Gb</h1>
-                          <strong>100Upload</strong>
-                          <h2>R$150,00</h2>
-                        </div>
-                      </Card>
-                    </section>
+                {step >= 5 && (
+                  <ContentProgressBar
+                    initial={{ x: -70 }}
+                    animate={{ x: 0, transition: { duration: 1 } }}
+                  />
+                )}
+              </ProgressBar>
 
-                    <section>
-                      <Card
-                        type="button"
-                        className={active === '150Mb' ? 'active' : ''}
-                        onClick={() => setActive('150Mb')}
-                      >
-                        <div>
-                          <span className={active === '150Mb' ? 'active' : ''}>
-                            <FaCheck size={16} />
-                          </span>
-                        </div>
-                        <div>
-                          <h1>150Mb</h1>
-                          <strong>50Upload</strong>
-                          <h2>R$100,00</h2>
-                        </div>
-                      </Card>
+              <p>{step} de 5 etapas</p>
+            </footer>
+          </Form>
+        </Content>
+      )}
+      {step >= 6 && (
+        <ContainerFinish
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 0.6 } }}
+        >
+          <header>
+            <img
+              src={themeName === 'dark' ? whiteLogoImg : blackLogoImg}
+              alt="logo"
+            />
+            <RiCloseLine size={24} onClick={close} />
+          </header>
 
-                      <Card
-                        type="button"
-                        className={active === '1Gb2' ? 'active' : ''}
-                        onClick={() => setActive('1Gb2')}
-                      >
-                        <div>
-                          <span className={active === '1Gb2' ? 'active' : ''}>
-                            <FaCheck size={16} />
-                          </span>
-                        </div>
-                        <div>
-                          <h1>1Gb</h1>
-                          <strong>300Upload</strong>
-                          <h2>R$200,00</h2>
-                        </div>
-                      </Card>
-                    </section>
-                  </div>
-                </ContainerCard>
-              </motion.main>
-            </>
-          )}
+          <main>
+            <h3>Parabéns</h3>
+            <h1>
+              Você <br />
+              Concluiu <br />
+              Seu Cadastro
+            </h1>
+            <p>
+              Agora você está mais <br />
+              próximo de se tornar um <br />
+              cliente <span>Neorede.</span>
+            </p>
+          </main>
+
           <footer>
-            <Button type="submit">{step === 4 ? 'Concluir' : 'Avançar'}</Button>
-
-            <ProgressBar>
-              <ContentProgressBar />
-              {step >= 2 && (
-                <ContentProgressBar
-                  initial={{ x: -100 }}
-                  animate={{ x: 0, transition: { duration: 1 } }}
-                />
-              )}
-              {step >= 3 && (
-                <ContentProgressBar
-                  initial={{ x: -100 }}
-                  animate={{ x: 0, transition: { duration: 1 } }}
-                />
-              )}
-              {step >= 4 && (
-                <ContentProgressBar
-                  initial={{ x: -100 }}
-                  animate={{ x: 0, transition: { duration: 1 } }}
-                />
-              )}
-            </ProgressBar>
-
-            <p>{step} de 4 etapas</p>
+            <p>
+              Logo um de nossos atendentes <br />
+              entrarão em contato.
+            </p>
           </footer>
-        </Form>
-      </Content>
+        </ContainerFinish>
+      )}
     </Container>
   );
 };

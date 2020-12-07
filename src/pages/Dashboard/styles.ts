@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import bgHome from '../../assets/bg_home.svg';
 
 export const Container = styled.div`
-  padding: 0 60px;
+  padding: 0 0px;
   color: var(--text);
   max-width: 1620px;
   margin: auto;

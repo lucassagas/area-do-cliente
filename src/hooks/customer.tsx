@@ -60,9 +60,7 @@ const CustomerProvider: React.FC = ({ children }) => {
 
   const handleLoadCustomer = useCallback(async () => {
     if (user) {
-      const response = await api.get(
-        `customers/customerPersonalInfo/${user.code}`,
-      );
+      const response = await api.get(`customers/${user.code}/info/personal`);
       setCustomer(response.data);
     }
   }, [user]);
@@ -70,7 +68,7 @@ const CustomerProvider: React.FC = ({ children }) => {
   const handleLoadBillets = useCallback(
     async data => {
       const response = await api.get(
-        `customers/customerFinancialInfo/${user.code}/${data}`,
+        `customers/${user.code}/info/financial/${data}`,
       );
 
       setBillets(response.data);

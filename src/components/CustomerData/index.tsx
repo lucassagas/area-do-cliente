@@ -134,7 +134,7 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
 
                 <label id="state" htmlFor="state">
                   Estado
-                  <Input readOnly id="state" name="state" />
+                  <Input width="100%" readOnly id="state" name="state" />
                 </label>
 
                 <label id="city" htmlFor="city">

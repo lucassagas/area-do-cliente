@@ -2,15 +2,14 @@ import React, { useCallback, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
-import {
-  AiOutlineBell,
-  IoMdAlert,
-  AiFillInfoCircle,
-  AiFillCheckCircle,
-  AiFillHeart,
-} from '../../../styles/icon';
+import { AiOutlineBell } from '../../../styles/icon';
 
-import { Container, Notification, HeartCircle } from './styles';
+import check from '../../../assets/icons/check.svg';
+import danger from '../../../assets/icons/danger.svg';
+import info from '../../../assets/icons/info.svg';
+import love from '../../../assets/icons/love.svg';
+
+import { Container, Notification } from './styles';
 
 interface MessageProps {
   messages: Array<{
@@ -21,14 +20,10 @@ interface MessageProps {
 }
 
 const icons = {
-  info: <AiFillInfoCircle size={65} />,
-  success: <AiFillCheckCircle size={65} />,
-  error: <IoMdAlert size={65} />,
-  congratulations: (
-    <HeartCircle>
-      <AiFillHeart size={35} />
-    </HeartCircle>
-  ),
+  info: <img src={info} alt="info" />,
+  success: <img src={check} alt="check" />,
+  error: <img src={danger} alt="danger" />,
+  congratulations: <img src={love} alt="love" />,
 };
 
 const Notifications: React.FC<MessageProps> = ({ messages }) => {

@@ -54,6 +54,7 @@ export const Navigation = styled.div`
   h1 {
     color: var(--lighttext);
     font-size: 3.2rem;
+    margin-left: 8px;
   }
 
   img {
@@ -61,7 +62,7 @@ export const Navigation = styled.div`
   }
   nav {
     display: flex;
-    margin: 15px 0;
+    margin: 15px 0 15px 10px;
     .btn-carrousel {
       display: block;
       width: 60px;
@@ -78,6 +79,7 @@ export const Navigation = styled.div`
   }
 
   section {
+    margin-left: 3px;
     a + a {
       margin-left: 10px;
     }

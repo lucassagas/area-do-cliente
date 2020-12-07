@@ -96,7 +96,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
 
   const sendBilletToEmail = useCallback(async () => {
     try {
-      await api.get(`/customers/customerBilletInfo/${user.code}/${billetId}`);
+      await api.get(`/customers/${user.code}/info/billet/${billetId}`);
 
       addToast({
         type: 'success',

@@ -33,6 +33,7 @@ export const themes = {
     background: '#212121',
     orange: '#FF4E00',
     orangeicons: '#e76126',
+    opacityorange: '#BEBEBE',
     text: '#FFFF',
     lighttext: '#ffff',
     icons: '#FFFF',
