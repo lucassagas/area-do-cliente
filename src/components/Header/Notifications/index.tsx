@@ -13,7 +13,7 @@ import { Container, Notification } from './styles';
 
 interface MessageProps {
   messages: Array<{
-    type?: 'info' | 'success' | 'error' | 'congratulations';
+    type: 'info' | 'success' | 'error' | 'congratulations';
     title: string;
     description: string;
   }>;

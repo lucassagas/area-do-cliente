@@ -102,6 +102,8 @@ export const Notification = styled.div<NotificationProps>`
 
   > img {
     margin: 10px;
+    width: 35px !important;
+    height: 35px !important;
   }
 
   & + div {

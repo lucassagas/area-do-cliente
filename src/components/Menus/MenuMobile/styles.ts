@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface IContainerProps {
-  display: boolean;
+  display: number;
 }
 
 export const MenuButton = styled.button`

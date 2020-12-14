@@ -59,7 +59,7 @@ interface InputsProps {
 const SignUp: React.FC = () => {
   const [step, setStep] = useState(1);
   const [nameStep, setNameStep] = useState('Dados Pessoais');
-  const [housingType, setHousingType] = useState(true);
+  const [housingType, setHousingType] = useState<boolean | null>(true);
   const [formData, setFormData] = useState<InputsProps>();
   const [active, setActive] = useState<string | object>();
   const [dueDate, setDueDate] = useState(1);
@@ -184,12 +184,13 @@ const SignUp: React.FC = () => {
           period,
           dueDate,
           plan: active,
+          type: housingType ? 'Casa' : 'Apartamento',
         };
         setStep(step + 1);
         setFormData({ ...formData, ...parsedData });
       }
     },
-    [step, formData, active, addToast, period, dueDate],
+    [step, formData, active, addToast, period, dueDate, housingType],
   );
 
   const close = useCallback(() => {

@@ -11,13 +11,28 @@ import MyAccountMenu from '../Menus/MyAccountMenu';
 import { useAuth } from '../../hooks/auth';
 import { useCustomer } from '../../hooks/customer';
 import { useTheme } from '../../hooks/themes';
+import api from '../../services/api';
+
+interface NotificationsProps {
+  type: 'info' | 'success' | 'error' | 'congratulations';
+  title: string;
+  description: string;
+}
 
 const Header: React.FC = () => {
+  const { user } = useAuth();
   const [displayMyAccount, setDisplayMyAccount] = useState(false);
+  const [notifications, setNotifications] = useState<NotificationsProps[]>(
+    () => {
+      const response = api.get(`notification/${user.id}`);
+
+      return (response as unknown) as NotificationsProps[];
+    },
+  );
+  console.log(notifications);
 
   const { toggleChangeTheme } = useTheme();
 
-  const { user } = useAuth();
   const { handleLoadCustomer } = useCustomer();
 
   const toggleMyAccount = useCallback(() => {
@@ -35,41 +50,21 @@ const Header: React.FC = () => {
       await handleLoadCustomer();
     }
 
+    async function loadNotifications() {
+      api.get(`notification/${user.id}`).then(response => {
+        setNotifications(response.data);
+      });
+    }
+
     loadData();
-  }, [handleLoadCustomer]);
+    loadNotifications();
+  }, [handleLoadCustomer, user.id]);
 
   return (
     <Container>
       <img src={logoImg} alt="Logo" />
       <div>
-        <Notification
-          messages={[
-            {
-              type: 'error',
-              title: 'Atenção',
-              description:
-                'Devido a manutenção preventiva sua conexão poderá ficar indisponivel.',
-            },
-            {
-              type: 'success',
-              title: 'Atenção',
-              description:
-                'Devido a manutenção preventiva sua conexão poderá ficar indisponivel..',
-            },
-            {
-              type: 'info',
-              title: 'Atenção',
-              description:
-                'Devido a manutenção preventiva sua conexão poderá ficar indisponivel...',
-            },
-
-            {
-              type: 'congratulations',
-              title: 'Parabéns !',
-              description: 'Parabéns Isaque Santos',
-            },
-          ]}
-        />
+        <Notification messages={notifications} />
         <button onClick={toggleChangeTheme} type="button">
           <VscColorMode size={19} />
         </button>

@@ -14,10 +14,10 @@ import {
 import { Container, MenuButton } from './styles';
 
 const MenuMobile: React.FC = () => {
-  const [display, setDisplay] = useState(false);
+  const [display, setDisplay] = useState<number>(0);
 
   const toggleMenu = useCallback(() => {
-    setDisplay(!display);
+    setDisplay(Number(!display));
   }, [display]);
 
   return (
@@ -25,7 +25,7 @@ const MenuMobile: React.FC = () => {
       <MenuButton onClick={toggleMenu} type="button">
         <FiMenu size={20} />
       </MenuButton>
-      <Container onClick={toggleMenu} display={display}>
+      <Container onClick={toggleMenu} display={Number(display)}>
         <nav>
           <button type="button" onClick={toggleMenu}>
             <FiXCircle size={25} />

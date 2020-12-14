@@ -131,7 +131,7 @@ const SignIn: React.FC = () => {
           </Form>
 
           <Link to="signup">Não sou cliente, Quero adquirir</Link>
-          <a href="/">Esqueci minha senha</a>
+          <Link to="/forgotpassword">Esqueci minha senha</Link>
         </AnimationContainer>
 
         <section>
