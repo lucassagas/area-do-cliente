@@ -18,6 +18,7 @@ import {
   RollToDown,
   Main,
 } from './styles';
+import FirstAccess from '../../components/FirstAccess';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
@@ -69,6 +70,7 @@ const Dashboard: React.FC = () => {
           Ver mais
         </Link>
       </section>
+      {/* <FirstAccess title="Primeiro Acesso" /> */}
     </Container>
   );
 };
