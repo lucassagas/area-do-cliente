@@ -6,7 +6,9 @@ import { useAuth } from '../../hooks/auth';
 import CustomerData from '../../components/CustomerData';
 import Finances from '../../components/FinancesData';
 
-import { IoIosArrowDropdownCircle, HiOutlineUser } from '../../styles/icon';
+import ArrowToDown from '../../assets/icons/arrowToDown.svg';
+
+import { HiOutlineUser } from '../../styles/icon';
 
 import bgHome from '../../assets/bg_home.svg';
 
@@ -37,7 +39,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           <div>
-            <IoIosArrowDropdownCircle size={30} />
+            <img src={ArrowToDown} alt="Seta para baixo" />
             <span>Role para baixo</span>
           </div>
         </Content>
@@ -53,7 +55,7 @@ const Dashboard: React.FC = () => {
         </ContainerImg>
 
         <RollToDown>
-          <IoIosArrowDropdownCircle size={40} />
+          <img src={ArrowToDown} alt="Seta para baixo" />
           <span>Role para baixo</span>
         </RollToDown>
       </Main>

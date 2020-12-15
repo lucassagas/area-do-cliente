@@ -95,6 +95,15 @@ export const Content = styled.div`
   justify-content: space-between;
   height: 60%;
 
+  > div {
+    > img {
+      width: 30px !important;
+      height: 30px !important;
+      margin-top: 2px;
+      margin-right: 10px;
+    }
+  }
+
   @media (max-width: 1920px) {
     max-height: 800px;
   }
@@ -216,9 +225,11 @@ export const RollToDown = styled.div`
     margin-top: 20px;
     font-size: 2.5rem;
 
-    svg {
+    > img {
+      width: 22px !important;
+      height: 22px !important;
+      margin-top: 2px;
       margin-right: 10px;
-      fill: var(--orange);
     }
   }
 `;
