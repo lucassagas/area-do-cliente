@@ -24,7 +24,7 @@ interface SignInFormData {
   rememberMe?: string[];
 }
 
-const SignIn: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   const history = useHistory();
   const formRef = useRef<FormHandles>(null);
 
@@ -81,7 +81,11 @@ const SignIn: React.FC = () => {
         <AnimationContainer>
           <Form ref={formRef} onSubmit={handleSubmit}>
             <header>
-              <RiArrowLeftSLine size={32} color="var(--text)" />
+              <RiArrowLeftSLine
+                onClick={() => history.goBack()}
+                size={32}
+                color="var(--text)"
+              />
               <h1>Redefinir Senha</h1>
             </header>
 
@@ -108,4 +112,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;
