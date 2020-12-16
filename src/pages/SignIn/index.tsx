@@ -18,7 +18,7 @@ import {
   HiOutlineUser,
   VscLock,
   VscColorMode,
-  GiWorld,
+  RiGlobalLine,
 } from '../../styles/icon';
 
 import { Container, Content, AnimationContainer } from './styles';
@@ -61,7 +61,7 @@ const SignIn: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          username: Yup.string().required('CPF obrigatório'),
+          username: Yup.string().required('Usuário obrigatório'),
           password: Yup.string().required('Senha obrigatória'),
         });
 
@@ -114,7 +114,7 @@ const SignIn: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Entre com a sua conta</h1>
 
-            <Input name="username" icon={HiOutlineUser} placeholder="CPF" />
+            <Input name="username" icon={HiOutlineUser} placeholder="Usuário" />
 
             <Input
               name="password"
@@ -168,7 +168,7 @@ const SignIn: React.FC = () => {
             rel="noopener noreferrer"
             href="https://www.neorede.com.br/"
           >
-            <GiWorld size={28} color="var(--text)" />
+            <RiGlobalLine size={28} color="var(--text)" />
           </a>
         </section>
       </Content>

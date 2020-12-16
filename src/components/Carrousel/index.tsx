@@ -9,7 +9,7 @@ import {
   IoLogoWhatsapp,
   FaTwitter,
   GrInstagram,
-  GiWorld,
+  RiGlobalLine,
 } from '../../styles/icon';
 
 const Carrousel: React.FC = () => {
@@ -99,7 +99,11 @@ const Carrousel: React.FC = () => {
               rel="noopener noreferrer"
               href="https://www.neorede.com.br"
             >
-              <GiWorld size={28} color="var(--lighttext)" />
+              <RiGlobalLine
+                style={{ marginBottom: -1.5 }}
+                size={30}
+                color="var(--lighttext)"
+              />
             </a>
           </section>
         </Navigation>

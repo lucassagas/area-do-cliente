@@ -59,7 +59,7 @@ const appearFromLeft = keyframes`
 
   to {
     opacity: 1;
-    transform: transformX(0);
+    transform: translateX(0);
   }
 `;
 

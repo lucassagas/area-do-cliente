@@ -104,12 +104,14 @@ const ResetPassword: React.FC = () => {
                 símbolos.
               </p>
               <Input
+                type="password"
                 width="240px"
                 name="password"
                 icon={VscLock}
                 label="Nova Senha"
               />
               <Input
+                type="password"
                 label="Confirma a senha"
                 width="240px"
                 name="confirmpassword"

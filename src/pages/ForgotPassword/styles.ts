@@ -26,12 +26,10 @@ export const Content = styled.div`
 const appearFromLeft = keyframes`
   from {
     opacity: 0;
-    transform: translateX(50px);
   }
 
   to {
     opacity: 1;
-    transform: transformX(0);
   }
 `;
 
@@ -52,8 +50,6 @@ export const AnimationContainer = styled.div`
 
   form {
     margin: 40px 0 20px;
-    width: 340px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;

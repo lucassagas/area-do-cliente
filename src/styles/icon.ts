@@ -49,3 +49,5 @@ export {
 export { SiMailDotRu } from 'react-icons/si';
 
 export { ImBarcode } from 'react-icons/im';
+
+export { RiGlobalLine } from 'react-icons/ri';
