@@ -5,7 +5,7 @@ interface NotificationProps {
 }
 
 interface ContainerProps {
-  hasNotification: boolean;
+  hasNotification: number;
 }
 
 const backgroundVariations = {
@@ -108,6 +108,12 @@ export const Notification = styled.div<NotificationProps>`
     margin: 10px;
     width: 35px !important;
     height: 35px !important;
+  }
+
+  > svg {
+    margin-left: auto;
+    margin-right: 20px;
+    cursor: pointer;
   }
 
   & + div {

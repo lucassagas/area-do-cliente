@@ -31,6 +31,7 @@ export {
   FaTwitter,
   FaDollarSign,
   FaWhatsapp,
+  FaTrashAlt,
 } from 'react-icons/fa';
 
 export { GrInstagram, GrLogout } from 'react-icons/gr';

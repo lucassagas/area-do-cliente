@@ -18,6 +18,7 @@ interface NotificationsProps {
   title: string;
   description: string;
   read: boolean;
+  id: string;
 }
 
 const Header: React.FC = () => {
