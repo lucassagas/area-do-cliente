@@ -17,6 +17,7 @@ interface NotificationsProps {
   type: 'info' | 'success' | 'error' | 'congratulations';
   title: string;
   description: string;
+  read: boolean;
 }
 
 const Header: React.FC = () => {
@@ -24,12 +25,11 @@ const Header: React.FC = () => {
   const [displayMyAccount, setDisplayMyAccount] = useState(false);
   const [notifications, setNotifications] = useState<NotificationsProps[]>(
     () => {
-      const response = api.get(`notification/${user.id}`);
+      const response = api.get(`notifications/${user.id}`);
 
       return (response as unknown) as NotificationsProps[];
     },
   );
-  console.log(notifications);
 
   const { toggleChangeTheme } = useTheme();
 
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
     }
 
     async function loadNotifications() {
-      api.get(`notification/${user.id}`).then(response => {
+      api.get(`notifications/${user.id}`).then(response => {
         setNotifications(response.data);
       });
     }

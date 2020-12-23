@@ -16,6 +16,7 @@ interface MessageProps {
     type: 'info' | 'success' | 'error' | 'congratulations';
     title: string;
     description: string;
+    read: boolean;
   }>;
 }
 
@@ -28,6 +29,7 @@ const icons = {
 
 const Notifications: React.FC<MessageProps> = ({ messages }) => {
   const [displayNotifications, setDisplayNotifications] = useState(false);
+  const [hasNotification, setHasNotification] = useState<boolean>(false);
 
   const toggleNotification = useCallback(() => {
     setDisplayNotifications(!displayNotifications);
@@ -40,7 +42,7 @@ const Notifications: React.FC<MessageProps> = ({ messages }) => {
   }, []);
 
   return (
-    <Container>
+    <Container hasNotification={hasNotification}>
       <button
         onBlur={toggleNotificationBlur}
         onClick={toggleNotification}

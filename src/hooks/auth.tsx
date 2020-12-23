@@ -10,6 +10,7 @@ interface AuthState {
     code: string;
     name_abbreviate: string;
     id: string;
+    first_access: boolean;
   };
 }
 
@@ -26,9 +27,11 @@ interface AuthContextData {
     code: string;
     name_abbreviate: string;
     id: string;
+    first_access: boolean;
   };
   loading: boolean;
   setLoading(data: boolean): void;
+  setData(data: object): void;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -79,7 +82,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: data.user, signIn, signOut, loading, setLoading }}
+      value={{ user: data.user, signIn, signOut, loading, setLoading, setData }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,5 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
+interface ContainerProps {
+  display: boolean;
+}
+
 export const appearFromTop = keyframes`
   from {
     margin-top: -300px;
@@ -12,7 +16,7 @@ export const appearFromTop = keyframes`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
   position: fixed;
 
   width: 100vw;
@@ -23,7 +27,7 @@ export const Container = styled.div`
   top: 0;
   left: 0;
 
-  display: flex;
+  display: ${props => (props.display ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
 

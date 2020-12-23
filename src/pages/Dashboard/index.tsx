@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
           Ver mais
         </Link>
       </section>
-      {/* <FirstAccess title="Primeiro Acesso" /> */}
+      {user.first_access && <FirstAccess title="Primeiro Acesso" />}
     </Container>
   );
 };

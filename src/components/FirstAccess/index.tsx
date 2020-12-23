@@ -10,6 +10,8 @@ import { Container } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
 import LoadingDots from '../LoadingDots';
+import { useAuth } from '../../hooks/auth';
+import api from '../../services/api';
 
 interface PasswordProps {
   password: string;
@@ -23,7 +25,9 @@ interface FirstAccessProps {
 const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
   const formRef = useRef<FormHandles>(null);
   const [loading, setLoading] = useState(false);
+  const [display, setDisplay] = useState(true);
   const { addToast } = useToast();
+  const { user } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: PasswordProps) => {
@@ -43,7 +47,30 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
           abortEarly: false,
         });
 
-        console.log('error');
+        await api.put(
+          `customers/${user.code}/info/personal/${user.document}/change_password`,
+          {
+            password: data.password,
+          },
+        );
+
+        addToast({
+          type: 'success',
+          title: 'Sucesso!',
+          description: 'Senha alterada com sucesso!',
+        });
+
+        const userData = {
+          code: user.code,
+          document: user.document,
+          first_access: false,
+          id: user.id,
+          name: user.name,
+          name_abbreviate: user.name_abbreviate,
+        };
+
+        localStorage.setItem('@NeoCliente:user', JSON.stringify(userData));
+        setDisplay(false);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -62,11 +89,11 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
         setLoading(false);
       }
     },
-    [addToast],
+    [addToast, user],
   );
 
   return (
-    <Container>
+    <Container display={display}>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <header>
           <h1>{title}</h1>

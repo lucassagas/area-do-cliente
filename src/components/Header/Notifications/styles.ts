@@ -4,6 +4,10 @@ interface NotificationProps {
   type?: 'info' | 'success' | 'error' | 'congratulations';
 }
 
+interface ContainerProps {
+  hasNotification: boolean;
+}
+
 const backgroundVariations = {
   info: css`
     background: var(--blueNotification);
@@ -22,7 +26,7 @@ const backgroundVariations = {
   `,
 };
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
   position: relative;
 
   > button {
@@ -40,7 +44,7 @@ export const Container = styled.div`
       top: -3px;
       right: -3px;
 
-      display: block;
+      display: ${props => (props.hasNotification ? 'block' : 'none')};
 
       border-radius: 50%;
 
