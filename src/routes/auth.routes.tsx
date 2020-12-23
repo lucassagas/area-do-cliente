@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Switch, Route } from 'react-router-dom';
+import AddNotification from '../pages/AddNotification';
 import ForgotPassword from '../pages/ForgotPassword';
 import Page404 from '../pages/Page404';
 import ResetPassword from '../pages/ResetPassword';
@@ -11,7 +12,7 @@ import SignUp from '../pages/SignUp';
 const AuthRoutes: React.FC = () => {
   return (
     <Switch>
-      <Route exact path="/" component={SignIn} />
+      <Route exact path="/" component={AddNotification} />
       <Route path="/signup" component={SignUp} />
       <Route path="/forgotpassword" component={ForgotPassword} />
       <Route path="/resetpassword" component={ResetPassword} />
