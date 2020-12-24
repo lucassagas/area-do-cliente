@@ -7,7 +7,7 @@ import {
   VscHome,
   HiOutlineUser,
   FaDollarSign,
-  GiSpeedometer,
+  BiTachometer,
 } from '../../../styles/icon';
 
 import { Container } from './styles';
@@ -39,7 +39,7 @@ const SideMenu: React.FC = () => {
 
           <li>
             <NavLink activeClassName="selected" to="/speedtest">
-              <GiSpeedometer size={25} />
+              <BiTachometer size={25} />
             </NavLink>
           </li>
         </ul>

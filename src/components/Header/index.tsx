@@ -13,24 +13,32 @@ import { useCustomer } from '../../hooks/customer';
 import { useTheme } from '../../hooks/themes';
 import api from '../../services/api';
 
-interface NotificationsProps {
-  type: 'info' | 'success' | 'error' | 'congratulations';
-  title: string;
-  description: string;
-  read: boolean;
-  id: string;
+export interface NotificationsProps {
+  read: Array<{
+    type: 'info' | 'success' | 'error' | 'congratulations';
+    title: string;
+    description: string;
+    read: boolean;
+    id: string;
+  }>;
+
+  unread: Array<{
+    type: 'info' | 'success' | 'error' | 'congratulations';
+    title: string;
+    description: string;
+    read: boolean;
+    id: string;
+  }>;
 }
 
 const Header: React.FC = () => {
   const { user } = useAuth();
   const [displayMyAccount, setDisplayMyAccount] = useState(false);
-  const [notifications, setNotifications] = useState<NotificationsProps[]>(
-    () => {
-      const response = api.get(`notifications/${user.id}`);
+  const [notifications, setNotifications] = useState<NotificationsProps>(() => {
+    const response = api.get(`notifications/${user.id}`);
 
-      return (response as unknown) as NotificationsProps[];
-    },
-  );
+    return (response as unknown) as NotificationsProps;
+  });
 
   const { toggleChangeTheme } = useTheme();
 

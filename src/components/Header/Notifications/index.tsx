@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
-import { AiOutlineBell, FaTrashAlt } from '../../../styles/icon';
+import { AiOutlineBell, IoMdClose } from '../../../styles/icon';
 
 import check from '../../../assets/icons/check.svg';
 import danger from '../../../assets/icons/danger.svg';
@@ -13,14 +13,10 @@ import { Container, Notification } from './styles';
 import api from '../../../services/api';
 import { useAuth } from '../../../hooks/auth';
 
+import { NotificationsProps } from '../index';
+
 interface MessageProps {
-  messages: Array<{
-    id: string;
-    type: 'info' | 'success' | 'error' | 'congratulations';
-    title: string;
-    description: string;
-    read: boolean;
-  }>;
+  messages: NotificationsProps;
 }
 
 const icons = {
@@ -46,6 +42,8 @@ const Notifications: React.FC<MessageProps> = ({ messages }) => {
         id_customer: user.id,
         id_notification: id,
       });
+
+      window.location.reload(true);
     },
     [user.id],
   );
@@ -74,8 +72,8 @@ const Notifications: React.FC<MessageProps> = ({ messages }) => {
 
       {displayNotifications && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          {messages.map(message => {
-            return message.read ? null : (
+          {messages.unread.map(message => {
+            return (
               <Notification key={message.description} type={message.type}>
                 <section />
                 {icons[message.type || 'info']}
@@ -83,10 +81,10 @@ const Notifications: React.FC<MessageProps> = ({ messages }) => {
                   <strong>{message.title}</strong>
                   <p>{message.description}</p>
                 </div>
-                <FaTrashAlt
+                <IoMdClose
                   onClick={() => readNotification(message.id)}
                   size={19}
-                  color="var(--error)"
+                  color="var(--text)"
                 />
               </Notification>
             );

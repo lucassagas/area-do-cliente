@@ -8,7 +8,7 @@ import {
   FaDollarSign,
   FiXCircle,
   FiMenu,
-  GiSpeedometer,
+  BiTachometer,
 } from '../../../styles/icon';
 
 import { Container, MenuButton } from './styles';
@@ -70,7 +70,7 @@ const MenuMobile: React.FC = () => {
                 activeClassName="selected"
                 to="speedtest"
               >
-                <GiSpeedometer size={25} />
+                <BiTachometer size={25} />
                 Teste de velocidade
               </NavLink>
             </li>

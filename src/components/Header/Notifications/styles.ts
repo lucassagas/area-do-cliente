@@ -114,6 +114,8 @@ export const Notification = styled.div<NotificationProps>`
     margin-left: auto;
     margin-right: 20px;
     cursor: pointer;
+    color: var(--text) !important;
+    fill: var(--text) !important;
   }
 
   & + div {

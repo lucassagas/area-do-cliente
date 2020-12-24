@@ -11,11 +11,14 @@ export {
   IoIosArrowDropdownCircle,
   IoMdDownload,
   IoMdAlert,
+  IoMdClose,
 } from 'react-icons/io';
 
 export { HiOutlineUser } from 'react-icons/hi';
 
 export { VscLock, VscHome, VscColorMode } from 'react-icons/vsc';
+
+export { BiTachometer } from 'react-icons/bi';
 
 export {
   FiAlertCircle,
@@ -36,7 +39,7 @@ export {
 
 export { GrInstagram, GrLogout } from 'react-icons/gr';
 
-export { GiSpeedometer, GiWorld } from 'react-icons/gi';
+export { GiWorld } from 'react-icons/gi';
 
 export { BsGear } from 'react-icons/bs';
 
