@@ -47,7 +47,7 @@ export const InputsGroup = styled.div`
   }
 
   #number {
-    width: 15%;
+    width: 25%;
   }
 
   #dateofbirth {
@@ -65,7 +65,7 @@ export const InputsGroup = styled.div`
   }
 
   #state {
-    width: 15%;
+    width: 20%;
     margin-right: 10px;
   }
 

@@ -3,9 +3,8 @@ import jwt from 'jsonwebtoken';
 import { useHistory } from 'react-router-dom';
 
 const api = axios.create({
-  baseURL: 'http://10.10.4.254:3333',
+  baseURL: process.env.REACT_APP_API_URL,
 });
-
 api.interceptors.response.use(response => {
   if (response.data.error) {
     const history = useHistory();

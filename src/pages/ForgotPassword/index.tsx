@@ -5,7 +5,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import Button from '../../components/Button';
-import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
 
 import { HiOutlineUser, RiArrowLeftSLine } from '../../styles/icon';
 
@@ -17,11 +17,10 @@ import Carrousel from '../../components/Carrousel';
 import { useAuth } from '../../hooks/auth';
 import LoadingDots from '../../components/LoadingDots';
 import { useToast } from '../../hooks/toast';
+import api from '../../services/api';
 
-interface SignInFormData {
-  username: string;
-  password: string;
-  rememberMe?: string[];
+interface ForgotPasswordData {
+  cpf: string;
 }
 
 const ForgotPassword: React.FC = () => {
@@ -32,7 +31,8 @@ const ForgotPassword: React.FC = () => {
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
-    async (data: SignInFormData) => {
+    async (data: ForgotPasswordData) => {
+      setLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -44,15 +44,25 @@ const ForgotPassword: React.FC = () => {
           abortEarly: false,
         });
 
-        console.log(data);
+        try {
+          await api.post('password_reset', {
+            document: data.cpf,
+          });
 
-        addToast({
-          type: 'success',
-          title: 'E-mail enviado.',
-          description: 'E-mail enviado com sucesso !.',
-        });
+          addToast({
+            type: 'success',
+            title: 'E-mail enviado.',
+            description: 'E-mail enviado com sucesso !.',
+          });
 
-        history.push('/');
+          history.push('/');
+        } catch {
+          addToast({
+            type: 'error',
+            title: 'CPF inexistente.',
+            description: 'Por favor, configura o CPF digitado.',
+          });
+        }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -64,9 +74,11 @@ const ForgotPassword: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login, cheque as credênciais.',
+          title: 'Error',
+          description: 'Ocorreu um erro tente novamente mais tarde.',
         });
+        setLoading(false);
+      } finally {
         setLoading(false);
       }
     },
@@ -94,11 +106,12 @@ const ForgotPassword: React.FC = () => {
                 Digite o CPF do titular para redefinir sua senha, você receberá
                 um e-mail com instruções sobre como redefinir sua senha.
               </p>
-              <Input
+              <InputMask
                 width="240px"
                 name="cpf"
                 icon={HiOutlineUser}
                 placeholder="CPF"
+                mask="999.999.999-99"
               />
             </main>
 

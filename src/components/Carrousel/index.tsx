@@ -13,8 +13,8 @@ import {
 } from '../../styles/icon';
 
 const Carrousel: React.FC = () => {
-  const [radio1, setRadio1] = useState(false);
-  const [radio2, setRadio2] = useState(false);
+  const [radio1, setRadio1] = useState<any>(false);
+  const [radio2, setRadio2] = useState<any>(false);
 
   useEffect(() => {
     setRadio1(true);
@@ -33,9 +33,21 @@ const Carrousel: React.FC = () => {
   return (
     <Container>
       <Slides>
-        <input checked={radio1} type="radio" name="radio-btn" id="radio1" />
+        <input
+          readOnly
+          type="radio"
+          name="radio-btn"
+          id="radio1"
+          checked={radio1}
+        />
 
-        <input checked={radio2} type="radio" name="radio-btn" id="radio2" />
+        <input
+          readOnly
+          checked={radio2}
+          type="radio"
+          name="radio-btn"
+          id="radio2"
+        />
 
         <div className="slide first">
           <img src={SignInBackground} alt="" />

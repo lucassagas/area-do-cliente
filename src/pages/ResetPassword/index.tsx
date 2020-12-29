@@ -3,11 +3,12 @@ import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
 
-import { VscLock, RiArrowLeftSLine } from '../../styles/icon';
+import { VscLock, RiArrowLeftSLine, HiOutlineUser } from '../../styles/icon';
 
 import { Container, Content, AnimationContainer } from './styles';
 
@@ -17,11 +18,16 @@ import Carrousel from '../../components/Carrousel';
 import { useAuth } from '../../hooks/auth';
 import LoadingDots from '../../components/LoadingDots';
 import { useToast } from '../../hooks/toast';
+import api from '../../services/api';
 
-interface SignInFormData {
-  username: string;
+interface PasswordParamsData {
+  code: string;
+}
+
+interface ResetPasswordData {
+  cpf: string;
   password: string;
-  rememberMe?: string[];
+  confirmpassword: string;
 }
 
 const ResetPassword: React.FC = () => {
@@ -30,13 +36,16 @@ const ResetPassword: React.FC = () => {
 
   const { loading, setLoading } = useAuth();
   const { addToast } = useToast();
+  const params = useParams<PasswordParamsData>();
 
   const handleSubmit = useCallback(
-    async (data: SignInFormData) => {
+    async (data: ResetPasswordData) => {
+      setLoading(true);
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
+          cpf: Yup.string().required('CPF é obrigatório'),
           password: Yup.string()
             .required('Senha obrigatória')
             .min(6, 'Senha deve conter ao menos 6 caracteres'),
@@ -50,15 +59,24 @@ const ResetPassword: React.FC = () => {
           abortEarly: false,
         });
 
-        console.log(data);
+        try {
+          await api.put(`password_reset/${data.cpf}/${params.code}`, {
+            password: data.password,
+          });
 
-        addToast({
-          type: 'success',
-          title: 'Senha alterada.',
-          description: 'Sua senha foi alterada com sucesso!',
-        });
-
-        history.push('/');
+          addToast({
+            type: 'success',
+            title: 'Senha alterada.',
+            description: 'Sua senha foi alterada com sucesso!',
+          });
+          history.push('/');
+        } catch {
+          addToast({
+            type: 'error',
+            title: 'Error.',
+            description: 'Por favor confirme o CPF.',
+          });
+        }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -74,10 +92,11 @@ const ResetPassword: React.FC = () => {
           description:
             'Ocorreu um erro ao redefinir a senha, tente novamente masi tarde',
         });
+      } finally {
         setLoading(false);
       }
     },
-    [addToast, history, setLoading],
+    [addToast, history, params.code, setLoading],
   );
 
   return (
@@ -103,6 +122,14 @@ const ResetPassword: React.FC = () => {
                 Uma senha forte deve ter letras, números, sinais de pontuação e
                 símbolos.
               </p>
+              <InputMask
+                type="text"
+                width="240px"
+                name="cpf"
+                icon={HiOutlineUser}
+                label="Confirme o CPF"
+                mask="999.999.999-99"
+              />
               <Input
                 type="password"
                 width="240px"

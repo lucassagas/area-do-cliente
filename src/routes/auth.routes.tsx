@@ -14,7 +14,7 @@ const AuthRoutes: React.FC = () => {
       <Route exact path="/" component={SignIn} />
       <Route path="/signup" component={SignUp} />
       <Route path="/forgotpassword" component={ForgotPassword} />
-      <Route path="/resetpassword" component={ResetPassword} />
+      <Route path="/password_reset/:code/" component={ResetPassword} />
 
       <Route>
         <Page404 />

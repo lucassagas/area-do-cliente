@@ -11,6 +11,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { motion } from 'framer-motion';
 import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
 import Button from '../../components/Button';
 import Carrousel from '../../components/Carrousel';
 
@@ -210,7 +211,9 @@ const SignUp: React.FC = () => {
   }, []);
 
   const searchCEP = useCallback(() => {
-    if (cep?.length !== 8) {
+    const parsedCep = cep.toString().replace('_', '');
+
+    if (parsedCep?.length !== 9) {
       addToast({
         type: 'info',
         title: 'Erro no CEP',
@@ -220,7 +223,7 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    fetch(`https://viacep.com.br/ws/${parsedCep}/json/`)
       .then((response: any) => response.json())
       .then((data: any) => {
         if (data.erro) {
@@ -243,7 +246,6 @@ const SignUp: React.FC = () => {
         setFormData({ ...formData, ...parsedData });
       });
   }, [addToast, cep, formData]);
-
   return (
     <Container>
       <Carrousel />
@@ -276,7 +278,18 @@ const SignUp: React.FC = () => {
             <header>
               <div>
                 <RiArrowLeftSLine onClick={prevStep} size={24} />
-                <RiCloseLine onClick={close} size={24} />
+                <button
+                  style={{
+                    zIndex: 999,
+                    padding: '10px 0px',
+                    background: 'none',
+                    border: 0,
+                  }}
+                  onClick={close}
+                  type="button"
+                >
+                  <RiCloseLine size={24} />
+                </button>
               </div>
               <section>
                 <h1>Pré-Cadastro</h1>
@@ -296,10 +309,15 @@ const SignUp: React.FC = () => {
                   <Input name="name" label="Nome Completo" />
                   <div className="inputGroup">
                     <div>
-                      <Input width="140px" name="cpf" label="CPF" />
+                      <InputMask
+                        width="140px"
+                        name="cpf"
+                        label="CPF"
+                        mask="999.999.999-99"
+                      />
                     </div>
                     <div>
-                      <Input width="100px" name="rg" label="RG" />
+                      <Input width="150px" name="rg" label="RG" type="number" />
                     </div>
                   </div>
                   <Input
@@ -324,22 +342,29 @@ const SignUp: React.FC = () => {
                     label="E-mail"
                     type="email"
                   />
-                  <Input
-                    width="140px"
+                  <InputMask
+                    width="160px"
                     name="cellphone"
                     label="Celular"
-                    type="phone"
+                    mask="(99)99999-9999"
                   />
-                  <Input
-                    width="140px"
+                  <InputMask
+                    width="160px"
                     name="optionalcellphone"
                     label="Celular Opcional"
+                    mask="(99)99999-9999"
                   />
-                  <Input width="140px" name="phone" label="Telefone Fixo" />
-                  <Input
-                    width="140px"
+                  <InputMask
+                    width="160px"
+                    name="phone"
+                    label="Telefone Fixo"
+                    mask="(99)9999-9999"
+                  />
+                  <InputMask
+                    width="160px"
                     name="optionalphone"
                     label="Telefone Fixo Opcional"
+                    mask="(99)9999-9999"
                   />
                 </motion.main>
               </>
@@ -378,10 +403,10 @@ const SignUp: React.FC = () => {
 
                       <div className="cepContainer">
                         <div>
-                          <Input
+                          <InputMask
                             width="140px"
                             name="cep"
-                            type="number"
+                            mask="99999-999"
                             label="CEP"
                             onChange={(e: ChangeEvent<HTMLInputElement>) => {
                               setCep(e.target.value);
@@ -418,8 +443,25 @@ const SignUp: React.FC = () => {
 
                       <section />
 
-                      <div>
-                        <Input width="100px" name="cep" label="CEP" />
+                      <div className="cepContainer">
+                        <div>
+                          <InputMask
+                            width="140px"
+                            name="cep"
+                            mask="99999-999"
+                            label="CEP"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                              setCep(e.target.value);
+                            }}
+                          />
+                        </div>
+                        <Button
+                          onClick={searchCEP}
+                          style={{ width: 100 }}
+                          type="button"
+                        >
+                          Buscar
+                        </Button>
                       </div>
                       <div
                         style={{
@@ -439,7 +481,7 @@ const SignUp: React.FC = () => {
                         <Input name="neigh" label="Bairro" />
 
                         <Input
-                          width="100px"
+                          width="140px"
                           name="complement"
                           label="Complemento"
                         />

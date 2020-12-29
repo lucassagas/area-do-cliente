@@ -100,36 +100,51 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
               <InputsGroup>
                 <label id="cep" htmlFor="cep">
                   CEP
-                  <Input readOnly id="cep" name="cep" />
+                  <Input width="100%" readOnly id="cep" name="cep" />
                 </label>
 
                 <label id="address" htmlFor="address">
                   Endereço
-                  <Input readOnly id="address" name="address" />
+                  <Input width="100%" readOnly id="address" name="address" />
                 </label>
 
                 <label id="number" htmlFor="number">
                   Número
-                  <Input readOnly id="number" name="number" />
+                  <Input width="100%" readOnly id="number" name="number" />
                 </label>
               </InputsGroup>
 
               <InputsGroup style={{ justifyContent: 'flex-start' }}>
                 <label id="neighborhood" htmlFor="neighborhood">
                   Bairro
-                  <Input readOnly id="neighborhood" name="neighborhood" />
+                  <Input
+                    width="100%"
+                    readOnly
+                    id="neighborhood"
+                    name="neighborhood"
+                  />
                 </label>
 
                 <label id="complement" htmlFor="complement">
                   Complemento
-                  <Input readOnly id="complement" name="complement" />
+                  <Input
+                    width="100%"
+                    readOnly
+                    id="complement"
+                    name="complement"
+                  />
                 </label>
               </InputsGroup>
 
               <InputsGroup>
                 <label id="reference" htmlFor="reference">
                   Referência
-                  <Input readOnly id="reference" name="reference" />
+                  <Input
+                    width="100%"
+                    readOnly
+                    id="reference"
+                    name="reference"
+                  />
                 </label>
 
                 <label id="state" htmlFor="state">
@@ -139,7 +154,7 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
 
                 <label id="city" htmlFor="city">
                   Cidade
-                  <Input readOnly id="city" name="city" />
+                  <Input width="100%" readOnly id="city" name="city" />
                 </label>
               </InputsGroup>
 
