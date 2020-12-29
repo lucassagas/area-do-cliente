@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 1630px;
+  max-width: 1620px;
   width: 100%;
   margin: auto;
   border: solid 1px var(--lightgray);
@@ -17,10 +17,6 @@ export const Container = styled.div`
       border-radius: 10px;
       padding: 10px;
     }
-  }
-
-  @media (max-width: 1440px) {
-    max-width: 1100px;
   }
 `;
 

@@ -13,6 +13,9 @@ import { useCustomer } from '../../hooks/customer';
 import { useTheme } from '../../hooks/themes';
 import api from '../../services/api';
 
+import lightProfileImg from '../../assets/profilelight.png';
+import darkProfileImg from '../../assets/profiledark.png';
+
 export interface NotificationsProps {
   read: Array<{
     type: 'info' | 'success' | 'error' | 'congratulations';
@@ -40,7 +43,7 @@ const Header: React.FC = () => {
     return (response as unknown) as NotificationsProps;
   });
 
-  const { toggleChangeTheme } = useTheme();
+  const { toggleChangeTheme, themeName } = useTheme();
 
   const { handleLoadCustomer } = useCustomer();
 
@@ -80,7 +83,7 @@ const Header: React.FC = () => {
 
         <span>{user.name_abbreviate}</span>
         <img
-          src="https://pbs.twimg.com/profile_images/537699494/BartSimpson.jpg"
+          src={themeName === 'dark' ? lightProfileImg : darkProfileImg}
           alt="Perfil"
         />
         <section className="MyAccount">

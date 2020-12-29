@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   position: fixed;
-  padding: 10px 60px 0 120px;
+  padding: 10px 77px 0 120px;
 
   z-index: 10;
 
@@ -31,6 +31,7 @@ export const Container = styled.div`
 
   > div {
     display: flex;
+
     height: 70px;
     justify-content: flex-end;
     align-items: center;
@@ -42,11 +43,19 @@ export const Container = styled.div`
       width: 50px;
       height: 50px;
       border-radius: 50%;
+
+      @media (max-width: 430px) {
+        margin-left: 20px;
+      }
     }
 
     span {
       margin: 0 20px;
       font-weight: 300;
+
+      @media (max-width: 430px) {
+        display: none;
+      }
     }
 
     > section {

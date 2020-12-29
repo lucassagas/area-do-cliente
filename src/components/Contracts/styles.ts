@@ -14,6 +14,18 @@ export const Container = styled.div`
 
   overflow-x: auto;
 
+  @media (max-width: 1920px) {
+    max-width: 1630px;
+  }
+
+  @media (max-width: 1440px) {
+    max-width: 1230px;
+  }
+
+  @media (max-width: 1366px) {
+    max-width: 1100px;
+  }
+
   .active {
     background: var(--lightgreen);
     border-left: 4px solid var(--green);
@@ -49,11 +61,6 @@ export const Container = styled.div`
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: var(--greenopacity);
-  }
-
-  @media (max-width: 1440px) {
-    max-width: 1100px;
-    margin: 40px auto auto auto;
   }
 
   @media (max-width: 768px) {

@@ -4,16 +4,28 @@ import styled from 'styled-components';
 export const Container = styled(motion.div)`
   width: 100%;
   height: 100%;
-  padding: 0 60px;
   min-height: 90.2vh;
   color: var(--text);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: 0 auto;
 
   @media (min-height: 1080px) {
     min-height: 91vh;
+  }
+
+  @media (max-width: 1920px) {
+    max-width: 1620px;
+  }
+
+  @media (max-width: 1440px) {
+    max-width: 1230px;
+  }
+
+  @media (max-width: 1366px) {
+    max-width: 1100px;
   }
 
   @media (max-width: 430px) {

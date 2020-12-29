@@ -7,7 +7,15 @@ export const Container = styled.div`
   border-radius: 15px;
   min-height: 83vh;
 
+  @media (max-width: 1920px) {
+    max-width: 1620px;
+  }
+
   @media (max-width: 1440px) {
+    max-width: 1230px;
+  }
+
+  @media (max-width: 1366px) {
     max-width: 1100px;
   }
 

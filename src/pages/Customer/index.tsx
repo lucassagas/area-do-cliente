@@ -2,17 +2,22 @@ import React from 'react';
 
 import CustomerData from '../../components/CustomerData';
 import { useAuth } from '../../hooks/auth';
+import { useTheme } from '../../hooks/themes';
+
+import lightProfileImg from '../../assets/profilelight.png';
+import darkProfileImg from '../../assets/profiledark.png';
 
 import { Container } from './styles';
 
 const Customer: React.FC = () => {
   const { user } = useAuth();
+  const { themeName } = useTheme();
   return (
     <Container initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div>
         <header>
           <img
-            src="https://pbs.twimg.com/profile_images/537699494/BartSimpson.jpg"
+            src={themeName === 'dark' ? lightProfileImg : darkProfileImg}
             alt="Foto de Perfil"
           />
           <div>

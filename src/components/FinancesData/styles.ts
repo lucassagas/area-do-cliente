@@ -87,10 +87,6 @@ export const Container = styled(motion.div)`
     background: var(--greenopacity);
   }
 
-  @media (max-width: 1440px) {
-    max-width: 1100px;
-  }
-
   @media (max-width: 430px) {
     margin-top: 40px;
   }

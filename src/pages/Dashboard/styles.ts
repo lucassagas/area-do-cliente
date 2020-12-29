@@ -5,13 +5,16 @@ import { motion } from 'framer-motion';
 import bgHome from '../../assets/bg_home.svg';
 
 export const Container = styled.div`
-  padding: 0 0px;
   color: var(--text);
-  max-width: 1620px;
   margin: auto;
+  width: 100%;
 
   > section {
     max-width: 1620px;
+    @media (max-width: 1440px) {
+      max-width: 1230px;
+    }
+
     margin: auto;
 
     > .SeeMore {
@@ -76,6 +79,19 @@ export const Main = styled.div`
   height: 100vh;
   margin: auto;
   display: flex;
+  padding: 0 85px;
+
+  @media (max-width: 1920px) {
+    padding: 0 85px;
+  }
+
+  @media (max-width: 1440px) {
+    padding: 0 70px;
+  }
+
+  @media (max-width: 1366px) {
+    padding: 0 70px;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
