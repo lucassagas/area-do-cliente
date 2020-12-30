@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { useHistory } from 'react-router-dom';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'https://neocliente.neorede.com.br:3333',
 });
 api.interceptors.response.use(response => {
   if (response.data.error) {
