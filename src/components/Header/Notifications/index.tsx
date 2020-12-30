@@ -72,6 +72,7 @@ const Notifications: React.FC<MessageProps> = ({ messages }) => {
 
       {displayNotifications && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          {!messages.unread[0] && <p>Não há notificações</p>}
           {messages.unread.map(message => {
             return (
               <Notification key={message.description} type={message.type}>

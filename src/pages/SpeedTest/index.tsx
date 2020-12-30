@@ -15,7 +15,7 @@ const SpeedTest: React.FC = () => {
           position="relative"
           frameBorder={0}
           display="block"
-          url="http://darkneorede.speedtestcustom.com"
+          url="https://darkneorede.speedtestcustom.com"
           title="speedtest"
         />
       ) : (
@@ -25,7 +25,7 @@ const SpeedTest: React.FC = () => {
           position="relative"
           frameBorder={0}
           display="block"
-          url="http://neorede.speedtestcustom.com"
+          url="https://neorede.speedtestcustom.com"
           title="speedtest"
         />
       )}

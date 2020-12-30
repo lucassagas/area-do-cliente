@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   > span {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     margin: 0 5px;
     background-color: #fff;
     border-radius: 50%;
