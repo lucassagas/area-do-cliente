@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
+import { useHistory } from 'react-router-dom';
 import { AiOutlineBell, IoMdClose } from '../../../styles/icon';
 
 import check from '../../../assets/icons/check.svg';
@@ -29,6 +30,7 @@ const icons = {
 const Notifications: React.FC<MessageProps> = ({ messages }) => {
   const [displayNotifications, setDisplayNotifications] = useState(false);
   const [hasNotification, setHasNotification] = useState<number>(0);
+  const history = useHistory();
 
   const { user } = useAuth();
 
@@ -43,9 +45,9 @@ const Notifications: React.FC<MessageProps> = ({ messages }) => {
         id_notification: id,
       });
 
-      window.location.reload(true);
+      history.go(0);
     },
-    [user.id],
+    [history, user.id],
   );
 
   const toggleNotificationBlur = useCallback(() => {
