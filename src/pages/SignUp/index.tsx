@@ -36,6 +36,8 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
 import Textarea from '../../components/Textarea';
 import { useTheme } from '../../hooks/themes';
+import api from '../../services/api';
+import LoadingDots from '../../components/LoadingDots';
 
 interface InputsProps {
   name?: string;
@@ -66,6 +68,7 @@ const SignUp: React.FC = () => {
   const [dueDate, setDueDate] = useState(1);
   const [period, setPeriod] = useState('manha');
   const [cep, setCep] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
@@ -187,8 +190,21 @@ const SignUp: React.FC = () => {
           plan: active,
           type: housingType ? 'Casa' : 'Apartamento',
         };
-        setStep(step + 1);
-        setFormData({ ...formData, ...parsedData });
+        const finalData = { ...formData, ...parsedData };
+
+        try {
+          setLoading(true);
+          await api.post('customers/pre_registration', finalData);
+          setStep(step + 1);
+        } catch {
+          addToast({
+            type: 'error',
+            title: 'Error',
+            description: 'Error, tente novamente mais tarde',
+          });
+        } finally {
+          setLoading(false);
+        }
       }
     },
     [step, formData, active, addToast, period, dueDate, housingType],
@@ -707,7 +723,9 @@ const SignUp: React.FC = () => {
             )}
             <footer>
               <Button type="submit">
-                {step === 5 ? 'Concluir' : 'Avançar'}
+                {loading && <LoadingDots />}
+                {step === 5 && !loading && 'Concluir'}
+                {!loading && step !== 5 && 'Avançar'}
               </Button>
 
               <ProgressBar>

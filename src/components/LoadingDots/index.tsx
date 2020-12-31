@@ -5,9 +5,9 @@ import { Container } from './styles';
 const LoadingDots: React.FC = () => {
   return (
     <Container>
-      <span></span>
-      <span></span>
-      <span></span>
+      <span />
+      <span />
+      <span />
     </Container>
   );
 };

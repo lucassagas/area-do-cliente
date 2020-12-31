@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 import Button from '../Button';
 import Input from '../Input';
 import { VscLock } from '../../styles/icon';
@@ -28,6 +29,8 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
   const [display, setDisplay] = useState(true);
   const { addToast } = useToast();
   const { user } = useAuth();
+
+  const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: PasswordProps) => {
@@ -71,6 +74,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
 
         localStorage.setItem('@NeoCliente:user', JSON.stringify(userData));
         setDisplay(false);
+        history.go(0);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -89,7 +93,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
         setLoading(false);
       }
     },
-    [addToast, user],
+    [addToast, user, history],
   );
 
   return (

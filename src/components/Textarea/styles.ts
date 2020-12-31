@@ -24,6 +24,7 @@ export const Container = styled.div<ContainerProps>`
     width: 100%;
     resize: none;
     background: transparent;
+    color: var(--text);
   }
 
   ${props =>
