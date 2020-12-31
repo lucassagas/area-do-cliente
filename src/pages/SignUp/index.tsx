@@ -66,7 +66,7 @@ const SignUp: React.FC = () => {
   const [formData, setFormData] = useState<InputsProps>();
   const [active, setActive] = useState<string | object>();
   const [dueDate, setDueDate] = useState(1);
-  const [period, setPeriod] = useState('manha');
+  const [period, setPeriod] = useState('segunda a sexta');
   const [cep, setCep] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -151,8 +151,11 @@ const SignUp: React.FC = () => {
           formRef.current?.setErrors({});
 
           const schema = Yup.object().shape({
+            city: Yup.string().required('Cidade é obrigatório'),
             address: Yup.string().required('Endereço obrigatório'),
             neigh: Yup.string().required('Bairro obrigatório'),
+            number: Yup.number().required('Númer é obrigatório'),
+            cep: Yup.string().required('CEP é obrigatório'),
           });
 
           await schema.validate(data, {
@@ -625,7 +628,7 @@ const SignUp: React.FC = () => {
                   animate={{ opacity: 1, transition: { duration: 0.6 } }}
                   className="step2"
                 >
-                  <p>Data de Vencimento</p>
+                  <p>Data de vencimento</p>
                   <GroupButton>
                     <RadioButton onClick={() => handleDueDate(1)} type="button">
                       <div className={dueDate === 1 ? 'active' : ''} />
@@ -663,29 +666,16 @@ const SignUp: React.FC = () => {
 
                   <Separator />
 
+                  <p>Período de atendimento</p>
                   <GroupButton>
                     <RadioButton
-                      onClick={() => handleChangePeriod('manha')}
+                      onClick={() => handleChangePeriod('segunda a sexta')}
                       type="button"
                     >
-                      <div className={period === 'manha' ? 'active' : ''} />
-                      <p>Manhã</p>
-                    </RadioButton>
-
-                    <RadioButton
-                      onClick={() => handleChangePeriod('tarde')}
-                      type="button"
-                    >
-                      <div className={period === 'tarde' ? 'active' : ''} />
-                      <p>Tarde</p>
-                    </RadioButton>
-
-                    <RadioButton
-                      onClick={() => handleChangePeriod('integral')}
-                      type="button"
-                    >
-                      <div className={period === 'integral' ? 'active' : ''} />
-                      <p>Integral</p>
+                      <div
+                        className={period === 'segunda a sexta' ? 'active' : ''}
+                      />
+                      <p>Segunda a Sexta</p>
                     </RadioButton>
 
                     <RadioButton
@@ -772,7 +762,7 @@ const SignUp: React.FC = () => {
               src={themeName === 'dark' ? whiteLogoImg : blackLogoImg}
               alt="logo"
             />
-            <RiCloseLine size={24} onClick={close} />
+            <RiCloseLine color="var(--text)" size={24} onClick={close} />
           </header>
 
           <main>
