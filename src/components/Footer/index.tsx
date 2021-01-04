@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
       <div>
         <span>Version 1.0</span>
         <span>Desenvolvido por:</span>
-        <strong>Equipe Neorede</strong>
+        <strong>Lucas Sagás, Marcelo Rebelo e Isaque Santos</strong>
       </div>
     </Container>
   );

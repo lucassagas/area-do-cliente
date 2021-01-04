@@ -24,6 +24,7 @@ export const Container = styled.div`
   div {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     span {
       font-size: 1rem;
 

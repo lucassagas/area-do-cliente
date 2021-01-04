@@ -30,6 +30,8 @@ interface AuthContextData {
     first_access: boolean;
   };
   loading: boolean;
+  alertPassword: boolean;
+  setAlertPassword(data: boolean): void;
   setLoading(data: boolean): void;
   setData(data: object): void;
   signIn(credentials: SignInCredentials): Promise<void>;
@@ -40,6 +42,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const [alertPassword, setAlertPassword] = useState<boolean>(false);
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@NeoCliente:token');
     const user = localStorage.getItem('@NeoCliente:user');
@@ -82,7 +85,16 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: data.user, signIn, signOut, loading, setLoading, setData }}
+      value={{
+        user: data.user,
+        signIn,
+        signOut,
+        loading,
+        setLoading,
+        setData,
+        setAlertPassword,
+        alertPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

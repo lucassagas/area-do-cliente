@@ -2,10 +2,9 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
 import Button from '../Button';
 import Input from '../Input';
-import { VscLock } from '../../styles/icon';
+import { VscLock, RiCloseLine } from '../../styles/icon';
 
 import { Container } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -13,6 +12,8 @@ import { useToast } from '../../hooks/toast';
 import LoadingDots from '../LoadingDots';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
+import ChangedPasswordAlert from '../ChangedPasswordAlert';
+import { useCustomer } from '../../hooks/customer';
 
 interface PasswordProps {
   password: string;
@@ -21,16 +22,17 @@ interface PasswordProps {
 
 interface FirstAccessProps {
   title: string;
+  close?: boolean;
 }
 
-const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
+const FirstAccess: React.FC<FirstAccessProps> = ({ title, close = false }) => {
   const formRef = useRef<FormHandles>(null);
   const [loading, setLoading] = useState(false);
-  const [display, setDisplay] = useState(true);
+  const [display] = useState(true);
+  const [displayAlert, setDisplayAlert] = useState(false);
   const { addToast } = useToast();
   const { user } = useAuth();
-
-  const history = useHistory();
+  const { setDsiplayModalPassword } = useCustomer();
 
   const handleSubmit = useCallback(
     async (data: PasswordProps) => {
@@ -57,12 +59,6 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
           },
         );
 
-        addToast({
-          type: 'success',
-          title: 'Sucesso!',
-          description: 'Senha alterada com sucesso!',
-        });
-
         const userData = {
           code: user.code,
           document: user.document,
@@ -73,8 +69,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
         };
 
         localStorage.setItem('@NeoCliente:user', JSON.stringify(userData));
-        setDisplay(false);
-        history.go(0);
+        setDisplayAlert(true);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -93,7 +88,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
         setLoading(false);
       }
     },
-    [addToast, user, history],
+    [addToast, user],
   );
 
   return (
@@ -102,6 +97,14 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
         <header>
           <h1>{title}</h1>
           <p>Para dar continuidade altere sua senha</p>
+
+          {close && (
+            <RiCloseLine
+              onClick={() => setDsiplayModalPassword(false)}
+              size={24}
+              color="var(--text)"
+            />
+          )}
         </header>
 
         <main>
@@ -123,6 +126,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
 
         <Button type="submit">{loading ? <LoadingDots /> : 'Avançar'}</Button>
       </Form>
+      {displayAlert && <ChangedPasswordAlert />}
     </Container>
   );
 };

@@ -44,6 +44,8 @@ interface IBilletData {
 interface CustomerContextData {
   customer?: ICustomerData;
   billets?: IBilletData;
+  displayModalPassword: boolean;
+  setDsiplayModalPassword(data: boolean): void;
   handleLoadBillets(contract: string): Promise<void>;
   handleLoadCustomer(): Promise<void>;
 }
@@ -55,6 +57,9 @@ const CustomerContext = createContext<CustomerContextData>(
 const CustomerProvider: React.FC = ({ children }) => {
   const [customer, setCustomer] = useState<ICustomerData>();
   const [billets, setBillets] = useState<IBilletData>();
+  const [displayModalPassword, setDsiplayModalPassword] = useState<boolean>(
+    false,
+  );
 
   const { user } = useAuth();
 
@@ -78,7 +83,14 @@ const CustomerProvider: React.FC = ({ children }) => {
 
   return (
     <CustomerContext.Provider
-      value={{ customer, billets, handleLoadBillets, handleLoadCustomer }}
+      value={{
+        customer,
+        billets,
+        handleLoadBillets,
+        handleLoadCustomer,
+        displayModalPassword,
+        setDsiplayModalPassword,
+      }}
     >
       {children}
     </CustomerContext.Provider>

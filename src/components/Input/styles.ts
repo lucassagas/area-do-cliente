@@ -67,6 +67,7 @@ export const Container = styled.div<ContainerProps>`
     border: 0;
     color: var(--text);
     width: 100%;
+    flex: 1;
 
     &::placeholder {
       color: var(--lightgray);

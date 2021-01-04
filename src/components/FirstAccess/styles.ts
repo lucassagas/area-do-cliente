@@ -44,6 +44,7 @@ export const Container = styled.div<ContainerProps>`
     animation: ${appearFromTop} 0.6s;
 
     > header {
+      position: relative;
       width: 100%;
       > h1 {
         color: var(--orange);
@@ -55,6 +56,18 @@ export const Container = styled.div<ContainerProps>`
         margin-bottom: 50px;
         color: var(--text);
         font-weight: 600;
+      }
+
+      > svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--error) !important;
+          transition: 0.2s;
+        }
       }
     }
 

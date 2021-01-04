@@ -34,7 +34,7 @@ const ResetPassword: React.FC = () => {
   const history = useHistory();
   const formRef = useRef<FormHandles>(null);
 
-  const { loading, setLoading } = useAuth();
+  const { loading, setLoading, setAlertPassword } = useAuth();
   const { addToast } = useToast();
   const params = useParams<PasswordParamsData>();
 
@@ -64,11 +64,7 @@ const ResetPassword: React.FC = () => {
             password: data.password,
           });
 
-          addToast({
-            type: 'success',
-            title: 'Senha alterada.',
-            description: 'Sua senha foi alterada com sucesso!',
-          });
+          setAlertPassword(true);
           history.push('/');
         } catch {
           addToast({
@@ -96,7 +92,7 @@ const ResetPassword: React.FC = () => {
         setLoading(false);
       }
     },
-    [addToast, history, params.code, setLoading],
+    [addToast, history, params.code, setAlertPassword, setLoading],
   );
 
   return (

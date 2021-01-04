@@ -30,6 +30,7 @@ import { useAuth } from '../../hooks/auth';
 import LoadingDots from '../../components/LoadingDots';
 import { useToast } from '../../hooks/toast';
 import { useTheme } from '../../hooks/themes';
+import ChangedPasswordAlert from '../../components/ChangedPasswordAlert';
 
 interface SignInFormData {
   username: string;
@@ -47,7 +48,7 @@ const SignIn: React.FC = () => {
   const history = useHistory();
   const formRef = useRef<FormHandles>(null);
 
-  const { signIn, loading, setLoading } = useAuth();
+  const { signIn, loading, setLoading, alertPassword } = useAuth();
   const { addToast } = useToast();
   const { toggleChangeTheme, themeName } = useTheme();
 
@@ -172,6 +173,7 @@ const SignIn: React.FC = () => {
           </a>
         </section>
       </Content>
+      {alertPassword && <ChangedPasswordAlert />}
     </Container>
   );
 };
