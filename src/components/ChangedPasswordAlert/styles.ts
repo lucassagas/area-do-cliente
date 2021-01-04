@@ -64,10 +64,12 @@ export const Content = styled.div`
 
   > strong {
     margin-top: 10px;
+    color: var(--text);
   }
 
   > p {
     margin-bottom: 20px;
+    color: var(--text);
   }
 `;
 
