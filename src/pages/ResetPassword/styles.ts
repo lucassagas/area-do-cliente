@@ -42,6 +42,29 @@ export const AnimationContainer = styled.div`
   width: 100%;
   height: 100%;
 
+  overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px gray;
+    border-radius: 4px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--orangeicons);
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--orangeicons);
+  }
+
   animation: ${appearFromLeft} 1s;
 
   img {

@@ -142,7 +142,7 @@ const ResetPassword: React.FC = () => {
               />
             </main>
 
-            <Button type="submit">
+            <Button style={{ padding: '10px 0' }} type="submit">
               {loading ? <LoadingDots /> : 'Redefinir senha'}
             </Button>
           </Form>
