@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
         <Content>
           <div>
             <h1>Seja</h1>
-            <h1>Bem-Vindo</h1>
+            <h1>Bem-Vindo.</h1>
 
             <span>
               Olá <strong>{user.name_abbreviate}</strong>
