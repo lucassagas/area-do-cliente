@@ -1,5 +1,12 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 import api from '../services/api';
 
 interface AuthState {
@@ -57,6 +64,23 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const history = useHistory();
+
+  useEffect(() => {
+    const storagedToken = localStorage.getItem('@NeoCliente:token');
+
+    if (storagedToken) {
+      jwt.verify(
+        storagedToken,
+        `${process.env.REACT_APP_KEY}` as string,
+        (error: object | null) => {
+          if (error) {
+            localStorage.removeItem('@NeoCliente:token');
+            history.push('/');
+          }
+        },
+      );
+    }
+  }, [history]);
 
   const signIn = useCallback(async ({ username, password, rememberMe }) => {
     setLoading(true);
