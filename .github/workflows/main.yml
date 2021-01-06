@@ -16,8 +16,11 @@ jobs:
         with:
           node-version: 12.x
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> a590881de0d4b29cfa33f95cc181475994f27f01
         
 >>>>>>> 4ee1979220e45fe124b545ce68429c4e78efde60
       - name: Get yarn cache directory path
