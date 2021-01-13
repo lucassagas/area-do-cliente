@@ -15,7 +15,7 @@ import InputMask from '../../components/InputMask';
 import Button from '../../components/Button';
 import Carrousel from '../../components/Carrousel';
 
-import { RiCloseLine, RiArrowLeftSLine, FaCheck } from '../../styles/icon';
+import { RiArrowLeftSLine, FaCheck, IoMdClose } from '../../styles/icon';
 import blackLogoImg from '../../assets/logo_preta.svg';
 import whiteLogoImg from '../../assets/logo_branca.svg';
 
@@ -307,7 +307,7 @@ const SignUp: React.FC = () => {
                   onClick={close}
                   type="button"
                 >
-                  <RiCloseLine size={24} />
+                  <IoMdClose size={22} />
                 </button>
               </div>
               <section>
@@ -762,7 +762,7 @@ const SignUp: React.FC = () => {
               src={themeName === 'dark' ? whiteLogoImg : blackLogoImg}
               alt="logo"
             />
-            <RiCloseLine color="var(--text)" size={24} onClick={close} />
+            <IoMdClose color="var(--text)" size={24} onClick={close} />
           </header>
 
           <main>

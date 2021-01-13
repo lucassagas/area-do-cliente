@@ -7,6 +7,7 @@ interface ContainerProps {
   isFilled: boolean;
   isErrored: boolean;
   width?: string;
+  theme?: string;
 }
 
 export const Label = styled.span`
@@ -68,6 +69,14 @@ export const Container = styled.div<ContainerProps>`
     color: var(--text);
     width: 100%;
     flex: 1;
+
+    ${props =>
+      props.theme === 'dark' &&
+      css`
+        ::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+        }
+      `}
 
     &::placeholder {
       color: var(--lightgray);

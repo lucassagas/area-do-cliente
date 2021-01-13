@@ -29,7 +29,7 @@ export const Slides = styled.div`
 
   #radio1 {
     &:checked ~ div nav .btn1 {
-      color: var(--lighttext);
+      background: var(--lighttext);
     }
     &:checked ~ .first {
       margin-left: 0;
@@ -38,10 +38,19 @@ export const Slides = styled.div`
 
   #radio2 {
     &:checked ~ div nav .btn2 {
-      color: var(--lighttext);
+      background: var(--lighttext);
     }
     &:checked ~ .first {
       margin-left: -20%;
+    }
+  }
+
+  #radio3 {
+    &:checked ~ div nav .btn3 {
+      background: var(--lighttext);
+    }
+    &:checked ~ .first {
+      margin-left: -40%;
     }
   }
 `;
@@ -85,9 +94,11 @@ export const Navigation = styled.div`
     }
 
     a svg {
+      transition: fill 0.4s;
       cursor: pointer;
       &:hover {
         fill: var(--orange);
+        transition: fill 0.4s;
       }
     }
   }

@@ -9,6 +9,7 @@ import React, {
 import { IconBaseProps } from 'react-icons/lib';
 import { useField } from '@unform/core';
 import { FiAlertCircle } from '../../styles/icon';
+import { useTheme } from '../../hooks/themes';
 
 import { Container, Error, Label } from './styles';
 
@@ -29,6 +30,7 @@ const Input: React.FC<InputProps> = ({
   const InputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
+  const { themeName } = useTheme();
 
   const { fieldName, defaultValue, error, registerField } = useField(name);
 
@@ -59,6 +61,7 @@ const Input: React.FC<InputProps> = ({
         isErrored={!!error}
         isFocused={isFocused}
         isFilled={isFilled}
+        theme={themeName}
       >
         {Icon && <Icon size={20} />}
         <input
