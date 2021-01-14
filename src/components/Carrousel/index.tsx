@@ -25,19 +25,19 @@ const Carrousel: React.FC = () => {
   useEffect(() => {
     setRadio1(true);
 
-    setInterval(() => {
+    setTimeout(() => {
       setRadio1(true);
       setRadio2(false);
       setRadio3(false);
     }, 10000);
 
-    setInterval(() => {
+    setTimeout(() => {
       setRadio1(false);
       setRadio2(true);
       setRadio3(false);
     }, 20000);
 
-    setInterval(() => {
+    setTimeout(() => {
       setRadio1(false);
       setRadio2(false);
       setRadio3(true);

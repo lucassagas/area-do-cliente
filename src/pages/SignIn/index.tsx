@@ -119,7 +119,7 @@ const SignIn: React.FC = () => {
 
             <Input
               name="password"
-              type="password"
+              password
               icon={VscLock}
               placeholder="Senha"
             />

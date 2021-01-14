@@ -82,6 +82,11 @@ export const Container = styled.div<ContainerProps>`
       color: var(--lightgray);
     }
   }
+
+  > span {
+    margin-right: -13px;
+    margin-top: 5px;
+  }
 `;
 export const Error = styled(Tooltip)`
   height: 20px;
