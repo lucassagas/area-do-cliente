@@ -127,18 +127,18 @@ const ResetPassword: React.FC = () => {
                 mask="999.999.999-99"
               />
               <Input
-                type="password"
                 width="240px"
                 name="password"
                 icon={VscLock}
                 label="Nova Senha"
+                password
               />
               <Input
-                type="password"
                 label="Confirma a senha"
                 width="240px"
                 name="confirmpassword"
                 icon={VscLock}
+                password
               />
             </main>
 

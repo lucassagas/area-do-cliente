@@ -94,6 +94,11 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
     setBilletId(billet_id);
   }, []);
 
+  const redirectToWhatsapp = useCallback(() => {
+    window.location.href =
+      'https://api.whatsapp.com/send?phone=554830398888&text=Oi';
+  }, []);
+
   const sendBilletToEmail = useCallback(async () => {
     try {
       await api.get(`/customers/${user.code}/info/billet/${billetId}`);
@@ -177,12 +182,12 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
         initial="hidden"
         animate="show"
       >
-        {billets.bol_activies.map(billet => {
+        {billets.bol_activies.map((billet, index) => {
           return (
             <Card key={billet.data_vencimento} variants={item}>
               <section>
                 <div />
-                <h1>Em Aberto</h1>
+                <h1>{index === 0 ? 'Próximo vencimento' : 'Em Aberto'}</h1>
               </section>
               <p>Vencimento: {billet.data_vencimento}</p>
               <span>
@@ -252,7 +257,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
               </section>
 
               <Actions>
-                <button type="button">
+                <button onClick={redirectToWhatsapp} type="button">
                   <FaWhatsapp size={20} />
                   Whatsapp
                 </button>

@@ -15,7 +15,7 @@ import InputMask from '../../components/InputMask';
 import Button from '../../components/Button';
 import Carrousel from '../../components/Carrousel';
 
-import { RiCloseLine, RiArrowLeftSLine, FaCheck } from '../../styles/icon';
+import { RiArrowLeftSLine, FaCheck, IoMdClose } from '../../styles/icon';
 import blackLogoImg from '../../assets/logo_preta.svg';
 import whiteLogoImg from '../../assets/logo_branca.svg';
 
@@ -154,7 +154,9 @@ const SignUp: React.FC = () => {
             city: Yup.string().required('Cidade é obrigatório'),
             address: Yup.string().required('Endereço obrigatório'),
             neigh: Yup.string().required('Bairro obrigatório'),
-            number: Yup.number().required('Númer é obrigatório'),
+            number: Yup.number()
+              .typeError('Este campo precisa ser um valor numérico')
+              .required('Númer é obrigatório'),
             cep: Yup.string().required('CEP é obrigatório'),
           });
 
@@ -307,7 +309,7 @@ const SignUp: React.FC = () => {
                   onClick={close}
                   type="button"
                 >
-                  <RiCloseLine size={24} />
+                  <IoMdClose size={22} />
                 </button>
               </div>
               <section>
@@ -628,7 +630,7 @@ const SignUp: React.FC = () => {
                   animate={{ opacity: 1, transition: { duration: 0.6 } }}
                   className="step2"
                 >
-                  <p>Data de vencimento</p>
+                  <p style={{ marginTop: 12 }}>Data de vencimento</p>
                   <GroupButton>
                     <RadioButton onClick={() => handleDueDate(1)} type="button">
                       <div className={dueDate === 1 ? 'active' : ''} />
@@ -666,7 +668,7 @@ const SignUp: React.FC = () => {
 
                   <Separator />
 
-                  <p>Período de atendimento</p>
+                  <p style={{ marginTop: 15 }}>Período de atendimento</p>
                   <GroupButton>
                     <RadioButton
                       onClick={() => handleChangePeriod('segunda a sexta')}
@@ -762,7 +764,7 @@ const SignUp: React.FC = () => {
               src={themeName === 'dark' ? whiteLogoImg : blackLogoImg}
               alt="logo"
             />
-            <RiCloseLine color="var(--text)" size={24} onClick={close} />
+            <IoMdClose color="var(--text)" size={24} onClick={close} />
           </header>
 
           <main>

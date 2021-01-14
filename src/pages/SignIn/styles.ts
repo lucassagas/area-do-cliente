@@ -99,6 +99,7 @@ export const AnimationContainer = styled.div`
     & + a {
       font-weight: 300;
       margin-top: 5px;
+      color: var(--text);
     }
 
     &:hover {

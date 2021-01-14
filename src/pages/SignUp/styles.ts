@@ -81,6 +81,11 @@ export const Content = styled.div`
 
         > svg {
           cursor: pointer;
+          color: var(--text);
+        }
+
+        button svg {
+          color: var(--text);
         }
       }
 

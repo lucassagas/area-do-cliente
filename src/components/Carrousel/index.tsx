@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Container, Slides, Navigation } from './styles';
 import SignInBackground from '../../assets/bg_signin.jpg';
 import SignInBackground2 from '../../assets/bg_signin2.jpg';
+import SignInBackground3 from '../../assets/bg_signin3.jpg';
 import logoImg from '../../assets/logo_branca.svg';
 import {
   FaFacebookF,
@@ -13,21 +16,52 @@ import {
 } from '../../styles/icon';
 
 const Carrousel: React.FC = () => {
-  const [radio1, setRadio1] = useState<any>(false);
-  const [radio2, setRadio2] = useState<any>(false);
+  const [radio1, setRadio1] = useState(false);
+  const [radio2, setRadio2] = useState(false);
+  const [radio3, setRadio3] = useState(false);
+
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     setRadio1(true);
 
-    setInterval(() => {
-      setRadio1(false);
-      setRadio2(true);
-    }, 10000);
-
-    setInterval(() => {
+    setTimeout(() => {
       setRadio1(true);
       setRadio2(false);
+      setRadio3(false);
+    }, 10000);
+
+    setTimeout(() => {
+      setRadio1(false);
+      setRadio2(true);
+      setRadio3(false);
     }, 20000);
+
+    setTimeout(() => {
+      setRadio1(false);
+      setRadio2(false);
+      setRadio3(true);
+
+      setCount(count + 1);
+    }, 30000);
+  }, [count]);
+
+  const selectRadio1 = useCallback(() => {
+    setRadio1(true);
+    setRadio2(false);
+    setRadio3(false);
+  }, []);
+
+  const selectRadio2 = useCallback(() => {
+    setRadio1(false);
+    setRadio2(true);
+    setRadio3(false);
+  }, []);
+
+  const selectRadio3 = useCallback(() => {
+    setRadio1(false);
+    setRadio2(false);
+    setRadio3(true);
   }, []);
 
   return (
@@ -49,6 +83,14 @@ const Carrousel: React.FC = () => {
           id="radio2"
         />
 
+        <input
+          readOnly
+          checked={radio3}
+          type="radio"
+          name="radio-btn"
+          id="radio3"
+        />
+
         <div className="slide first">
           <img src={SignInBackground} alt="" />
         </div>
@@ -58,7 +100,7 @@ const Carrousel: React.FC = () => {
         </div>
 
         <div className="slide">
-          <img src={SignInBackground} alt="" />
+          <img src={SignInBackground3} alt="" />
         </div>
 
         <div className="slide">
@@ -73,8 +115,22 @@ const Carrousel: React.FC = () => {
           <img src={logoImg} alt="Neorede Telecom" />
           <h1>Conectando você ao mundo.</h1>
           <nav>
-            <label htmlFor="radio1" className="btn-carrousel btn1" />
-            <label htmlFor="radio2" className="btn-carrousel btn2" />
+            <label
+              onClick={selectRadio1}
+              htmlFor="radio1"
+              className="btn-carrousel btn1"
+            />
+            <label
+              onClick={selectRadio2}
+              htmlFor="radio2"
+              className="btn-carrousel btn2"
+            />
+
+            <label
+              onClick={selectRadio3}
+              htmlFor="radio3"
+              className="btn-carrousel btn3"
+            />
           </nav>
 
           <section>

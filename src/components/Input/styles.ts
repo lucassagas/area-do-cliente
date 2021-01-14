@@ -7,6 +7,7 @@ interface ContainerProps {
   isFilled: boolean;
   isErrored: boolean;
   width?: string;
+  theme?: string;
 }
 
 export const Label = styled.span`
@@ -69,9 +70,22 @@ export const Container = styled.div<ContainerProps>`
     width: 100%;
     flex: 1;
 
+    ${props =>
+      props.theme === 'dark' &&
+      css`
+        ::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+        }
+      `}
+
     &::placeholder {
       color: var(--lightgray);
     }
+  }
+
+  > span {
+    margin-right: -13px;
+    margin-top: 5px;
   }
 `;
 export const Error = styled(Tooltip)`
