@@ -65,6 +65,14 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const history = useHistory();
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@NeoCliente:token');
+    localStorage.removeItem('@NeoCliente:user');
+
+    setData({} as AuthState);
+    history.push('/');
+  }, [history]);
+
   useEffect(() => {
     const storagedToken = localStorage.getItem('@NeoCliente:token');
 
@@ -74,13 +82,12 @@ const AuthProvider: React.FC = ({ children }) => {
         `${process.env.REACT_APP_KEY}` as string,
         (error: object | null) => {
           if (error) {
-            localStorage.removeItem('@NeoCliente:token');
-            history.push('/');
+            signOut();
           }
         },
       );
     }
-  }, [history]);
+  }, [history, signOut]);
 
   const signIn = useCallback(async ({ username, password, rememberMe }) => {
     setLoading(true);
@@ -98,14 +105,6 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({ token, user });
     setLoading(false);
   }, []);
-
-  const signOut = useCallback(() => {
-    localStorage.removeItem('@NeoCliente:token');
-    localStorage.removeItem('@NeoCliente:user');
-
-    setData({} as AuthState);
-    history.push('/');
-  }, [history]);
 
   return (
     <AuthContext.Provider

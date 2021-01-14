@@ -109,14 +109,14 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title, close = false }) => {
 
         <main>
           <Input
-            type="password"
+            password
             width="200px"
             label="Nova Senha"
             name="password"
             icon={VscLock}
           />
           <Input
-            type="password"
+            password
             width="200px"
             label="Confirme sua Nova Senha"
             name="confirmpassword"
