@@ -6,7 +6,7 @@ import logoImg from '../../../assets/logo.svg';
 import {
   VscHome,
   HiOutlineUser,
-  FaDollarSign,
+  RiMoneyDollarCircleLine,
   BiTachometer,
 } from '../../../styles/icon';
 
@@ -33,7 +33,7 @@ const SideMenu: React.FC = () => {
 
           <li>
             <NavLink activeClassName="selected" to="/finances">
-              <FaDollarSign size={25} />
+              <RiMoneyDollarCircleLine size={27} />
             </NavLink>
           </li>
 

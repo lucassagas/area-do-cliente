@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth';
@@ -21,9 +21,17 @@ import {
   Main,
 } from './styles';
 import FirstAccess from '../../components/FirstAccess';
+import { useCustomer } from '../../hooks/customer';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
+  const { setDisplayModalFirstAccess } = useCustomer();
+
+  useEffect(() => {
+    if (user.first_access) {
+      setDisplayModalFirstAccess(true);
+    }
+  }, [setDisplayModalFirstAccess, user.first_access]);
 
   return (
     <Container>
@@ -72,7 +80,7 @@ const Dashboard: React.FC = () => {
           Ver mais
         </Link>
       </section>
-      {user.first_access && <FirstAccess title="Primeiro Acesso" />}
+      <FirstAccess title="Primeiro Acesso" />
     </Container>
   );
 };

@@ -484,6 +484,7 @@ const SignUp: React.FC = () => {
                           Buscar
                         </Button>
                       </div>
+                      <Input name="city" label="Cidade" />
                       <div
                         style={{
                           display: 'flex',

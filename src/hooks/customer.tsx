@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import ModalChangePassword from '../components/ModalChangePassword';
 import api from '../services/api';
 import { useAuth } from './auth';
 
@@ -45,7 +46,9 @@ interface CustomerContextData {
   customer?: ICustomerData;
   billets?: IBilletData;
   displayModalPassword: boolean;
+  displayModalFirstAccess: boolean;
   setDsiplayModalPassword(data: boolean): void;
+  setDisplayModalFirstAccess(data: boolean): void;
   handleLoadBillets(contract: string): Promise<void>;
   handleLoadCustomer(): Promise<void>;
 }
@@ -60,6 +63,9 @@ const CustomerProvider: React.FC = ({ children }) => {
   const [displayModalPassword, setDsiplayModalPassword] = useState<boolean>(
     false,
   );
+  const [displayModalFirstAccess, setDisplayModalFirstAccess] = useState<
+    boolean
+  >(false);
 
   const { user } = useAuth();
 
@@ -90,9 +96,12 @@ const CustomerProvider: React.FC = ({ children }) => {
         handleLoadCustomer,
         displayModalPassword,
         setDsiplayModalPassword,
+        displayModalFirstAccess,
+        setDisplayModalFirstAccess,
       }}
     >
       {children}
+      <ModalChangePassword close title="Alterar senha" />
     </CustomerContext.Provider>
   );
 };

@@ -54,4 +54,8 @@ export { SiMailDotRu } from 'react-icons/si';
 
 export { ImBarcode } from 'react-icons/im';
 
-export { RiGlobalLine, RiEyeCloseLine } from 'react-icons/ri';
+export {
+  RiGlobalLine,
+  RiEyeCloseLine,
+  RiMoneyDollarCircleLine,
+} from 'react-icons/ri';

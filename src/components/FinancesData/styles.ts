@@ -154,19 +154,7 @@ export const Card = styled(motion.div)`
   }
 `;
 
-const animetop = keyframes`
-  from {
-    margin-top: -300px;
-    opacity: 0;
-  }
-
-  to {
-    top: 0;
-    opacity: 1;
-  }
-`;
-
-export const Modal = styled.div`
+export const Modal = styled(motion.div)`
   position: fixed;
   width: 100%;
   height: 100%;
@@ -188,8 +176,6 @@ export const Modal = styled.div`
   > div {
     max-width: 600px;
     width: 100%;
-
-    animation: ${animetop} 0.6s;
 
     display: flex;
     align-items: center;
