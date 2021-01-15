@@ -56,6 +56,10 @@ export const Container = styled.div`
           display: block;
           padding: 10px 17px;
           border-right: solid 3px transparent;
+
+          svg {
+            flex-shrink: 0;
+          }
         }
       }
     }

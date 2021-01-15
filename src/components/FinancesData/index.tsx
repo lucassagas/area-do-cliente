@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useCustomer } from '../../hooks/customer';
 import { useToast } from '../../hooks/toast';
 
@@ -241,41 +242,51 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
           );
         })}
       </Container>
-      {displayModal && (
-        <Modal>
-          <div>
-            <header>
-              <h1>Boleto</h1>
-              <button onClick={() => setDisplayModal('')} type="button">
-                <FiXCircle size={20} />
-              </button>
-            </header>
-            <div>
-              <p>Código de barras para pagamento:</p>
-              <section>
-                <input ref={InputRef} type="text" defaultValue={displayModal} />
-              </section>
-
-              <Actions>
-                <button onClick={redirectToWhatsapp} type="button">
-                  <FaWhatsapp size={20} />
-                  Whatsapp
+      <AnimatePresence exitBeforeEnter>
+        {displayModal && (
+          <Modal exit={{ opacity: 0 }} key="modalbillets">
+            <motion.div
+              initial={{ y: -600, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -600, opacity: 0 }}
+            >
+              <header>
+                <h1>Boleto</h1>
+                <button onClick={() => setDisplayModal('')} type="button">
+                  <FiXCircle size={20} />
                 </button>
+              </header>
+              <div>
+                <p>Código de barras para pagamento:</p>
+                <section>
+                  <input
+                    ref={InputRef}
+                    type="text"
+                    defaultValue={displayModal}
+                  />
+                </section>
 
-                <button onClick={sendBilletToEmail} type="button">
-                  <SiMailDotRu size={20} />
-                  Enviar 2̣° via por email
-                </button>
+                <Actions>
+                  <button onClick={redirectToWhatsapp} type="button">
+                    <FaWhatsapp size={20} />
+                    Whatsapp
+                  </button>
 
-                <button onClick={copyCodeBar} type="button">
-                  <RiFileCopyLine size={20} />
-                  Copiar Código
-                </button>
-              </Actions>
-            </div>
-          </div>
-        </Modal>
-      )}
+                  <button onClick={sendBilletToEmail} type="button">
+                    <SiMailDotRu size={20} />
+                    Enviar 2̣° via por email
+                  </button>
+
+                  <button onClick={copyCodeBar} type="button">
+                    <RiFileCopyLine size={20} />
+                    Copiar Código
+                  </button>
+                </Actions>
+              </div>
+            </motion.div>
+          </Modal>
+        )}
+      </AnimatePresence>
     </>
   );
 };

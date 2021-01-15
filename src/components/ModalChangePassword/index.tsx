@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { AnimatePresence } from 'framer-motion';
 import Button from '../Button';
 import Input from '../Input';
-import { VscLock } from '../../styles/icon';
+import { VscLock, RiCloseLine } from '../../styles/icon';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
@@ -24,16 +24,20 @@ interface PasswordProps {
 
 interface FirstAccessProps {
   title: string;
+  close?: boolean;
 }
 
-const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
+const ModalChangePassword: React.FC<FirstAccessProps> = ({
+  title,
+  close = false,
+}) => {
   const formRef = useRef<FormHandles>(null);
   const [loading, setLoading] = useState(false);
   const [display] = useState(true);
   const [displayAlert, setDisplayAlert] = useState(false);
   const { addToast } = useToast();
   const { user } = useAuth();
-  const { displayModalFirstAccess } = useCustomer();
+  const { setDsiplayModalPassword, displayModalPassword } = useCustomer();
 
   const handleSubmit = useCallback(
     async (data: PasswordProps) => {
@@ -94,7 +98,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
 
   return (
     <AnimatePresence exitBeforeEnter>
-      {displayModalFirstAccess && (
+      {displayModalPassword && (
         <Container key="modal" exit={{ opacity: 0 }} display={display}>
           <AnimatedContainer
             initial={{ y: -600, opacity: 0 }}
@@ -105,6 +109,14 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
               <header>
                 <h1>{title}</h1>
                 <p>Para dar continuidade altere sua senha</p>
+
+                {close && (
+                  <RiCloseLine
+                    onClick={() => setDsiplayModalPassword(false)}
+                    size={24}
+                    color="var(--text)"
+                  />
+                )}
               </header>
 
               <main>
@@ -136,4 +148,4 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
   );
 };
 
-export default FirstAccess;
+export default ModalChangePassword;
