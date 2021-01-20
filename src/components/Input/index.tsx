@@ -19,6 +19,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ComponentType<IconBaseProps>;
   label?: string;
   password?: boolean;
+  calendar?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -27,6 +28,7 @@ const Input: React.FC<InputProps> = ({
   width,
   label,
   password,
+  calendar,
   ...rest
 }) => {
   const InputRef = useRef<HTMLInputElement>(null);
@@ -69,6 +71,7 @@ const Input: React.FC<InputProps> = ({
         isFocused={isFocused}
         isFilled={isFilled}
         theme={themeName}
+        calendar={calendar}
       >
         {Icon && <Icon size={20} />}
         <input
