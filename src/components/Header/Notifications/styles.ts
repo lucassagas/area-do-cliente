@@ -68,8 +68,6 @@ export const Container = styled.div<ContainerProps>`
     transform: translateX(-50%);
 
     @media (max-width: 430px) {
-      left: 50%;
-      transform: translateX(-15%);
       width: 350px;
     }
 
@@ -82,11 +80,6 @@ export const Container = styled.div<ContainerProps>`
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-
-      @media (max-width: 430px) {
-        left: 17%;
-        transform: translateX(-100%);
-      }
     }
   }
 `;

@@ -214,7 +214,7 @@ export const Modal = styled(motion.div)`
       }
 
       > h1 {
-        font-weight: 900;
+        font-weight: 700;
         font-size: 2.5rem;
       }
     }

@@ -8,6 +8,7 @@ export const Container = styled.div`
 
   display: flex;
   align-items: stretch;
+  overflow-x: hidden;
 `;
 
 const appearFromLeft = keyframes`
@@ -73,6 +74,7 @@ export const Content = styled.div`
     > header {
       width: 100%;
       color: var(--text);
+      margin-top: 30px;
 
       > div {
         display: flex;
@@ -83,8 +85,11 @@ export const Content = styled.div`
           cursor: pointer;
           color: var(--text);
         }
-
-        button svg {
+        > button {
+          background: transparent;
+          border: 0;
+        }
+        > button svg {
           color: var(--text);
         }
       }
@@ -356,6 +361,7 @@ export const ContainerFinish = styled(motion.div)`
     align-items: center;
     justify-content: space-between;
     color: var(--text);
+    margin-top: 30px;
 
     > img {
       width: 100px;

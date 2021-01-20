@@ -19,7 +19,7 @@ export const Container = styled.div`
     left: 50%;
     transform: translateX(-50%);
 
-    color: var(--background);
+    color: var(--lighttext) !important;
     text-align: center;
 
     &::before {

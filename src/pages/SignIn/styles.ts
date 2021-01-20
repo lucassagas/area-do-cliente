@@ -1,5 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
+interface IconMobileProps {
+  display: boolean;
+}
+
 export const Container = styled.div`
   height: 100vh;
 
@@ -17,20 +21,6 @@ export const Content = styled.div`
   max-width: 500px;
 
   position: relative;
-
-  section {
-    position: absolute;
-    bottom: 30px;
-    display: none;
-
-    a + a {
-      margin-left: 10px;
-    }
-
-    @media (max-width: 768px) {
-      display: block;
-    }
-  }
 
   > button {
     background: var(--orange);
@@ -105,5 +95,19 @@ export const AnimationContainer = styled.div`
     &:hover {
       opacity: 0.8;
     }
+  }
+`;
+
+export const IconsMobile = styled.section<IconMobileProps>`
+  position: absolute;
+  bottom: 30px;
+  display: none;
+
+  a + a {
+    margin-left: 10px;
+  }
+
+  @media (max-width: 768px) {
+    display: ${props => (props.display ? 'block' : 'none')};
   }
 `;

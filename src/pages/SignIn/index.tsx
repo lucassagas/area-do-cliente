@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -21,7 +21,7 @@ import {
   RiGlobalLine,
 } from '../../styles/icon';
 
-import { Container, Content, AnimationContainer } from './styles';
+import { Container, Content, AnimationContainer, IconsMobile } from './styles';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -47,6 +47,7 @@ interface CheckboxOption {
 const SignIn: React.FC = () => {
   const history = useHistory();
   const formRef = useRef<FormHandles>(null);
+  const [showMobileIcons, setShowMobileIcons] = useState(true);
 
   const { signIn, loading, setLoading, alertPassword } = useAuth();
   const { addToast } = useToast();
@@ -97,6 +98,12 @@ const SignIn: React.FC = () => {
     [signIn, addToast, history, setLoading],
   );
 
+  const toggleShowMobileIcons = useCallback(() => {
+    setShowMobileIcons(!showMobileIcons);
+  }, [showMobileIcons]);
+
+  console.log(showMobileIcons);
+
   return (
     <Container>
       <Carrousel />
@@ -115,9 +122,18 @@ const SignIn: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Entre com a sua conta</h1>
 
-            <Input name="username" icon={HiOutlineUser} placeholder="Usuário" />
+            <Input
+              onFocusCapture={toggleShowMobileIcons}
+              onBlurCapture={toggleShowMobileIcons}
+              name="username"
+              autoComplete="false"
+              icon={HiOutlineUser}
+              placeholder="Usuário"
+            />
 
             <Input
+              onFocusCapture={toggleShowMobileIcons}
+              onBlurCapture={toggleShowMobileIcons}
               name="password"
               password
               icon={VscLock}
@@ -135,7 +151,7 @@ const SignIn: React.FC = () => {
           <Link to="/forgotpassword">Esqueci minha senha</Link>
         </AnimationContainer>
 
-        <section>
+        <IconsMobile display={showMobileIcons}>
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -171,7 +187,7 @@ const SignIn: React.FC = () => {
           >
             <RiGlobalLine size={28} color="var(--text)" />
           </a>
-        </section>
+        </IconsMobile>
       </Content>
       {alertPassword && <ChangedPasswordAlert />}
     </Container>

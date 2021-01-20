@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import {
   VscHome,
   HiOutlineUser,
-  FaDollarSign,
+  RiMoneyDollarCircleLine,
   FiXCircle,
   FiMenu,
   BiTachometer,
@@ -59,7 +59,7 @@ const MenuMobile: React.FC = () => {
                 activeClassName="selected"
                 to="finances"
               >
-                <FaDollarSign size={23} />
+                <RiMoneyDollarCircleLine size={27} />
                 Faturas
               </NavLink>
             </li>
