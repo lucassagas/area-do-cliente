@@ -8,6 +8,7 @@ interface ContainerProps {
   isErrored: boolean;
   width?: string;
   theme?: string;
+  calendar?: boolean;
 }
 
 export const Label = styled.span`
@@ -72,6 +73,15 @@ export const Container = styled.div<ContainerProps>`
 
     ${props =>
       props.theme === 'dark' &&
+      css`
+        ::-webkit-scrollbar-arrow-color {
+          filter: brightness(100) !important;
+        }
+      `}
+
+    ${props =>
+      props.theme === 'dark' &&
+      props.calendar &&
       css`
         ::-webkit-calendar-picker-indicator {
           filter: invert(1);

@@ -60,7 +60,7 @@ interface InputsProps {
 }
 
 const SignUp: React.FC = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(5);
   const [nameStep, setNameStep] = useState('Dados Pessoais');
   const [housingType, setHousingType] = useState<boolean | null>(true);
   const [formData, setFormData] = useState<InputsProps>();
@@ -162,7 +162,7 @@ const SignUp: React.FC = () => {
               'Por favor, digite o nome do seu bairro',
             ),
             number: Yup.number()
-              .typeError('Este campo precisa ser um valor numérico')
+              .typeError('Por favor, digite o número da sua residencia')
               .required('Por favor, digite o número da sua residencia'),
             cep: Yup.string().required('Por favor, digite informe o seu CEP'),
           });
@@ -344,6 +344,7 @@ const SignUp: React.FC = () => {
                     name="dateofbirth"
                     label="Data de Nascimento"
                     type="date"
+                    calendar
                   />
                 </motion.main>
               </>
