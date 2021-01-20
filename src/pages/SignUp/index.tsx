@@ -60,7 +60,7 @@ interface InputsProps {
 }
 
 const SignUp: React.FC = () => {
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(1);
   const [nameStep, setNameStep] = useState('Dados Pessoais');
   const [housingType, setHousingType] = useState<boolean | null>(true);
   const [formData, setFormData] = useState<InputsProps>();
