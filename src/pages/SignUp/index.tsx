@@ -101,11 +101,10 @@ const SignUp: React.FC = () => {
           formRef.current?.setErrors({});
 
           const schema = Yup.object().shape({
-            name: Yup.string().required('Nome obrigatório'),
-            cpf: Yup.string().required('CPF obrigatório'),
-            rg: Yup.string().required('RG obrigatório'),
+            name: Yup.string().required('Por favor, digite o seu nome'),
+            cpf: Yup.string().required('Por favor, digite o seu CPF'),
             dateofbirth: Yup.string().required(
-              'Data de Nascimento obrigatório',
+              'Por favor, digite a sua data de nascimento',
             ),
           });
 
@@ -128,8 +127,10 @@ const SignUp: React.FC = () => {
           formRef.current?.setErrors({});
 
           const schema = Yup.object().shape({
-            email: Yup.string().required('Email obrigatório'),
-            cellphone: Yup.string().required('Celular obrigatório'),
+            email: Yup.string().required('Por favor, digite o seu email'),
+            cellphone: Yup.string().required(
+              'Por favor, digite o seu número de celular',
+            ),
           });
 
           await schema.validate(data, {
@@ -151,13 +152,19 @@ const SignUp: React.FC = () => {
           formRef.current?.setErrors({});
 
           const schema = Yup.object().shape({
-            city: Yup.string().required('Cidade é obrigatório'),
-            address: Yup.string().required('Endereço obrigatório'),
-            neigh: Yup.string().required('Bairro obrigatório'),
+            city: Yup.string().required(
+              'Por favor, digite o nome da sua cidade',
+            ),
+            address: Yup.string().required(
+              'Por favor, digite o nome da sua rua.',
+            ),
+            neigh: Yup.string().required(
+              'Por favor, digite o nome do seu bairro',
+            ),
             number: Yup.number()
               .typeError('Este campo precisa ser um valor numérico')
-              .required('Númer é obrigatório'),
-            cep: Yup.string().required('CEP é obrigatório'),
+              .required('Por favor, digite o número da sua residencia'),
+            cep: Yup.string().required('Por favor, digite informe o seu CEP'),
           });
 
           await schema.validate(data, {
@@ -299,16 +306,7 @@ const SignUp: React.FC = () => {
             <header>
               <div>
                 <RiArrowLeftSLine onClick={prevStep} size={24} />
-                <button
-                  style={{
-                    zIndex: 999,
-                    padding: '10px 0px',
-                    background: 'none',
-                    border: 0,
-                  }}
-                  onClick={close}
-                  type="button"
-                >
+                <button onClick={close} type="button">
                   <IoMdClose size={22} />
                 </button>
               </div>
@@ -357,12 +355,7 @@ const SignUp: React.FC = () => {
                   animate={{ opacity: 1, transition: { duration: 0.6 } }}
                   className="step2"
                 >
-                  <Input
-                    width="250px"
-                    name="email"
-                    label="E-mail"
-                    type="email"
-                  />
+                  <Input name="email" label="E-mail" type="email" />
                   <InputMask
                     width="160px"
                     name="cellphone"
@@ -549,31 +542,6 @@ const SignUp: React.FC = () => {
                         <Card
                           type="button"
                           className={
-                            active === '1Gb 100Up, R$150,00' ? 'active' : ''
-                          }
-                          onClick={() => setActive('1Gb 100Up, R$150,00')}
-                        >
-                          <div>
-                            <span
-                              className={
-                                active === '1Gb 100Up, R$150,00' ? 'active' : ''
-                              }
-                            >
-                              <FaCheck size={16} />
-                            </span>
-                          </div>
-                          <div>
-                            <h1>1Gb</h1>
-                            <strong>100Upload</strong>
-                            <h2>R$150,00</h2>
-                          </div>
-                        </Card>
-                      </section>
-
-                      <section>
-                        <Card
-                          type="button"
-                          className={
                             active === '150Mb 50Up, R$100,00' ? 'active' : ''
                           }
                           onClick={() => setActive('150Mb 50Up, R$100,00')}
@@ -593,6 +561,31 @@ const SignUp: React.FC = () => {
                             <h1>150Mb</h1>
                             <strong>50Upload</strong>
                             <h2>R$100,00</h2>
+                          </div>
+                        </Card>
+                      </section>
+
+                      <section>
+                        <Card
+                          type="button"
+                          className={
+                            active === '1Gb 100Up, R$150,00' ? 'active' : ''
+                          }
+                          onClick={() => setActive('1Gb 100Up, R$150,00')}
+                        >
+                          <div>
+                            <span
+                              className={
+                                active === '1Gb 100Up, R$150,00' ? 'active' : ''
+                              }
+                            >
+                              <FaCheck size={16} />
+                            </span>
+                          </div>
+                          <div>
+                            <h1>1Gb</h1>
+                            <strong>100Upload</strong>
+                            <h2>R$150,00</h2>
                           </div>
                         </Card>
 
@@ -783,10 +776,7 @@ const SignUp: React.FC = () => {
           </main>
 
           <footer>
-            <p>
-              Logo um de nossos atendentes <br />
-              entrarão em contato.
-            </p>
+            <p>Logo um de nossos atendentes irá entrar em contato.</p>
           </footer>
         </ContainerFinish>
       )}

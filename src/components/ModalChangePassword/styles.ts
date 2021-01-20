@@ -62,9 +62,13 @@ export const AnimatedContainer = styled(motion.div)`
       }
 
       > p {
-        margin-bottom: 50px;
+        margin-bottom: 10px;
         color: var(--text);
         font-weight: 600;
+
+        & + p {
+          margin-bottom: 50px;
+        }
       }
 
       > svg {

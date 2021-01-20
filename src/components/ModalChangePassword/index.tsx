@@ -108,7 +108,14 @@ const ModalChangePassword: React.FC<FirstAccessProps> = ({
             <Form ref={formRef} onSubmit={handleSubmit}>
               <header>
                 <h1>{title}</h1>
-                <p>Para dar continuidade altere sua senha</p>
+                <p>
+                  Para criar uma nova senha, ela deve conter pelo menos 6
+                  caracteres.
+                </p>
+                <p>
+                  Uma senha forte deve ter letras, números. sinais de pontuação
+                  e símbolos.
+                </p>
 
                 {close && (
                   <RiCloseLine

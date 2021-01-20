@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -9,8 +9,6 @@ import InputMask from '../../components/InputMask';
 
 import { HiOutlineUser, RiArrowLeftSLine } from '../../styles/icon';
 
-import { Container, Content, AnimationContainer } from './styles';
-
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Carrousel from '../../components/Carrousel';
@@ -19,6 +17,14 @@ import LoadingDots from '../../components/LoadingDots';
 import { useToast } from '../../hooks/toast';
 import api from '../../services/api';
 
+import {
+  Container,
+  Content,
+  AnimationContainer,
+  GroupButton,
+  RadioButton,
+} from './styles';
+
 interface ForgotPasswordData {
   cpf: string;
 }
@@ -26,6 +32,7 @@ interface ForgotPasswordData {
 const ForgotPassword: React.FC = () => {
   const history = useHistory();
   const formRef = useRef<FormHandles>(null);
+  const [documentType, setDocumentType] = useState<boolean>(true);
 
   const { loading, setLoading } = useAuth();
   const { addToast } = useToast();
@@ -37,7 +44,9 @@ const ForgotPassword: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          cpf: Yup.string().required('CPF obrigatório'),
+          cpf: Yup.string().required(
+            `Por favor, digite o ${documentType ? 'CPF' : 'CNPJ'}`,
+          ),
         });
 
         await schema.validate(data, {
@@ -82,7 +91,7 @@ const ForgotPassword: React.FC = () => {
         setLoading(false);
       }
     },
-    [addToast, history, setLoading],
+    [addToast, history, setLoading, documentType],
   );
 
   return (
@@ -103,15 +112,35 @@ const ForgotPassword: React.FC = () => {
 
             <main>
               <p>
-                Digite o CPF do titular para redefinir sua senha, você receberá
-                um e-mail com instruções sobre como redefinir sua senha.
+                Digite o {documentType ? 'CPF' : 'CNPJ'} do titular para
+                redefinir sua senha, você receberá um e-mail com instruções
+                sobre como redefinir sua senha.
               </p>
+
+              <GroupButton>
+                <RadioButton
+                  onClick={() => setDocumentType(true)}
+                  type="button"
+                >
+                  <div className={documentType ? 'active' : ''} />
+                  <p>CPF</p>
+                </RadioButton>
+
+                <RadioButton
+                  onClick={() => setDocumentType(false)}
+                  type="button"
+                >
+                  <div className={!documentType ? 'active' : ''} />
+                  <p>CNPJ</p>
+                </RadioButton>
+              </GroupButton>
+
               <InputMask
                 width="240px"
                 name="cpf"
                 icon={HiOutlineUser}
-                placeholder="CPF"
-                mask="999.999.999-99"
+                placeholder={documentType ? 'CPF' : 'CNPJ'}
+                mask={documentType ? '999.999.999-99' : '99.999.999/9999-99'}
               />
             </main>
 
