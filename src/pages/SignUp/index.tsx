@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { motion } from 'framer-motion';
+import Lottie from 'react-lottie';
 import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import Button from '../../components/Button';
@@ -18,6 +19,7 @@ import Carrousel from '../../components/Carrousel';
 import { RiArrowLeftSLine, FaCheck, IoMdClose } from '../../styles/icon';
 import blackLogoImg from '../../assets/logo_preta.svg';
 import whiteLogoImg from '../../assets/logo_branca.svg';
+import animationData from '../../animations/congratulations.json';
 
 import {
   Container,
@@ -30,6 +32,7 @@ import {
   Card,
   Separator,
   ContainerFinish,
+  KnowMore,
 } from './styles';
 
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -38,6 +41,7 @@ import Textarea from '../../components/Textarea';
 import { useTheme } from '../../hooks/themes';
 import api from '../../services/api';
 import LoadingDots from '../../components/LoadingDots';
+import { usePlans } from '../../hooks/plans';
 
 interface InputsProps {
   name?: string;
@@ -64,13 +68,13 @@ const SignUp: React.FC = () => {
   const [nameStep, setNameStep] = useState('Dados Pessoais');
   const [housingType, setHousingType] = useState<boolean | null>(true);
   const [formData, setFormData] = useState<InputsProps>();
-  const [active, setActive] = useState<string | object>();
   const [dueDate, setDueDate] = useState(1);
   const [period, setPeriod] = useState('segunda a sexta');
   const [cep, setCep] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const formRef = useRef<FormHandles>(null);
+  const { setDisplayModalPlans, selectedPlan, setSelectedPlan } = usePlans();
   const { addToast } = useToast();
   const { themeName } = useTheme();
 
@@ -182,7 +186,7 @@ const SignUp: React.FC = () => {
       }
 
       if (step === 4) {
-        if (!active) {
+        if (!selectedPlan) {
           addToast({
             type: 'error',
             title: 'Error',
@@ -199,7 +203,7 @@ const SignUp: React.FC = () => {
           ...data,
           period,
           dueDate,
-          plan: active,
+          plan: selectedPlan,
           type: housingType ? 'Casa' : 'Apartamento',
         };
         const finalData = { ...formData, ...parsedData };
@@ -219,7 +223,7 @@ const SignUp: React.FC = () => {
         }
       }
     },
-    [step, formData, active, addToast, period, dueDate, housingType],
+    [step, formData, selectedPlan, addToast, period, dueDate, housingType],
   );
 
   const close = useCallback(() => {
@@ -274,6 +278,16 @@ const SignUp: React.FC = () => {
         setFormData({ ...formData, ...parsedData });
       });
   }, [addToast, cep, formData]);
+
+  const defaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   return (
     <Container>
       <Carrousel />
@@ -315,8 +329,25 @@ const SignUp: React.FC = () => {
                 <strong>
                   {nameStep}: Etapa {step}
                 </strong>
-                {active && <p>Plano selecionado: {active}</p>}
+                {selectedPlan && (
+                  <p style={{ margin: '5px 0' }}>
+                    Plano selecionado: {selectedPlan}
+                  </p>
+                )}
               </section>
+              {step === 4 && (
+                <KnowMore>
+                  <p>
+                    <button
+                      type="button"
+                      onClick={() => setDisplayModalPlans(true)}
+                    >
+                      clique aqui
+                    </button>
+                    e saiba mais sobre os planos.
+                  </p>
+                </KnowMore>
+              )}
             </header>
             {step === 1 && (
               <>
@@ -515,105 +546,127 @@ const SignUp: React.FC = () => {
                   className="step2"
                 >
                   <ContainerCard>
-                    <div>
-                      <section>
-                        <Card
-                          type="button"
-                          onClick={() => setActive('60Mb 20Up, R$80,00')}
+                    <Card
+                      type="button"
+                      onClick={() => setSelectedPlan('60Mb 20Up, R$80,00')}
+                      className={
+                        selectedPlan === '60Mb 20Up, R$80,00' ? 'active' : ''
+                      }
+                    >
+                      <div>
+                        <span
                           className={
-                            active === '60Mb 20Up, R$80,00' ? 'active' : ''
+                            selectedPlan === '60Mb 20Up, R$80,00'
+                              ? 'active'
+                              : ''
                           }
                         >
-                          <div>
-                            <span
-                              className={
-                                active === '60Mb 20Up, R$80,00' ? 'active' : ''
-                              }
-                            >
-                              <FaCheck size={16} />
-                            </span>
-                          </div>
-                          <div>
-                            <h1>60Mb</h1>
-                            <strong>20Upload</strong>
-                            <h2>R$80,00</h2>
-                          </div>
-                        </Card>
+                          <FaCheck size={16} />
+                        </span>
+                      </div>
+                      <div>
+                        <h1>60Mb</h1>
+                        <strong>20Upload</strong>
+                        <h2>R$80,00</h2>
+                      </div>
+                    </Card>
 
-                        <Card
-                          type="button"
+                    <Card
+                      type="button"
+                      className={
+                        selectedPlan === '150Mb 50Up, R$100,00' ? 'active' : ''
+                      }
+                      onClick={() => setSelectedPlan('150Mb 50Up, R$100,00')}
+                    >
+                      <div>
+                        <span
                           className={
-                            active === '150Mb 50Up, R$100,00' ? 'active' : ''
+                            selectedPlan === '150Mb 50Up, R$100,00'
+                              ? 'active'
+                              : ''
                           }
-                          onClick={() => setActive('150Mb 50Up, R$100,00')}
                         >
-                          <div>
-                            <span
-                              className={
-                                active === '150Mb 50Up, R$100,00'
-                                  ? 'active'
-                                  : ''
-                              }
-                            >
-                              <FaCheck size={16} />
-                            </span>
-                          </div>
-                          <div>
-                            <h1>150Mb</h1>
-                            <strong>50Upload</strong>
-                            <h2>R$100,00</h2>
-                          </div>
-                        </Card>
-                      </section>
-
-                      <section>
-                        <Card
-                          type="button"
+                          <FaCheck size={16} />
+                        </span>
+                      </div>
+                      <div>
+                        <h1>150Mb</h1>
+                        <strong>50Upload</strong>
+                        <h2>R$100,00</h2>
+                      </div>
+                    </Card>
+                    <Card
+                      type="button"
+                      className={
+                        selectedPlan === '300Mb 50Up, R$120,00' ? 'active' : ''
+                      }
+                      onClick={() => setSelectedPlan('300Mb 50Up, R$120,00')}
+                    >
+                      <div>
+                        <span
                           className={
-                            active === '1Gb 100Up, R$150,00' ? 'active' : ''
+                            selectedPlan === '300Mb 50Up, R$120,00'
+                              ? 'active'
+                              : ''
                           }
-                          onClick={() => setActive('1Gb 100Up, R$150,00')}
                         >
-                          <div>
-                            <span
-                              className={
-                                active === '1Gb 100Up, R$150,00' ? 'active' : ''
-                              }
-                            >
-                              <FaCheck size={16} />
-                            </span>
-                          </div>
-                          <div>
-                            <h1>1Gb</h1>
-                            <strong>100Upload</strong>
-                            <h2>R$150,00</h2>
-                          </div>
-                        </Card>
-
-                        <Card
-                          type="button"
+                          <FaCheck size={16} />
+                        </span>
+                      </div>
+                      <div>
+                        <h1>300Mb</h1>
+                        <strong>50Upload</strong>
+                        <h2>R$120,00</h2>
+                      </div>
+                    </Card>
+                    <Card
+                      type="button"
+                      className={
+                        selectedPlan === '1Gb 100Up, R$150,00' ? 'active' : ''
+                      }
+                      onClick={() => setSelectedPlan('1Gb 100Up, R$150,00')}
+                    >
+                      <div>
+                        <span
                           className={
-                            active === '1Gb 300Up, R$200,00' ? 'active' : ''
+                            selectedPlan === '1Gb 100Up, R$150,00'
+                              ? 'active'
+                              : ''
                           }
-                          onClick={() => setActive('1Gb 300Up, R$200,00')}
                         >
-                          <div>
-                            <span
-                              className={
-                                active === '1Gb 300Up, R$200,00' ? 'active' : ''
-                              }
-                            >
-                              <FaCheck size={16} />
-                            </span>
-                          </div>
-                          <div>
-                            <h1>1Gb</h1>
-                            <strong>300Upload</strong>
-                            <h2>R$200,00</h2>
-                          </div>
-                        </Card>
-                      </section>
-                    </div>
+                          <FaCheck size={16} />
+                        </span>
+                      </div>
+                      <div>
+                        <h1>1Gb</h1>
+                        <strong>100Upload</strong>
+                        <h2>R$150,00</h2>
+                      </div>
+                    </Card>
+                    <Card
+                      type="button"
+                      className={
+                        selectedPlan === '1Gb 300Up, R$200,00' ? 'active' : ''
+                      }
+                      onClick={() => setSelectedPlan('1Gb 300Up, R$200,00')}
+                    >
+                      <div>
+                        <span
+                          className={
+                            selectedPlan === '1Gb 300Up, R$200,00'
+                              ? 'active'
+                              : ''
+                          }
+                        >
+                          <FaCheck size={16} />
+                        </span>
+                      </div>
+                      <div>
+                        <h1>1Gb</h1>
+                        <strong>300Upload</strong>
+                        <h2>R$200,00</h2>
+                      </div>
+                    </Card>
                   </ContainerCard>
                 </motion.main>
               </>
@@ -779,6 +832,13 @@ const SignUp: React.FC = () => {
           <footer>
             <p>Logo um de nossos atendentes irá entrar em contato.</p>
           </footer>
+          <Lottie
+            options={defaultOptions}
+            style={{ position: 'absolute', top: 0, left: 0, zIndex: -1 }}
+            width="100%"
+            height="100%"
+            isClickToPauseDisabled
+          />
         </ContainerFinish>
       )}
     </Container>
