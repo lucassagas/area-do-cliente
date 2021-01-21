@@ -4,6 +4,8 @@ export {
   AiFillCheckCircle,
   AiFillInfoCircle,
   AiFillHeart,
+  AiOutlineCloudDownload,
+  AiOutlineCloudUpload,
 } from 'react-icons/ai';
 
 export {
@@ -14,11 +16,15 @@ export {
   IoMdClose,
 } from 'react-icons/io';
 
+export { CgScreen } from 'react-icons/cg';
+
+export { TiArrowLoop } from 'react-icons/ti';
+
 export { HiOutlineUser } from 'react-icons/hi';
 
 export { VscLock, VscHome, VscColorMode } from 'react-icons/vsc';
 
-export { BiTachometer } from 'react-icons/bi';
+export { BiTachometer, BiCloud, BiCameraMovie } from 'react-icons/bi';
 
 export {
   FiAlertCircle,
@@ -26,6 +32,7 @@ export {
   FiInfo,
   FiXCircle,
   FiMenu,
+  FiWifi,
 } from 'react-icons/fi';
 
 export {
@@ -59,3 +66,5 @@ export {
   RiEyeCloseLine,
   RiMoneyDollarCircleLine,
 } from 'react-icons/ri';
+
+export { MdChildCare } from 'react-icons/md';

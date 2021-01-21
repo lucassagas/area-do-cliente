@@ -74,7 +74,7 @@ export const Content = styled.div`
     > header {
       width: 100%;
       color: var(--text);
-      margin-top: 30px;
+      margin-top: 50px;
 
       > div {
         display: flex;
@@ -248,19 +248,13 @@ export const RadioButton = styled.button`
 export const ContainerCard = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
+  display: grid;
   justify-content: center;
-  align-items: center;
-
-  > div {
-    display: flex;
-    gap: 20px;
-  }
+  grid-template-columns: repeat(2, 210px);
+  grid-gap: 16px;
 
   @media (max-width: 430px) {
-    > div {
-      flex-direction: column;
-    }
+    grid-template-columns: repeat(1, 210px);
   }
 `;
 
@@ -269,7 +263,6 @@ export const Card = styled.button`
   border: solid 1px var(--lightgray);
   min-width: 200px;
   background: transparent;
-  margin-top: 30px;
 
   display: flex;
   align-items: center;
@@ -402,6 +395,19 @@ export const ContainerFinish = styled(motion.div)`
   > footer {
     > p {
       color: var(--text);
+    }
+  }
+`;
+
+export const KnowMore = styled.div`
+  > p button {
+    background: transparent;
+    border: 0;
+    color: var(--orange);
+    margin-right: 10px;
+
+    &hover {
+      text-decoration: underline;
     }
   }
 `;
