@@ -16,7 +16,12 @@ import InputMask from '../../components/InputMask';
 import Button from '../../components/Button';
 import Carrousel from '../../components/Carrousel';
 
-import { RiArrowLeftSLine, FaCheck, IoMdClose } from '../../styles/icon';
+import {
+  RiArrowLeftSLine,
+  FaCheck,
+  IoMdClose,
+  AiOutlineQuestionCircle,
+} from '../../styles/icon';
 import blackLogoImg from '../../assets/logo_preta.svg';
 import whiteLogoImg from '../../assets/logo_branca.svg';
 import animationData from '../../animations/congratulations.json';
@@ -33,6 +38,8 @@ import {
   Separator,
   ContainerFinish,
   KnowMore,
+  ContainerToolTip,
+  Info,
 } from './styles';
 
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -371,7 +378,7 @@ const SignUp: React.FC = () => {
                     </div>
                   </div>
                   <Input
-                    width="180px"
+                    width="230px"
                     name="dateofbirth"
                     label="Data de Nascimento"
                     type="date"
@@ -437,7 +444,7 @@ const SignUp: React.FC = () => {
                       type="button"
                     >
                       <div className={!housingType ? 'active' : ''} />
-                      <p>Apartamento</p>
+                      <p>Condominio</p>
                     </RadioButton>
                   </GroupButton>
 
@@ -531,6 +538,7 @@ const SignUp: React.FC = () => {
                           width="140px"
                           name="complement"
                           label="Complemento"
+                          info="Neste campo deve conter informações como número do apartamento e bloco. Em caso de condominio horizontal, informar o número da residência"
                         />
                       </div>
                     </>
@@ -716,8 +724,14 @@ const SignUp: React.FC = () => {
 
                   <Separator />
 
-                  <p style={{ marginTop: 15 }}>Período de atendimento</p>
-                  <GroupButton>
+                  <ContainerToolTip>
+                    <p>Período de atendimento</p>
+                    <Info title="Ao informar o Período de Atendimento, nossos atendentes saberão qual o melhor período para nossos atendentes entrarem em contato.">
+                      <AiOutlineQuestionCircle size={20} color="var(--text)" />
+                    </Info>
+                  </ContainerToolTip>
+
+                  <GroupButton style={{ marginTop: -20 }}>
                     <RadioButton
                       onClick={() => handleChangePeriod('segunda a sexta')}
                       type="button"

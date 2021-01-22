@@ -27,6 +27,7 @@ export const themes = {
     darkgray: '#fff',
     backgroundNotifaction: '#cccc',
     footer: '#212121',
+    tooltipbg: '#FF824D',
   },
 
   dark: {
@@ -55,6 +56,7 @@ export const themes = {
     darkgray: '#505050',
     backgroundNotifaction: '#353535',
     footer: '#353535',
+    tooltipbg: '#63696E',
   },
 };
 

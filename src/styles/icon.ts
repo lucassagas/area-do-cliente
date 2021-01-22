@@ -6,6 +6,7 @@ export {
   AiFillHeart,
   AiOutlineCloudDownload,
   AiOutlineCloudUpload,
+  AiOutlineQuestionCircle,
 } from 'react-icons/ai';
 
 export {
