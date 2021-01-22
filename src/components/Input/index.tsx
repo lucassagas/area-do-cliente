@@ -8,10 +8,15 @@ import React, {
 
 import { IconBaseProps } from 'react-icons/lib';
 import { useField } from '@unform/core';
-import { FiAlertCircle, RiEyeCloseLine, AiOutlineEye } from '../../styles/icon';
+import {
+  FiAlertCircle,
+  RiEyeCloseLine,
+  AiOutlineEye,
+  AiOutlineQuestionCircle,
+} from '../../styles/icon';
 import { useTheme } from '../../hooks/themes';
 
-import { Container, Error, Label } from './styles';
+import { Container, Error, Label, Info } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -20,6 +25,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   password?: boolean;
   calendar?: boolean;
+  info?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -29,6 +35,7 @@ const Input: React.FC<InputProps> = ({
   label,
   password,
   calendar,
+  info,
   ...rest
 }) => {
   const InputRef = useRef<HTMLInputElement>(null);
@@ -63,7 +70,16 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <>
-      {label && <Label>{label}</Label>}
+      {label && (
+        <Label info={!!info}>
+          {label}
+          {!!info && (
+            <Info title={info}>
+              <AiOutlineQuestionCircle color="var(--text)" size={20} />
+            </Info>
+          )}
+        </Label>
+      )}
       <Container
         id="defaultInput"
         width={width}

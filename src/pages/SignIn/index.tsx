@@ -102,8 +102,6 @@ const SignIn: React.FC = () => {
     setShowMobileIcons(!showMobileIcons);
   }, [showMobileIcons]);
 
-  console.log(showMobileIcons);
-
   return (
     <Container>
       <Carrousel />

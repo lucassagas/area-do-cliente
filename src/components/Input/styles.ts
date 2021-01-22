@@ -11,9 +11,19 @@ interface ContainerProps {
   calendar?: boolean;
 }
 
-export const Label = styled.span`
+interface InfoProps {
+  info: boolean;
+}
+
+export const Label = styled.span<InfoProps>`
   color: var(--text);
   font-weight: 400;
+  position: static;
+  margin-bottom: ${props => (props.info ? '-10px;' : 0)};
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+  gap: 10px;
 `;
 
 export const Container = styled.div<ContainerProps>`
@@ -112,6 +122,22 @@ export const Error = styled(Tooltip)`
 
     &::before {
       border-color: var(--error) transparent;
+    }
+  }
+`;
+
+export const Info = styled(Error)`
+  > svg {
+    &:hover {
+      fill: var(--tooltipbg);
+
+      transition: all 0.3s;
+    }
+  }
+  > span {
+    background: var(--tooltipbg);
+    &::before {
+      border-color: var(--tooltipbg) transparent;
     }
   }
 `;

@@ -4,15 +4,16 @@ import ReactInputMask, { Props as InputProps } from 'react-input-mask';
 
 import { IconBaseProps } from 'react-icons/lib';
 import { useField } from '@unform/core';
-import { FiAlertCircle } from '../../styles/icon';
+import { FiAlertCircle, AiOutlineQuestionCircle } from '../../styles/icon';
 
-import { Container, Error, Label } from './styles';
+import { Container, Error, Label, Info } from './styles';
 
 interface Props extends InputProps {
   name: string;
   width?: string;
   icon?: React.ComponentType<IconBaseProps>;
   label?: string;
+  info?: string;
 }
 
 const Input: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Input: React.FC<Props> = ({
   icon: Icon,
   width,
   label,
+  info,
   ...rest
 }) => {
   const inputRef = useRef<any>(null);
@@ -54,7 +56,16 @@ const Input: React.FC<Props> = ({
 
   return (
     <>
-      {label && <Label>{label}</Label>}
+      {label && (
+        <Label info={!!info}>
+          {label}
+          {!!info && (
+            <Info title={info}>
+              <AiOutlineQuestionCircle color="var(--text)" size={20} />
+            </Info>
+          )}
+        </Label>
+      )}
       <Container
         id="defaultInput"
         width={width}

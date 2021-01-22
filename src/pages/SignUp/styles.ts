@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 import { motion } from 'framer-motion';
+import Tooltip from '../../components/Tooltip';
 import lineBG from '../../assets/bg_linhas.svg';
 
 export const Container = styled.div`
@@ -159,6 +160,7 @@ export const Content = styled.div`
       .inputGroup {
         display: flex;
         gap: 35px;
+        align-items: center;
       }
     }
 
@@ -408,6 +410,28 @@ export const KnowMore = styled.div`
 
     &hover {
       text-decoration: underline;
+    }
+  }
+`;
+
+export const ContainerToolTip = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const Info = styled(Tooltip)`
+  > svg {
+    &:hover {
+      fill: var(--tooltipbg);
+
+      transition: all 0.3s;
+    }
+  }
+  > span {
+    background: var(--tooltipbg);
+    &::before {
+      border-color: var(--tooltipbg) transparent;
     }
   }
 `;
