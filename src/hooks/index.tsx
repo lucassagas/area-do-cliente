@@ -8,15 +8,15 @@ import { PlansProvider } from './plans';
 
 const AppProvider: React.FC = ({ children }) => {
   return (
-    <AuthProvider>
-      <ToastProvider>
-        <CustomerProvider>
-          <ThemesProvider>
+    <ThemesProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <CustomerProvider>
             <PlansProvider>{children}</PlansProvider>
-          </ThemesProvider>
-        </CustomerProvider>
-      </ToastProvider>
-    </AuthProvider>
+          </CustomerProvider>
+        </ToastProvider>
+      </AuthProvider>
+    </ThemesProvider>
   );
 };
 
