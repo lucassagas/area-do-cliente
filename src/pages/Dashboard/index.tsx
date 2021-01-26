@@ -12,14 +12,7 @@ import { HiOutlineUser } from '../../styles/icon';
 
 import bgHome from '../../assets/bg_home.svg';
 
-import {
-  Container,
-  Content,
-  Background,
-  ContainerImg,
-  RollToDown,
-  Main,
-} from './styles';
+import { Container, Content, Background, ContainerImg, Main } from './styles';
 import FirstAccess from '../../components/FirstAccess';
 import { useCustomer } from '../../hooks/customer';
 
@@ -62,10 +55,10 @@ const Dashboard: React.FC = () => {
           <img src={bgHome} alt="logo" />
         </ContainerImg>
 
-        <RollToDown>
+        {/* <RollToDown>
           <img src={ArrowToDown} alt="Seta para baixo" />
           <span>Role para baixo</span>
-        </RollToDown>
+        </RollToDown> */}
       </Main>
 
       <section>
