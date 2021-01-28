@@ -71,6 +71,21 @@ export const Container = styled.div`
   }
 `;
 
+export const Title = styled.div`
+  color: var(--lighttext);
+  background: var(--green);
+  max-width: 141px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 25px;
+`;
+
 export const Card = styled.button`
   min-width: 270px;
   padding: 10px;

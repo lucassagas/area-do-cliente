@@ -1,6 +1,55 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+export const FilterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 25px;
+
+  > button {
+    width: 130px;
+    height: 42px;
+    border: 1px solid rgba(112, 112, 112, 0.4);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s;
+    gap: 5px;
+
+    > svg {
+      display: none;
+    }
+
+    &.active {
+      border: 1px solid var(--darkgreen);
+      transition: all 0.4s;
+
+      > svg {
+        color: var(--darkgreen);
+        transition: all 0.4s;
+        display: block;
+      }
+    }
+  }
+`;
+export const Title = styled.div`
+  color: var(--lighttext);
+  background: var(--green);
+  max-width: 141px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;
+
 export const Header = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -51,9 +100,26 @@ export const Header = styled.div`
   }
 `;
 
+export const TitleBillet = styled.span`
+  width: 178px;
+  background: var(--darkgreen);
+  height: 41px;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-weight: 700;
+  color: var(--lighttext);
+  margin-bottom: -21.5px;
+  z-index: 10;
+  position: relative;
+`;
+
 export const Container = styled(motion.div)`
   width: 100%;
   max-width: 1630px;
+  z-index: -1;
   padding: 30px;
   border-radius: 10px;
   border: solid 1px var(--lightgray);
@@ -63,7 +129,8 @@ export const Container = styled(motion.div)`
   display: flex;
   flex-wrap: nowrap;
 
-  overflow-x: auto;
+  overflow-y: auto;
+
   /* width */
   ::-webkit-scrollbar {
     width: 5px;
@@ -91,6 +158,7 @@ export const Container = styled(motion.div)`
     margin-top: 40px;
   }
 `;
+
 export const Card = styled(motion.div)`
   position: relative;
   min-width: 280px;

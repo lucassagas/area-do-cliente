@@ -249,3 +249,10 @@ export const RollToDown = styled.div`
     }
   }
 `;
+
+export const Arrow = styled.div`
+  display: flex;
+  flex-direction: center;
+  align-items: center;
+  max-width: 300px;
+`;
