@@ -49,7 +49,7 @@ export { GrInstagram, GrLogout } from 'react-icons/gr';
 
 export { GiWorld } from 'react-icons/gi';
 
-export { BsGear } from 'react-icons/bs';
+export { BsGear, BsCheck } from 'react-icons/bs';
 
 export {
   RiArrowDownSLine,

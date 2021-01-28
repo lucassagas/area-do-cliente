@@ -1,18 +1,26 @@
 import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
+import Lottie from 'react-lottie';
 import { useAuth } from '../../hooks/auth';
 
 import CustomerData from '../../components/CustomerData';
 import Finances from '../../components/FinancesData';
 
-import ArrowToDown from '../../assets/icons/arrowToDown.svg';
+import animationData from '../../animations/arrowtodown.json';
 
 import { HiOutlineUser } from '../../styles/icon';
 
 import bgHome from '../../assets/bg_home.svg';
 
-import { Container, Content, Background, ContainerImg, Main } from './styles';
+import {
+  Container,
+  Content,
+  Background,
+  ContainerImg,
+  Main,
+  Arrow,
+} from './styles';
 import FirstAccess from '../../components/FirstAccess';
 import { useCustomer } from '../../hooks/customer';
 
@@ -25,6 +33,15 @@ const Dashboard: React.FC = () => {
       setDisplayModalFirstAccess(true);
     }
   }, [setDisplayModalFirstAccess, user.first_access]);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   return (
     <Container>
@@ -39,10 +56,10 @@ const Dashboard: React.FC = () => {
             </span>
           </div>
 
-          <div>
-            <img src={ArrowToDown} alt="Seta para baixo" />
+          <Arrow>
+            <Lottie options={defaultOptions} width={70} height={70} />
             <span>Role para baixo</span>
-          </div>
+          </Arrow>
         </Content>
 
         <Background

@@ -27,26 +27,6 @@ export const Container = styled.div`
     max-width: 650px;
     padding: 10px;
   }
-
-  > span {
-    width: 150px;
-    background: var(--green);
-    border-radius: 10px;
-    padding: 10px;
-
-    color: var(--lighttext);
-    font-size: 2rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin: 30px 0 10px 0;
-
-    @media (max-width: 430px) {
-      margin-bottom: -30px;
-    }
-  }
 `;
 
 export const ContractTitle = styled.div`

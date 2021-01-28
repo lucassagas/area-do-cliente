@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import { isAfter, parseISO } from 'date-fns';
 import { useCustomer } from '../../hooks/customer';
 import { useToast } from '../../hooks/toast';
 
@@ -11,10 +13,20 @@ import {
   SiMailDotRu,
   RiFileCopyLine,
   FiXCircle,
-  FaDollarSign,
+  BsCheck,
+  RiMoneyDollarCircleLine,
 } from '../../styles/icon';
 
-import { Container, Card, Modal, Actions, Header } from './styles';
+import {
+  Container,
+  TitleBillet,
+  Card,
+  Modal,
+  Actions,
+  Header,
+  FilterContainer,
+  Title,
+} from './styles';
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 
@@ -54,6 +66,7 @@ interface BilletProps {
 const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
   const [displayModal, setDisplayModal] = useState('');
   const [billetId, setBilletId] = useState('');
+  const [filter, setFilter] = useState('all');
   const { addToast } = useToast();
 
   const InputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +78,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
       handleLoadBillets(customer?.contracts[0].id);
     }
 
-    const listener = (e: any) => {
+    const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setDisplayModal('');
       }
@@ -127,121 +140,302 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
     );
   }
 
+  const contractDate = customer.contracts[0].ativacao.split('/');
+  const dayContract = contractDate[0].padStart(2, '0');
+  const monthContract = contractDate[1].padStart(2, '0');
+  const yearContract = contractDate[2];
+
   return (
     <>
       {show && (
         <Header>
           <section>
-            <FaDollarSign size={25} />
+            <RiMoneyDollarCircleLine size={22} />
             <strong>Faturas</strong>
           </section>
           <div>
             <strong>Contrato: {customer.contracts[0].id}</strong>
 
-            <span>{customer.contracts[0].ativacao}</span>
+            <span>{`${dayContract}/${monthContract}/${yearContract}`}</span>
 
             <span>{customer.contracts[0].plan}</span>
           </div>
         </Header>
       )}
-      <Container
-        style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
-        variants={variants}
-        initial="hidden"
-        animate="show"
-      >
-        {billets.bol_late.map(billet => {
-          return (
-            <Card key={billet.data_vencimento} variants={item}>
-              <section>
-                <div className="delay" />
-                <h1>Em atraso</h1>
-              </section>
-              <p>Vencimento: {billet.data_vencimento}</p>
-              <span>
-                Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
-              </span>
-              <button type="button">
-                <AiOutlineEye
-                  onClick={() =>
-                    OpenModal({
-                      billet_code: billet.linha_digitavel,
-                      billet_id: billet.id,
-                    })
-                  }
-                  size={24}
-                />
-              </button>
-            </Card>
-          );
-        })}
-      </Container>
+      {!show && (
+        <FilterContainer>
+          <Title>
+            <RiMoneyDollarCircleLine size={24} />
+            <strong>Faturas</strong>
+          </Title>
 
-      <Container
-        style={{ display: billets.bol_activies[0] ? 'flex' : 'none' }}
-        variants={variants}
-        initial="hidden"
-        animate="show"
-      >
-        {billets.bol_activies.map((billet, index) => {
-          return (
-            <Card key={billet.data_vencimento} variants={item}>
-              <section>
-                <div />
-                <h1>{index === 0 ? 'Próximo vencimento' : 'Em Aberto'}</h1>
-              </section>
-              <p>Vencimento: {billet.data_vencimento}</p>
-              <span>
-                Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
-              </span>
-              <button type="button">
-                <AiOutlineEye
-                  onClick={() =>
-                    OpenModal({
-                      billet_code: billet.linha_digitavel,
-                      billet_id: billet.id,
-                    })
-                  }
-                  size={24}
-                />
-              </button>
-            </Card>
-          );
-        })}
-      </Container>
+          <button
+            type="button"
+            onClick={() => setFilter('all')}
+            className={filter === 'all' ? 'active' : ''}
+          >
+            <BsCheck size={22} />
+            Todos
+          </button>
 
-      <Container
-        style={{ display: billets.bol_pay[0] ? 'flex' : 'none' }}
-        variants={variants}
-        initial="hidden"
-        animate="show"
-      >
-        {billets.bol_pay.map(billet => {
-          return (
-            <Card key={billet.data_vencimento} variants={item}>
-              <section>
-                <div className="pay" />
-                <h1>Boletos pagos</h1>
-              </section>
-              <p>Vencimento: {billet.data_vencimento}</p>
-              <span>
-                Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
-              </span>
-              <button type="button">
-                <AiOutlineEye
-                  onClick={() =>
-                    OpenModal({
-                      billet_code: billet.linha_digitavel,
-                      billet_id: billet.id,
-                    })
-                  }
-                  size={24}
-                />
-              </button>
-            </Card>
-          );
-        })}
-      </Container>
+          <button
+            onClick={() => setFilter('overdue')}
+            className={filter === 'overdue' ? 'active' : ''}
+            type="button"
+          >
+            <BsCheck size={22} />
+            Em atraso
+          </button>
+        </FilterContainer>
+      )}
+      {filter === 'all' && (
+        <>
+          <TitleBillet
+            style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
+          >
+            Boletos em Atraso
+          </TitleBillet>
+          <Container
+            style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
+            variants={variants}
+            initial="hidden"
+            animate="show"
+          >
+            {billets.bol_late.map(billet => {
+              const date = billet.data_vencimento.split('/');
+              const day = date[0].padStart(2, '0');
+              const month = date[1].padStart(2, '0');
+              const year = date[2];
+              const formattedDate = `${day}/${month}/${year}`;
+              return (
+                <Card key={billet.data_vencimento} variants={item}>
+                  <section>
+                    <div className="delay" />
+                    <h1>Em atraso</h1>
+                  </section>
+                  <p>Vencimento: {formattedDate}</p>
+                  <span>
+                    Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
+                  </span>
+                  <button type="button">
+                    <AiOutlineEye
+                      onClick={() =>
+                        OpenModal({
+                          billet_code: billet.linha_digitavel,
+                          billet_id: billet.id,
+                        })
+                      }
+                      size={24}
+                    />
+                  </button>
+                </Card>
+              );
+            })}
+
+            {billets.bol_detached.map(billet => {
+              const date = billet.data_vencimento.split('/');
+              const day = date[0].padStart(2, '0');
+              const month = date[1].padStart(2, '0');
+              const year = date[2];
+              const formattedDate = `${day}/${month}/${year}`;
+
+              const parsedDate = `${year}-${month}-${day}`;
+
+              const pastDate = isAfter(parseISO(parsedDate), new Date());
+
+              return pastDate ? null : (
+                <Card key={billet.data_vencimento} variants={item}>
+                  <section>
+                    <div className="delay" />
+                    <h1>Em atraso</h1>
+                  </section>
+                  <p>Vencimento: {formattedDate}</p>
+                  <span>
+                    Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
+                  </span>
+                  <button type="button">
+                    <AiOutlineEye
+                      onClick={() =>
+                        OpenModal({
+                          billet_code: billet.linha_digitavel,
+                          billet_id: billet.id,
+                        })
+                      }
+                      size={24}
+                    />
+                  </button>
+                </Card>
+              );
+            })}
+          </Container>
+
+          <TitleBillet>Boletos de serviços</TitleBillet>
+          <Container
+            style={{ display: billets.bol_detached[0] ? 'flex' : 'none' }}
+            variants={variants}
+            initial="hidden"
+            animate="show"
+          >
+            {billets.bol_detached.map(billet => {
+              const date = billet.data_vencimento.split('/');
+              const day = date[0].padStart(2, '0');
+              const month = date[1].padStart(2, '0');
+              const year = date[2];
+              const formattedDate = `${day}/${month}/${year}`;
+
+              const parsedDate = `${year}-${month}-${day}`;
+
+              const pastDate = isAfter(parseISO(parsedDate), new Date());
+
+              return pastDate ? (
+                <Card key={billet.data_vencimento} variants={item}>
+                  <section>
+                    <div className="delay" />
+                    <h1>Em aberto</h1>
+                  </section>
+                  <p>Vencimento: {formattedDate}</p>
+                  <span>
+                    Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
+                  </span>
+                  <button type="button">
+                    <AiOutlineEye
+                      onClick={() =>
+                        OpenModal({
+                          billet_code: billet.linha_digitavel,
+                          billet_id: billet.id,
+                        })
+                      }
+                      size={24}
+                    />
+                  </button>
+                </Card>
+              ) : null;
+            })}
+          </Container>
+
+          <TitleBillet
+            style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
+          >
+            Mensalidade
+          </TitleBillet>
+          <Container
+            style={{ display: billets.bol_activies[0] ? 'flex' : 'none' }}
+            variants={variants}
+            initial="hidden"
+            animate="show"
+          >
+            {billets.bol_activies.map((billet, index) => {
+              const date = billet.data_vencimento.split('/');
+              const day = date[0].padStart(2, '0');
+              const month = date[1].padStart(2, '0');
+              const year = date[2];
+              const formattedDate = `${day}/${month}/${year}`;
+              return (
+                <Card key={billet.data_vencimento} variants={item}>
+                  <section>
+                    <div />
+                    <h1>{index === 0 ? 'Próximo vencimento' : 'Em Aberto'}</h1>
+                  </section>
+                  <p>Vencimento: {formattedDate}</p>
+                  <span>
+                    Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
+                  </span>
+                  <button type="button">
+                    <AiOutlineEye
+                      onClick={() =>
+                        OpenModal({
+                          billet_code: billet.linha_digitavel,
+                          billet_id: billet.id,
+                        })
+                      }
+                      size={24}
+                    />
+                  </button>
+                </Card>
+              );
+            })}
+          </Container>
+        </>
+      )}
+
+      {filter === 'overdue' && (
+        <>
+          <TitleBillet>Boletos em Atraso</TitleBillet>
+          <Container variants={variants} initial="hidden" animate="show">
+            {!billets.bol_late[0] && (
+              <strong style={{ marginTop: 10 }}>
+                Não há nenhuma pendência
+              </strong>
+            )}
+            {billets.bol_late.map(billet => {
+              const date = billet.data_vencimento.split('/');
+              const day = date[0].padStart(2, '0');
+              const month = date[1].padStart(2, '0');
+              const year = date[2];
+              const formattedDate = `${day}/${month}/${year}`;
+              return (
+                <Card key={billet.data_vencimento} variants={item}>
+                  <section>
+                    <div className="delay" />
+                    <h1>Em atraso</h1>
+                  </section>
+                  <p>Vencimento: {formattedDate}</p>
+                  <span>
+                    Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
+                  </span>
+                  <button type="button">
+                    <AiOutlineEye
+                      onClick={() =>
+                        OpenModal({
+                          billet_code: billet.linha_digitavel,
+                          billet_id: billet.id,
+                        })
+                      }
+                      size={24}
+                    />
+                  </button>
+                </Card>
+              );
+            })}
+
+            {billets.bol_detached.map(billet => {
+              const date = billet.data_vencimento.split('/');
+              const day = date[0].padStart(2, '0');
+              const month = date[1].padStart(2, '0');
+              const year = date[2];
+              const formattedDate = `${day}/${month}/${year}`;
+
+              const parsedDate = `${year}-${month}-${day}`;
+
+              const pastDate = isAfter(parseISO(parsedDate), new Date());
+
+              return pastDate ? null : (
+                <Card key={billet.data_vencimento} variants={item}>
+                  <section>
+                    <div className="delay" />
+                    <h1>Em atraso</h1>
+                  </section>
+                  <p>Vencimento: {formattedDate}</p>
+                  <span>
+                    Valor: <strong>R$ {billet.valor.replace('.', ',')}</strong>
+                  </span>
+                  <button type="button">
+                    <AiOutlineEye
+                      onClick={() =>
+                        OpenModal({
+                          billet_code: billet.linha_digitavel,
+                          billet_id: billet.id,
+                        })
+                      }
+                      size={24}
+                    />
+                  </button>
+                </Card>
+              );
+            })}
+          </Container>
+        </>
+      )}
       <AnimatePresence exitBeforeEnter>
         {displayModal && (
           <Modal exit={{ opacity: 0 }} key="modalbillets">

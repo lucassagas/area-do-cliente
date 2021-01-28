@@ -40,6 +40,7 @@ interface IBilletData {
   bol_activies: IBilletFormat[];
   bol_pay: IBilletFormat[];
   bol_late: IBilletFormat[];
+  bol_detached: IBilletFormat[];
 }
 
 interface CustomerContextData {

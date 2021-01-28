@@ -16,7 +16,7 @@ const FinancesData: React.FC<rowsProps> = ({ rows }) => {
   }
   return (
     <Container>
-      {Arrayrows.map((props, index) => {
+      {Arrayrows.map((_, index) => {
         return (
           <div key={index} className="skeleton-container">
             <Skeleton className="skeleton-row" />

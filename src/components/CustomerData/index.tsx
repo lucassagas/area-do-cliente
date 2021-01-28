@@ -160,7 +160,7 @@ const CustomerData: React.FC<DisplayProps> = ({ display = false }) => {
 
               <label>
                 Observções
-                <section>Descrição</section>
+                <section>Não há Observações</section>
               </label>
             </>
           )}
