@@ -191,12 +191,22 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
       {filter === 'all' && (
         <>
           <TitleBillet
-            style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
+            style={{
+              display:
+                billets.bol_detached[0] || billets.bol_late[0]
+                  ? 'flex'
+                  : 'none',
+            }}
           >
             Boletos em Atraso
           </TitleBillet>
           <Container
-            style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
+            style={{
+              display:
+                billets.bol_detached[0] || billets.bol_late[0]
+                  ? 'flex'
+                  : 'none',
+            }}
             variants={variants}
             initial="hidden"
             animate="show"
@@ -269,7 +279,11 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
             })}
           </Container>
 
-          <TitleBillet>Boletos de serviços</TitleBillet>
+          <TitleBillet
+            style={{ display: billets.bol_detached[0] ? 'flex' : 'none' }}
+          >
+            Boletos de serviços
+          </TitleBillet>
           <Container
             style={{ display: billets.bol_detached[0] ? 'flex' : 'none' }}
             variants={variants}
@@ -314,7 +328,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
           </Container>
 
           <TitleBillet
-            style={{ display: billets.bol_late[0] ? 'flex' : 'none' }}
+            style={{ display: billets.bol_activies[0] ? 'flex' : 'none' }}
           >
             Mensalidade
           </TitleBillet>
@@ -362,7 +376,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
         <>
           <TitleBillet>Boletos em Atraso</TitleBillet>
           <Container variants={variants} initial="hidden" animate="show">
-            {!billets.bol_late[0] && (
+            {!billets.bol_late[0] && !billets.bol_detached[0] && (
               <strong style={{ marginTop: 10 }}>
                 Não há nenhuma pendência
               </strong>
