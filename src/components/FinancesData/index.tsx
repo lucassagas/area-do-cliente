@@ -217,6 +217,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
               const month = date[1].padStart(2, '0');
               const year = date[2];
               const formattedDate = `${day}/${month}/${year}`;
+
               return (
                 <Card key={billet.data_vencimento} variants={item}>
                   <section>

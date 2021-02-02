@@ -68,7 +68,7 @@ const ModalPlans: React.FC = () => {
               <ContainerCards>
                 <section>
                   <Cards
-                    receivedValue="60Mb 20Up, R$80,00"
+                    receivedValue="1567"
                     title="Light"
                     price="80,00"
                     download={60}
@@ -84,7 +84,7 @@ const ModalPlans: React.FC = () => {
                 </section>
                 <section>
                   <Cards
-                    receivedValue="150Mb 50Up, R$100,00"
+                    receivedValue="1568"
                     title="Avançando"
                     price="100,00"
                     download={150}
@@ -101,7 +101,7 @@ const ModalPlans: React.FC = () => {
                 </section>
                 <section>
                   <Cards
-                    receivedValue="300Mb 50Up, R$120,00"
+                    receivedValue="1576"
                     title="Plus"
                     price="120,00"
                     download={300}
@@ -119,7 +119,7 @@ const ModalPlans: React.FC = () => {
 
                 <section>
                   <Cards
-                    receivedValue="1Gb 100Up, R$150,00"
+                    receivedValue="1569"
                     title="Livre"
                     price="150,00"
                     download={1000}
@@ -136,7 +136,7 @@ const ModalPlans: React.FC = () => {
                 </section>
                 <section>
                   <Cards
-                    receivedValue="1Gb 300Up, R$200,00"
+                    receivedValue="1571"
                     title="Elite"
                     price="200,00"
                     download={1000}

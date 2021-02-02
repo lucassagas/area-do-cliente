@@ -336,11 +336,11 @@ const SignUp: React.FC = () => {
                 <strong>
                   {nameStep}: Etapa {step}
                 </strong>
-                {selectedPlan && (
+                {/* {selectedPlan && (
                   <p style={{ margin: '5px 0' }}>
                     Plano selecionado: {selectedPlan}
                   </p>
-                )}
+                )} */}
               </section>
               {step === 4 && (
                 <KnowMore>
@@ -556,18 +556,12 @@ const SignUp: React.FC = () => {
                   <ContainerCard>
                     <Card
                       type="button"
-                      onClick={() => setSelectedPlan('60Mb 20Up, R$80,00')}
-                      className={
-                        selectedPlan === '60Mb 20Up, R$80,00' ? 'active' : ''
-                      }
+                      onClick={() => setSelectedPlan('1567')}
+                      className={selectedPlan === '1567' ? 'active' : ''}
                     >
                       <div>
                         <span
-                          className={
-                            selectedPlan === '60Mb 20Up, R$80,00'
-                              ? 'active'
-                              : ''
-                          }
+                          className={selectedPlan === '1567' ? 'active' : ''}
                         >
                           <FaCheck size={16} />
                         </span>
@@ -581,18 +575,12 @@ const SignUp: React.FC = () => {
 
                     <Card
                       type="button"
-                      className={
-                        selectedPlan === '150Mb 50Up, R$100,00' ? 'active' : ''
-                      }
-                      onClick={() => setSelectedPlan('150Mb 50Up, R$100,00')}
+                      className={selectedPlan === '1568' ? 'active' : ''}
+                      onClick={() => setSelectedPlan('1568')}
                     >
                       <div>
                         <span
-                          className={
-                            selectedPlan === '150Mb 50Up, R$100,00'
-                              ? 'active'
-                              : ''
-                          }
+                          className={selectedPlan === '1568' ? 'active' : ''}
                         >
                           <FaCheck size={16} />
                         </span>
@@ -605,18 +593,12 @@ const SignUp: React.FC = () => {
                     </Card>
                     <Card
                       type="button"
-                      className={
-                        selectedPlan === '300Mb 50Up, R$120,00' ? 'active' : ''
-                      }
-                      onClick={() => setSelectedPlan('300Mb 50Up, R$120,00')}
+                      className={selectedPlan === '1576' ? 'active' : ''}
+                      onClick={() => setSelectedPlan('1576')}
                     >
                       <div>
                         <span
-                          className={
-                            selectedPlan === '300Mb 50Up, R$120,00'
-                              ? 'active'
-                              : ''
-                          }
+                          className={selectedPlan === '1576' ? 'active' : ''}
                         >
                           <FaCheck size={16} />
                         </span>
@@ -629,18 +611,12 @@ const SignUp: React.FC = () => {
                     </Card>
                     <Card
                       type="button"
-                      className={
-                        selectedPlan === '1Gb 100Up, R$150,00' ? 'active' : ''
-                      }
-                      onClick={() => setSelectedPlan('1Gb 100Up, R$150,00')}
+                      className={selectedPlan === '1569' ? 'active' : ''}
+                      onClick={() => setSelectedPlan('1569')}
                     >
                       <div>
                         <span
-                          className={
-                            selectedPlan === '1Gb 100Up, R$150,00'
-                              ? 'active'
-                              : ''
-                          }
+                          className={selectedPlan === '1569' ? 'active' : ''}
                         >
                           <FaCheck size={16} />
                         </span>
@@ -653,18 +629,12 @@ const SignUp: React.FC = () => {
                     </Card>
                     <Card
                       type="button"
-                      className={
-                        selectedPlan === '1Gb 300Up, R$200,00' ? 'active' : ''
-                      }
-                      onClick={() => setSelectedPlan('1Gb 300Up, R$200,00')}
+                      className={selectedPlan === '1571' ? 'active' : ''}
+                      onClick={() => setSelectedPlan('1571')}
                     >
                       <div>
                         <span
-                          className={
-                            selectedPlan === '1Gb 300Up, R$200,00'
-                              ? 'active'
-                              : ''
-                          }
+                          className={selectedPlan === '1571' ? 'active' : ''}
                         >
                           <FaCheck size={16} />
                         </span>
