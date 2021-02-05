@@ -107,7 +107,7 @@ const SignIn: React.FC = () => {
       <Carrousel />
 
       <Content>
-        <button onClick={toggleChangeTheme} type="button">
+        <button title="Trocar tema" onClick={toggleChangeTheme} type="button">
           <VscColorMode size={20} color="var(--background)" />
         </button>
         <AnimationContainer>
