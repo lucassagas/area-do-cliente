@@ -1,133 +1,197 @@
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
-interface NotificationProps {
-  type?: 'info' | 'success' | 'error' | 'congratulations';
-}
+type BadgeProps = {
+  notifications: number;
+  hasUnread: boolean;
+};
 
-interface ContainerProps {
-  hasNotification: number;
-}
+type NotificationListProps = {
+  visible: boolean;
+};
 
-const backgroundVariations = {
-  info: css`
-    background: var(--blueNotification);
-  `,
+type NotificationProps = {
+  unread: boolean;
+  type?: string;
+};
 
-  success: css`
-    background: var(--greenNotification);
-  `,
-
+const backgroundVariants: any = {
   error: css`
-    background: var(--redNotification);
+    border-bottom: solid 3px var(--redNotification);
   `,
-  congratulations: css`
-    background: var(--orangeicons);
-    width: 4px;
+  info: css`
+    border-bottom: solid 3px var(--blueNotification);
+  `,
+  success: css`
+    border-bottom: solid 3px var(--greenNotification);
   `,
 };
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
   position: relative;
+`;
 
-  > button {
-    background: transparent;
-    border: 0;
-    color: var(--text);
-    position: relative;
+export const Badge = styled.div<BadgeProps>`
+  position: relative;
+  background: none;
+  border: 0;
 
-    &::after {
-      background-color: var(--orangeicons);
-      width: 12px;
-      height: 12px;
+  ${props =>
+    props.hasUnread &&
+    css`
+      &::after {
+        position: absolute;
+        right: -2px;
+        top: -2px;
+        width: 14px;
+        height: 14px;
+        background: red;
+        content: '${props.notifications >= 10 ? '' : props.notifications}';
+        font-size: 11px;
+        color: var(--lighttext);
+        border-radius: 50%;
 
-      position: absolute;
-      top: -3px;
-      right: -3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    `}
+`;
 
-      display: ${props => (props.hasNotification ? 'block' : 'none')};
+export const NotificationList = styled(motion.div)<NotificationListProps>`
+  position: absolute;
+  width: 480px;
+  left: calc(50% - 230px);
+  top: calc(100% + 15px);
+  background: var(--backgroundNotification);
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  border-radius: 4px;
+  padding: 15px 5px;
+  display: ${props => (props.visible ? 'block' : 'none')};
 
-      border-radius: 50%;
+  &::before {
+    content: '';
+    position: absolute;
+    left: calc(50% - 20px);
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--backgroundNotification);
+  }
+`;
 
-      content: '';
+export const Scroll = styled.div`
+  max-height: 310px;
+  overflow: auto;
+  padding: 5px 15px;
+
+  > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    > button {
+      border: 0;
+      background: none;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text);
     }
   }
 
-  > div {
-    width: 600px;
-    background: var(--backgroundNotifaction);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 10px;
-    padding: 20px 5px;
-    position: absolute;
-    color: var(--lighttext);
-
-    top: calc(100% + 12px);
-    left: 50%;
-    transform: translateX(-50%);
-
-    @media (max-width: 430px) {
-      width: 350px;
+  & {
+    ::-webkit-scrollbar-track {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
     }
-
-    &::before {
-      content: '';
-      border-style: solid;
-      border-color: var(--backgroundNotifaction) transparent;
-      border-width: 0px 6px 6px 6px;
-      bottom: 100%;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+    ::-webkit-scrollbar {
+      width: 6px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.6);
     }
   }
 `;
 
-export const Notification = styled.div<NotificationProps>`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  border-radius: 6px;
-
-  background: var(--darkgray);
-  width: 550px;
-  padding: 5px;
-
+export const Notification = styled(motion.div)<NotificationProps>`
   color: var(--text);
+  margin-top: 15px;
 
-  > img {
-    margin: 10px;
-    width: 35px !important;
-    height: 35px !important;
-  }
+  background: var(--background);
 
-  > svg {
-    margin-left: auto;
-    margin-right: 20px;
-    cursor: pointer;
-    color: var(--text) !important;
-    fill: var(--text) !important;
-  }
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
 
-  & + div {
-    margin-top: 10px;
-  }
+  padding: 10px;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
 
   > section {
-    width: 6px;
-    height: 77px;
-    border-radius: 10px;
-    ${props => backgroundVariations[props.type || 'info']};
-    margin: 0;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    > img {
+      width: 35px;
+    }
+
+    > span {
+      > strong {
+        font-weight: 500;
+        color: var(--text);
+        font-size: 1.4rem;
+        line-height: 25px;
+      }
+
+      > p {
+        color: var(--text);
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+    }
   }
 
   > div {
-    padding: 10px 0;
+    display: flex;
+    margin-top: 20px;
+
+    > button {
+      background: none;
+      border: 0;
+      font-size: 1.4rem;
+      opacity: 0.6;
+      display: block;
+      margin-bottom: 5px;
+      width: 50%;
+      text-align: center;
+      color: var(--text);
+    }
+
+    > time {
+      font-size: 1.4rem;
+      opacity: 0.6;
+      display: block;
+      margin-bottom: 5px;
+      width: 50%;
+      text-align: center;
+      border-right: 2px solid var(--text);
+    }
   }
 
-  @media (max-width: 430px) {
-    width: 330px;
+  ${props => backgroundVariants[props.type || 'info']}
+`;
+
+export const NoNotification = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  > button {
+    margin-left: auto;
   }
 `;

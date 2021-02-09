@@ -48,19 +48,13 @@ const Carrousel: React.FC = () => {
 
   const selectRadio1 = useCallback(() => {
     setRadio1(true);
-    setRadio2(false);
-    setRadio3(false);
   }, []);
 
   const selectRadio2 = useCallback(() => {
-    setRadio1(false);
     setRadio2(true);
-    setRadio3(false);
   }, []);
 
   const selectRadio3 = useCallback(() => {
-    setRadio1(false);
-    setRadio2(false);
     setRadio3(true);
   }, []);
 
