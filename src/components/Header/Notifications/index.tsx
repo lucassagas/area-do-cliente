@@ -1,5 +1,3 @@
-import { formatDistance, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { AiOutlineBell } from '../../../styles/icon';
@@ -50,48 +48,48 @@ const Notifications: React.FC = () => {
 
     window.addEventListener('keydown', listener);
 
-    async function loadNotifications() {
-      const notificationsData = [
-        {
-          type: 'info',
-          title: 'Atenção !',
-          description: 'Vai ficar de fora dessa ?',
-          id: 'asdasdasd',
-          read: false,
-          createdAt: '2020-06-26 04:07:31',
-        },
-        {
-          type: 'error',
-          title: 'Atenção !',
-          description: 'Vai ficar de fora dessa ?',
-          id: 'asdasdaasd',
-          read: false,
-          createdAt: '2021-02-09 17:03:31',
-        },
-        {
-          type: 'success',
-          title: 'Atenção !',
-          description: 'Vai ficar de fora dessa ?',
-          id: 'asdasdasdasd',
-          read: false,
-          createdAt: '2014-06-26 04:07:31',
-        },
-      ];
+    // async function loadNotifications() {
+    //   const notificationsData = [
+    //     {
+    //       type: 'info',
+    //       title: 'Atenção !',
+    //       description: 'Vai ficar de fora dessa ?',
+    //       id: 'asdasdasd',
+    //       read: false,
+    //       createdAt: '2020-06-26 04:07:31',
+    //     },
+    //     {
+    //       type: 'error',
+    //       title: 'Atenção !',
+    //       description: 'Vai ficar de fora dessa ?',
+    //       id: 'asdasdaasd',
+    //       read: false,
+    //       createdAt: '2021-02-09 17:03:31',
+    //     },
+    //     {
+    //       type: 'success',
+    //       title: 'Atenção !',
+    //       description: 'Vai ficar de fora dessa ?',
+    //       id: 'asdasdasdasd',
+    //       read: false,
+    //       createdAt: '2014-06-26 04:07:31',
+    //     },
+    //   ];
 
-      const filter = notificationsData.filter(n => n.read === false);
+    //   const filter = notificationsData.filter(n => n.read === false);
 
-      const data = filter.map(notification => ({
-        ...notification,
-        timeDistance: formatDistance(
-          parseISO(notification.createdAt),
-          new Date(),
-          { addSuffix: true, locale: pt },
-        ),
-      }));
-      setNotifications(data);
-    }
+    //   const data = filter.map(notification => ({
+    //     ...notification,
+    //     timeDistance: formatDistance(
+    //       parseISO(notification.createdAt),
+    //       new Date(),
+    //       { addSuffix: true, locale: pt },
+    //     ),
+    //   }));
+    //   setNotifications(data);
+    // }
 
-    loadNotifications();
+    // loadNotifications();
 
     return () => {
       window.removeEventListener('keydown', listener);

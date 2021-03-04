@@ -140,10 +140,10 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
     );
   }
 
-  const contractDate = customer.contracts[0].ativacao.split('/');
-  const dayContract = contractDate[0].padStart(2, '0');
-  const monthContract = contractDate[1].padStart(2, '0');
-  const yearContract = contractDate[2];
+  // const contractDate = customer.contracts[0].ativacao.split('/');
+  // const dayContract = contractDate[0].padStart(2, '0');
+  // const monthContract = contractDate[1].padStart(2, '0');
+  // const yearContract = contractDate[2];
 
   return (
     <>
@@ -156,7 +156,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
           <div>
             <strong>Contrato: {customer.contracts[0].id}</strong>
 
-            <span>{`${dayContract}/${monthContract}/${yearContract}`}</span>
+            {/* <span>{`${dayContract}/${monthContract}/${yearContract}`}</span> */}
 
             <span>{customer.contracts[0].plan}</span>
           </div>

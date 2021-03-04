@@ -37,12 +37,12 @@ const Contracts: React.FC = () => {
       </Title>
       <section>
         {customer.contracts.map(contract => {
-          const date = contract.ativacao.split('/');
-          const day = date[0].padStart(2, '0');
-          const month = date[1].padStart(2, '0');
-          const year = date[2];
+          // const date = contract.ativacao.split('/');
+          // const day = date[0].padStart(2, '0');
+          // const month = date[1].padStart(2, '0');
+          // const year = date[2];
 
-          const formattedDate = `${day}/${month}/${year}`;
+          // const formattedDate = `${day}/${month}/${year}`;
           return (
             <Card
               onClick={() => handleSelectContract(contract.id)}
@@ -51,7 +51,7 @@ const Contracts: React.FC = () => {
               className={active === contract.id ? 'active' : ''}
             >
               <h3>{contract.id}</h3>
-              <span>ATIVAÇÃO {formattedDate}</span>
+              {/* <span>ATIVAÇÃO {formattedDate}</span> */}
               <p>{contract.plan}</p>
             </Card>
           );

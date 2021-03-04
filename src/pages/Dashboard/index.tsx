@@ -57,7 +57,12 @@ const Dashboard: React.FC = () => {
           </div>
 
           <Arrow>
-            <Lottie options={defaultOptions} width={70} height={70} />
+            <Lottie
+              isClickToPauseDisabled
+              options={defaultOptions}
+              width={70}
+              height={70}
+            />
             <span>Role para baixo</span>
           </Arrow>
         </Content>
