@@ -63,7 +63,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
 
         const userData = {
           code: user.code,
-          document: document,
+          document,
           first_access: false,
           id: user.id,
           name: user.name,
