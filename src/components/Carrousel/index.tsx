@@ -48,19 +48,13 @@ const Carrousel: React.FC = () => {
 
   const selectRadio1 = useCallback(() => {
     setRadio1(true);
-    setRadio2(false);
-    setRadio3(false);
   }, []);
 
   const selectRadio2 = useCallback(() => {
-    setRadio1(false);
     setRadio2(true);
-    setRadio3(false);
   }, []);
 
   const selectRadio3 = useCallback(() => {
-    setRadio1(false);
-    setRadio2(false);
     setRadio3(true);
   }, []);
 
@@ -135,6 +129,7 @@ const Carrousel: React.FC = () => {
 
           <section>
             <a
+              title="Facebook"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.facebook.com/Neorede"
@@ -142,6 +137,7 @@ const Carrousel: React.FC = () => {
               <FaFacebookF size={27} color="var(--lighttext)" />
             </a>
             <a
+              title="Whatsapp"
               target="_blank"
               rel="noopener noreferrer"
               href="https://api.whatsapp.com/send?phone=554830398888&text=Oi"
@@ -149,6 +145,7 @@ const Carrousel: React.FC = () => {
               <IoLogoWhatsapp size={27} color="var(--lighttext)" />
             </a>
             <a
+              title="Twitter"
               target="_blank"
               rel="noopener noreferrer"
               href="https://twitter.com/neorede"
@@ -156,6 +153,7 @@ const Carrousel: React.FC = () => {
               <FaTwitter size={27} color="var(--lighttext)" />
             </a>
             <a
+              title="Instagram"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.instagram.com/neoredetelecom/"
@@ -163,6 +161,7 @@ const Carrousel: React.FC = () => {
               <GrInstagram size={27} color="var(--lighttext)" />
             </a>
             <a
+              title="Website"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.neorede.com.br"

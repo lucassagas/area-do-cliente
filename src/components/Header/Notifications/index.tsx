@@ -1,99 +1,204 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { motion } from 'framer-motion';
+import { AiOutlineBell } from '../../../styles/icon';
 
-import { useHistory } from 'react-router-dom';
-import { AiOutlineBell, IoMdClose } from '../../../styles/icon';
-
-import check from '../../../assets/icons/check.svg';
-import danger from '../../../assets/icons/danger.svg';
 import info from '../../../assets/icons/info.svg';
-import love from '../../../assets/icons/love.svg';
+import error from '../../../assets/icons/danger.svg';
+import success from '../../../assets/icons/check.svg';
 
-import { Container, Notification } from './styles';
-import api from '../../../services/api';
-import { useAuth } from '../../../hooks/auth';
+import {
+  Container,
+  Badge,
+  NotificationList,
+  Scroll,
+  Notification,
+  NoNotification,
+} from './styles';
 
-import { NotificationsProps } from '../index';
-
-interface MessageProps {
-  messages: NotificationsProps;
-}
-
-const icons = {
-  info: <img src={info} alt="info" />,
-  success: <img src={check} alt="check" />,
-  error: <img src={danger} alt="danger" />,
-  congratulations: <img src={love} alt="love" />,
+type NotificationsProps = {
+  type?: string;
+  title: string;
+  description: string;
+  read: boolean;
+  id: string;
+  createdAt: string;
+  timeDistance?: string;
 };
 
-const Notifications: React.FC<MessageProps> = ({ messages }) => {
-  const [displayNotifications, setDisplayNotifications] = useState(false);
-  const [hasNotification, setHasNotification] = useState<number>(0);
-  const history = useHistory();
+const Notifications: React.FC = () => {
+  const [visible, setVisible] = useState(false);
+  const [notifications, setNotifications] = useState<NotificationsProps[]>([]);
 
-  const { user } = useAuth();
-
-  const toggleNotification = useCallback(() => {
-    setDisplayNotifications(!displayNotifications);
-  }, [displayNotifications]);
-
-  const readNotification = useCallback(
-    async (id: string) => {
-      await api.put('notifications_read', {
-        id_customer: user.id,
-        id_notification: id,
-      });
-
-      history.go(0);
-    },
-    [history, user.id],
+  const hasUnread = useMemo(
+    () => !!notifications.find(notification => notification.read === false),
+    [notifications],
   );
 
-  const toggleNotificationBlur = useCallback(() => {
-    setTimeout(() => {
-      setDisplayNotifications(false);
-    }, 200);
-  }, []);
+  const qtNotification = useMemo(
+    () => notifications.filter(n => n.read === false).length,
+    [notifications],
+  );
 
   useEffect(() => {
-    api.get(`notifications_read/${user.id}/check_unread`).then(response => {
-      setHasNotification(response.data);
-    });
-  }, [user.id]);
+    const listener = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setVisible(false);
+      }
+    };
+
+    window.addEventListener('keydown', listener);
+
+    // async function loadNotifications() {
+    //   const notificationsData = [
+    //     {
+    //       type: 'info',
+    //       title: 'Atenção !',
+    //       description: 'Vai ficar de fora dessa ?',
+    //       id: 'asdasdasd',
+    //       read: false,
+    //       createdAt: '2020-06-26 04:07:31',
+    //     },
+    //     {
+    //       type: 'error',
+    //       title: 'Atenção !',
+    //       description: 'Vai ficar de fora dessa ?',
+    //       id: 'asdasdaasd',
+    //       read: false,
+    //       createdAt: '2021-02-09 17:03:31',
+    //     },
+    //     {
+    //       type: 'success',
+    //       title: 'Atenção !',
+    //       description: 'Vai ficar de fora dessa ?',
+    //       id: 'asdasdasdasd',
+    //       read: false,
+    //       createdAt: '2014-06-26 04:07:31',
+    //     },
+    //   ];
+
+    //   const filter = notificationsData.filter(n => n.read === false);
+
+    //   const data = filter.map(notification => ({
+    //     ...notification,
+    //     timeDistance: formatDistance(
+    //       parseISO(notification.createdAt),
+    //       new Date(),
+    //       { addSuffix: true, locale: pt },
+    //     ),
+    //   }));
+    //   setNotifications(data);
+    // }
+
+    // loadNotifications();
+
+    return () => {
+      window.removeEventListener('keydown', listener);
+    };
+  }, []);
+
+  const handleMarkAsRead = useCallback(
+    async (idNotification: string) => {
+      setNotifications(
+        notifications.map(notification =>
+          notification.id === idNotification
+            ? { ...notification, read: true }
+            : notification,
+        ),
+      );
+    },
+    [notifications],
+  );
+
+  const handleClean = useCallback(
+    () =>
+      setNotifications(
+        notifications.map(notification => ({
+          ...notification,
+          read: true,
+        })),
+      ),
+    [notifications],
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const icons: any = {
+    info: <img src={info} alt="info" />,
+    success: <img src={success} alt="check" />,
+    error: <img src={error} alt="danger" />,
+  };
 
   return (
-    <Container hasNotification={hasNotification}>
-      <button
-        onBlur={toggleNotificationBlur}
-        onClick={toggleNotification}
-        type="button"
+    <Container>
+      <Badge
+        notifications={qtNotification}
+        onClick={() => setVisible(!visible)}
+        hasUnread={hasUnread}
       >
-        <AiOutlineBell size={19} />
-      </button>
+        <AiOutlineBell size={20} color="var(--text)" />
+      </Badge>
+      <NotificationList
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        visible={visible}
+      >
+        <Scroll>
+          {qtNotification > 0 && (
+            <div>
+              <button type="button" onClick={handleClean}>
+                Limpar Notificações
+              </button>
 
-      {displayNotifications && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          {!messages.unread[0] && <p>Não há notificações</p>}
-          {messages.unread.map(message => {
-            return (
-              <Notification key={message.description} type={message.type}>
-                <section />
-                {icons[message.type || 'info']}
-                <div>
-                  <strong>{message.title}</strong>
-                  <p>{message.description}</p>
-                </div>
-                <IoMdClose
-                  onClick={() => readNotification(message.id)}
-                  size={19}
-                  color="var(--text)"
-                />
-              </Notification>
-            );
-          })}
-        </motion.div>
-      )}
+              <button
+                className="close"
+                type="button"
+                onClick={() => setVisible(false)}
+              >
+                Fechar
+              </button>
+            </div>
+          )}
+          {hasUnread ? (
+            notifications.map(
+              notification =>
+                !notification.read && (
+                  <Notification
+                    key={notification.id}
+                    unread={!notification.read}
+                    type={notification.type}
+                  >
+                    <section>
+                      {icons[notification.type || 'info']}
+                      <span>
+                        <strong>{notification.title}</strong>
+                        <p>{notification.description}</p>
+                      </span>
+                    </section>
+                    <div>
+                      <time>{notification.timeDistance}</time>
+                      <button
+                        onClick={() => handleMarkAsRead(notification.id)}
+                        type="button"
+                      >
+                        Marcar como lida.
+                      </button>
+                    </div>
+                  </Notification>
+                ),
+            )
+          ) : (
+            <NoNotification>
+              <button
+                className="close"
+                type="button"
+                onClick={() => setVisible(false)}
+              >
+                Fechar
+              </button>
+              <span>Sem Notificações</span>
+            </NoNotification>
+          )}
+        </Scroll>
+      </NotificationList>
     </Container>
   );
 };

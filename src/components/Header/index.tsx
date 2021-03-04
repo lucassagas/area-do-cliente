@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import logoImg from '../../assets/logo.svg';
 
-import Notification from './Notifications';
-
 import { Container } from './styles';
 
 import { RiArrowDownSLine, VscColorMode } from '../../styles/icon';
@@ -11,37 +9,14 @@ import MyAccountMenu from '../Menus/MyAccountMenu';
 import { useAuth } from '../../hooks/auth';
 import { useCustomer } from '../../hooks/customer';
 import { useTheme } from '../../hooks/themes';
-import api from '../../services/api';
 
 import lightProfileImg from '../../assets/profilelight.png';
 import darkProfileImg from '../../assets/profiledark.png';
-
-export interface NotificationsProps {
-  read: Array<{
-    type: 'info' | 'success' | 'error' | 'congratulations';
-    title: string;
-    description: string;
-    read: boolean;
-    id: string;
-  }>;
-
-  unread: Array<{
-    type: 'info' | 'success' | 'error' | 'congratulations';
-    title: string;
-    description: string;
-    read: boolean;
-    id: string;
-  }>;
-}
+import Notifications from './Notifications';
 
 const Header: React.FC = () => {
   const { user } = useAuth();
   const [displayMyAccount, setDisplayMyAccount] = useState(false);
-  const [notifications, setNotifications] = useState<NotificationsProps>(() => {
-    const response = api.get(`notifications/${user.id}`);
-
-    return (response as unknown) as NotificationsProps;
-  });
 
   const { toggleChangeTheme, themeName } = useTheme();
 
@@ -62,21 +37,14 @@ const Header: React.FC = () => {
       await handleLoadCustomer();
     }
 
-    async function loadNotifications() {
-      api.get(`notifications/${user.id}`).then(response => {
-        setNotifications(response.data);
-      });
-    }
-
     loadData();
-    loadNotifications();
   }, [handleLoadCustomer, user.id]);
 
   return (
     <Container>
       <img src={logoImg} alt="Logo" />
       <div>
-        <Notification messages={notifications} />
+        <Notifications />
         <button onClick={toggleChangeTheme} type="button">
           <VscColorMode size={19} />
         </button>
