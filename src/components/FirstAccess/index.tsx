@@ -53,8 +53,9 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
           abortEarly: false,
         });
 
+        const document = user.document.replace(/[/.-]/g, '');
         await api.put(
-          `customers/${user.code}/info/personal/${user.document}/change_password`,
+          `customers/${user.code}/info/personal/${document}/change_password`,
           {
             password: data.password,
           },
@@ -62,7 +63,7 @@ const FirstAccess: React.FC<FirstAccessProps> = ({ title }) => {
 
         const userData = {
           code: user.code,
-          document: user.document,
+          document: document,
           first_access: false,
           id: user.id,
           name: user.name,
