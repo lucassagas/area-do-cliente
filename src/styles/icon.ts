@@ -17,7 +17,7 @@ export {
   IoMdClose,
 } from 'react-icons/io';
 
-export { CgScreen } from 'react-icons/cg';
+export { CgScreen, CgFileDocument } from 'react-icons/cg';
 
 export { TiArrowLoop } from 'react-icons/ti';
 
@@ -45,7 +45,7 @@ export {
   FaTrashAlt,
 } from 'react-icons/fa';
 
-export { GrInstagram, GrLogout } from 'react-icons/gr';
+export { GrInstagram, GrLogout, GrDocumentPdf } from 'react-icons/gr';
 
 export { GiWorld } from 'react-icons/gi';
 

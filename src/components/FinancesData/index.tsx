@@ -15,6 +15,7 @@ import {
   FiXCircle,
   BsCheck,
   RiMoneyDollarCircleLine,
+  CgFileDocument,
 } from '../../styles/icon';
 
 import {
@@ -130,6 +131,21 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
       });
     }
   }, [addToast, billetId, user]);
+
+  const handleConvertBilletToPdf = useCallback(() => {
+    api
+      .get(`customers/${user.code}/info/billet/${billetId}/archive`)
+      .then(response => {
+        window.location.href = `${response.data.link}`;
+      })
+      .catch(() => {
+        addToast({
+          type: 'error',
+          title: 'Error',
+          description: 'Ocorreu um erro, tente novamente mais tarde',
+        });
+      });
+  }, [addToast, billetId, user.code]);
 
   if (!billets || !customer) {
     return (
@@ -483,12 +499,17 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
 
                   <button onClick={sendBilletToEmail} type="button">
                     <SiMailDotRu size={20} />
-                    Enviar 2̣° via por email
+                    Enviar 2º via por email
                   </button>
 
                   <button onClick={copyCodeBar} type="button">
                     <RiFileCopyLine size={20} />
                     Copiar Código
+                  </button>
+
+                  <button onClick={handleConvertBilletToPdf} type="button">
+                    <CgFileDocument size={20} />
+                    Baixar boleto (PDF)
                   </button>
                 </Actions>
               </div>
