@@ -242,7 +242,7 @@ export const Modal = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.6);
 
   > div {
-    max-width: 600px;
+    max-width: 800px;
     width: 100%;
 
     display: flex;
@@ -342,6 +342,10 @@ export const Actions = styled.div`
     border-radius: 4px;
     border: solid 1px var(--lightgray);
 
+    @media (max-width: 430px) {
+      margin-bottom: 10px;
+    }
+
     > svg {
       color: var(--orangeicons);
       margin-right: 5px;
@@ -350,6 +354,5 @@ export const Actions = styled.div`
 
   @media (max-width: 430px) {
     flex-direction: column;
-    gap: 10px;
   }
 `;

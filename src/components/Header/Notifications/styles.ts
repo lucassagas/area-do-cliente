@@ -70,6 +70,12 @@ export const NotificationList = styled(motion.div)<NotificationListProps>`
   padding: 15px 5px;
   display: ${props => (props.visible ? 'block' : 'none')};
 
+  @media (max-width: 430px) {
+    max-width: 350px;
+    left: calc(50% - 170px);
+    top: calc(100% + 15px);
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -80,6 +86,10 @@ export const NotificationList = styled(motion.div)<NotificationListProps>`
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid var(--backgroundNotification);
+
+    @media (max-width: 430px) {
+      left: calc(50% - 16px);
+    }
   }
 `;
 

@@ -50,10 +50,17 @@ const Header: React.FC = () => {
         </button>
 
         <span>{user.name_abbreviate}</span>
-        <img
-          src={themeName === 'dark' ? lightProfileImg : darkProfileImg}
-          alt="Perfil"
-        />
+        <button
+          onClick={toggleMyAccount}
+          onBlur={toggleMyAccountBlur}
+          type="button"
+        >
+          <img
+            src={themeName === 'dark' ? lightProfileImg : darkProfileImg}
+            alt="Perfil"
+          />
+        </button>
+
         <section className="MyAccount">
           <button
             onClick={toggleMyAccount}
