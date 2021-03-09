@@ -159,8 +159,8 @@ export const Content = styled.div`
     }
 
     @media (max-width: 430px) {
-      line-height: 80px;
-      font-size: 6rem;
+      line-height: 60px;
+      font-size: 5rem;
       display: block;
       width: 360px;
     }
@@ -225,6 +225,7 @@ export const ContainerImg = styled.div`
   @media (max-width: 430px) {
     width: 360px;
     margin: -40px auto 0;
+    max-height: 230px;
     img {
       max-width: 360px;
     }
