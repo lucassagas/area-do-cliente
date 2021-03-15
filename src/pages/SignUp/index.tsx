@@ -377,12 +377,12 @@ const SignUp: React.FC = () => {
                       <Input width="150px" name="rg" label="RG" type="number" />
                     </div>
                   </div>
-                  <Input
-                    width="230px"
+                  <InputMask
+                    width="120px"
                     name="dateofbirth"
                     label="Data de Nascimento"
-                    type="date"
-                    calendar
+                    type="text"
+                    mask="99/99/9999"
                   />
                 </motion.main>
               </>
@@ -586,7 +586,7 @@ const SignUp: React.FC = () => {
                         </span>
                       </div>
                       <div>
-                        <h1>150Mb</h1>
+                        <h1>200Mb</h1>
                         <strong>50Upload</strong>
                         <h2>R$100,00</h2>
                       </div>
@@ -611,24 +611,6 @@ const SignUp: React.FC = () => {
                     </Card>
                     <Card
                       type="button"
-                      className={selectedPlan === '1569' ? 'active' : ''}
-                      onClick={() => setSelectedPlan('1569')}
-                    >
-                      <div>
-                        <span
-                          className={selectedPlan === '1569' ? 'active' : ''}
-                        >
-                          <FaCheck size={16} />
-                        </span>
-                      </div>
-                      <div>
-                        <h1>1Gb</h1>
-                        <strong>100Upload</strong>
-                        <h2>R$150,00</h2>
-                      </div>
-                    </Card>
-                    <Card
-                      type="button"
                       className={selectedPlan === '1571' ? 'active' : ''}
                       onClick={() => setSelectedPlan('1571')}
                     >
@@ -642,7 +624,7 @@ const SignUp: React.FC = () => {
                       <div>
                         <h1>1Gb</h1>
                         <strong>300Upload</strong>
-                        <h2>R$200,00</h2>
+                        <h2>R$150,00</h2>
                       </div>
                     </Card>
                   </ContainerCard>
