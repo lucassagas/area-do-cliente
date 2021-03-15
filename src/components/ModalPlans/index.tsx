@@ -87,7 +87,7 @@ const ModalPlans: React.FC = () => {
                     receivedValue="1568"
                     title="Avançando"
                     price="100,00"
-                    download={150}
+                    download={200}
                     upload={50}
                     router="Roteador Wi-Fi Gratuito"
                     tv
@@ -119,26 +119,9 @@ const ModalPlans: React.FC = () => {
 
                 <section>
                   <Cards
-                    receivedValue="1569"
-                    title="Livre"
-                    price="150,00"
-                    download={1000}
-                    upload={100}
-                    router="Roteador Wi-Fi Gratuito"
-                    tv
-                    drive="25 Giga"
-                    paramount
-                    noggin
-                  />
-                  <Arrow>
-                    <Lottie options={defaultOptions} width={45} height={45} />
-                  </Arrow>
-                </section>
-                <section>
-                  <Cards
                     receivedValue="1571"
                     title="Elite"
-                    price="200,00"
+                    price="150,00"
                     download={1000}
                     upload={300}
                     router="Roteador Wi-Fi Gratuito"
