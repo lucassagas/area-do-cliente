@@ -622,7 +622,9 @@ const SignUp: React.FC = () => {
                         </span>
                       </div>
                       <div>
-                        <h1>1Gb</h1>
+                        <h1>
+                          <h3>Até</h3> 1Gb
+                        </h1>
                         <strong>300Upload</strong>
                         <h2>R$150,00</h2>
                       </div>
@@ -715,7 +717,9 @@ const SignUp: React.FC = () => {
                   <datalist id="knowus">
                     <option value="Instagram">Instagram</option>
                     <option value="Facebook">Facebook</option>
-                    <option value="Twitter">Twitter</option>
+                    <option value="Panfletos">Panfletos</option>
+                    <option value="Google">Google</option>
+                    <option value="Linkedin">Linkedin</option>
                     <option value="Parceiros Comerciais">
                       Parceiros Comerciais
                     </option>

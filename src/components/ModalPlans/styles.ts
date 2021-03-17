@@ -155,6 +155,11 @@ export const ContainerTexts = styled.div`
     margin: 10px 0 0 20px;
   }
 
+  > h5 {
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+
   > span {
     margin-left: 20px;
     font-size: 15px;
