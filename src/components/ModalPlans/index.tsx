@@ -122,7 +122,7 @@ const ModalPlans: React.FC = () => {
                     receivedValue="1571"
                     title="Elite"
                     price="150,00"
-                    download={1000}
+                    download="Até 1000"
                     upload={300}
                     router="Roteador Wi-Fi Gratuito"
                     tv
@@ -152,16 +152,17 @@ const ModalPlans: React.FC = () => {
                 canais abertos, séries, filmes, documentários e desenhos
                 infantis.
               </p>
-              <p>
-                Nós da Neorede trabalhamos com fibra ponta a ponta, ou seja,
-                fibra óptica até dentro da sua casa! Você sabe a importância
-                disto? Desta forma entregamos ao cliente transmissões com mais
-                segurança, mais velocidade em downloads e uploads, livre de
-                interferências eletromagnéticas e também maior capacidade de
-                transmissão. Existem provedores que fazem o uso do cabo UTP, bem
-                diferente de uma fibra óptica.
-              </p>
               <p>Tá esperando o que pra vir fazer parte da Neorede?</p>
+
+              <h5>Informações Importante</h5>
+
+              <p>1. A Taxa de Adesão está sujeita a análise de crédito.</p>
+              <p>
+                2. Todos os planos estão sujeitos a Viabilidade Técnica, esta
+                análise não gera custo ao consumidor, é necessário fazê-la para
+                confirmar a disponibilidade de atendimento no local e garantia
+                da instalação ao cliente na área de cobertura.
+              </p>
             </ContainerTexts>
           </Content>
         </Container>

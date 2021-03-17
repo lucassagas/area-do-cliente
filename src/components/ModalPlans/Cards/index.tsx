@@ -19,7 +19,7 @@ import { Container, Body, Line } from './styles';
 interface CardsProps {
   title: string;
   price: string;
-  download: number;
+  download: number | string;
   upload: number;
   router: string;
   tv?: boolean;
