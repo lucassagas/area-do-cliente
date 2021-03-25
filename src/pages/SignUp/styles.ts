@@ -435,3 +435,112 @@ export const Info = styled(Tooltip)`
     }
   }
 `;
+
+export const WrapperTypeOfContract = styled.div`
+  display: flex;
+`;
+
+export const WrapperOptionsOfCorporatePlans = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    border: 1px solid var(--lightgray);
+    padding: 10px;
+    background: none;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    border-radius: 6px;
+    margin-bottom: 20px;
+
+    > strong {
+      color: var(--text);
+      text-align: left;
+    }
+
+    > ul {
+      list-style: none;
+      margin-top: 20px;
+
+      > li {
+        padding: 3px 0;
+        color: var(--text);
+        text-align: left;
+      }
+    }
+  }
+`;
+
+export const OtherPlansButton = styled.button`
+  padding: 5px;
+  border-radius: 6px;
+  background: transparent;
+
+  border: solid 2px var(--orange);
+
+  color: var(--orange);
+
+  font-size: 20px;
+
+  transition: all 0.3s;
+
+  &:hover {
+    background: var(--orange);
+    color: var(--lighttext);
+  }
+`;
+
+export const ModalDescribeYourNeedOverlay = styled(motion.div)`
+  width: 100vw;
+  height: 100vh;
+
+  background: var(--whiteopacity);
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  overflow: auto;
+
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DescribeYourNeedBox = styled(motion.div)`
+  max-width: 600px;
+  width: 100%;
+
+  border-radius: 6px;
+
+  background: var(--background);
+
+  padding: 20px;
+
+  > header {
+    padding: 10px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > h3 {
+      color: var(--text);
+    }
+
+    > svg {
+      color: var(--text);
+      transition: color 0.2s;
+      cursor: pointer;
+      &:hover {
+        color: var(--error);
+      }
+    }
+  }
+`;

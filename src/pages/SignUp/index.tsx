@@ -4,12 +4,13 @@ import React, {
   useEffect,
   useRef,
   useState,
+  MouseEvent,
 } from 'react';
 import { Form } from '@unform/web';
 import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Lottie from 'react-lottie';
 import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
@@ -40,14 +41,19 @@ import {
   KnowMore,
   ContainerToolTip,
   Info,
+  WrapperTypeOfContract,
+  WrapperOptionsOfCorporatePlans,
+  OtherPlansButton,
+  ModalDescribeYourNeedOverlay,
+  DescribeYourNeedBox,
 } from './styles';
 
+import LoadingDots from '../../components/LoadingDots';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
 import Textarea from '../../components/Textarea';
 import { useTheme } from '../../hooks/themes';
 import api from '../../services/api';
-import LoadingDots from '../../components/LoadingDots';
 import { usePlans } from '../../hooks/plans';
 
 interface InputsProps {
@@ -74,6 +80,12 @@ const SignUp: React.FC = () => {
   const [step, setStep] = useState(1);
   const [nameStep, setNameStep] = useState('Dados Pessoais');
   const [housingType, setHousingType] = useState<boolean | null>(true);
+  const [typeOfContract, setTypeOfContract] = useState<string>('cpf');
+  const [typeOfPlan, setTypeOfPlan] = useState<string>('');
+  const [showModalDescribeYourNeed, setShowModalDescribeYourNeed] = useState<
+    boolean
+  >(false);
+  const [showNextButton, setShowNextButton] = useState<boolean>(true);
   const [formData, setFormData] = useState<InputsProps>();
   const [dueDate, setDueDate] = useState(1);
   const [period, setPeriod] = useState('segunda a sexta');
@@ -114,9 +126,6 @@ const SignUp: React.FC = () => {
           const schema = Yup.object().shape({
             name: Yup.string().required('Por favor, digite o seu nome'),
             cpf: Yup.string().required('Por favor, digite o seu CPF'),
-            dateofbirth: Yup.string().required(
-              'Por favor, digite a sua data de nascimento',
-            ),
           });
 
           await schema.validate(data, {
@@ -148,7 +157,11 @@ const SignUp: React.FC = () => {
             abortEarly: false,
           });
           setStep(step + 1);
-          setFormData({ ...formData, ...data });
+          const formattedData = {
+            ...data,
+            people: typeOfContract,
+          };
+          setFormData({ ...formData, ...formattedData });
         } catch (err) {
           const errors = getValidationErrors(err);
 
@@ -183,6 +196,7 @@ const SignUp: React.FC = () => {
           });
           setStep(step + 1);
           setFormData({ ...formData, ...data });
+          setShowNextButton(false);
         } catch (err) {
           const errors = getValidationErrors(err);
 
@@ -230,7 +244,16 @@ const SignUp: React.FC = () => {
         }
       }
     },
-    [step, formData, selectedPlan, addToast, period, dueDate, housingType],
+    [
+      step,
+      typeOfContract,
+      formData,
+      selectedPlan,
+      addToast,
+      period,
+      dueDate,
+      housingType,
+    ],
   );
 
   const close = useCallback(() => {
@@ -238,6 +261,19 @@ const SignUp: React.FC = () => {
   }, [history]);
 
   const prevStep = useCallback(() => {
+    if (step === 5) {
+      setShowNextButton(false);
+    }
+
+    if (step === 4) {
+      setShowNextButton(true);
+      setTypeOfPlan('');
+    }
+
+    if (step === 5) {
+      setShowNextButton(true);
+    }
+
     step < 2 ? history.goBack() : setStep(step - 1);
   }, [history, step]);
 
@@ -285,6 +321,15 @@ const SignUp: React.FC = () => {
         setFormData({ ...formData, ...parsedData });
       });
   }, [addToast, cep, formData]);
+
+  const handleDescribeYourNeed = useCallback(
+    data => {
+      setSelectedPlan(data.plan);
+      setStep(step + 1);
+      setShowModalDescribeYourNeed(false);
+    },
+    [setSelectedPlan, step],
+  );
 
   const defaultOptions = {
     loop: false,
@@ -342,7 +387,7 @@ const SignUp: React.FC = () => {
                   </p>
                 )} */}
               </section>
-              {step === 4 && (
+              {step === 4 && typeOfContract === 'cpf' && (
                 <KnowMore>
                   <p>
                     <button
@@ -363,27 +408,67 @@ const SignUp: React.FC = () => {
                   animate={{ opacity: 1, transition: { duration: 0.6 } }}
                   className="step1"
                 >
-                  <Input name="name" label="Nome Completo" />
-                  <div className="inputGroup">
-                    <div>
-                      <InputMask
-                        width="140px"
-                        name="cpf"
-                        label="CPF"
-                        mask="999.999.999-99"
+                  <WrapperTypeOfContract>
+                    <RadioButton
+                      onClick={() => setTypeOfContract('cpf')}
+                      type="button"
+                    >
+                      <div
+                        className={typeOfContract === 'cpf' ? 'active' : ''}
                       />
-                    </div>
-                    <div>
-                      <Input width="150px" name="rg" label="RG" type="number" />
-                    </div>
-                  </div>
-                  <InputMask
-                    width="120px"
-                    name="dateofbirth"
-                    label="Data de Nascimento"
-                    type="text"
-                    mask="99/99/9999"
-                  />
+                      <p>CPF</p>
+                    </RadioButton>
+                    <RadioButton
+                      onClick={() => setTypeOfContract('cnpj')}
+                      type="button"
+                    >
+                      <div
+                        className={typeOfContract === 'cnpj' ? 'active' : ''}
+                      />
+                      <p>CNPJ</p>
+                    </RadioButton>
+                  </WrapperTypeOfContract>
+
+                  {typeOfContract === 'cpf' ? (
+                    <>
+                      <Input name="name" label="Nome Completo" />
+                      <div className="inputGroup">
+                        <div>
+                          <InputMask
+                            width="140px"
+                            name="cpf"
+                            label="CPF"
+                            mask="999.999.999-99"
+                          />
+                        </div>
+                        <div>
+                          <Input
+                            width="150px"
+                            name="rg"
+                            label="RG"
+                            type="number"
+                          />
+                        </div>
+                      </div>
+                      <InputMask
+                        width="120px"
+                        name="dateofbirth"
+                        label="Data de Nascimento"
+                        type="text"
+                        mask="99/99/9999"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Input name="name" label="Razão Social" />
+                      <InputMask
+                        width="190px"
+                        name="cpf"
+                        label="CNPJ"
+                        mask="99.999.999/9999-99"
+                      />
+                    </>
+                  )}
                 </motion.main>
               </>
             )}
@@ -429,24 +514,28 @@ const SignUp: React.FC = () => {
                   animate={{ opacity: 1, transition: { duration: 0.6 } }}
                   className="step2"
                 >
-                  <p>Tipo de Moradia</p>
-                  <GroupButton>
-                    <RadioButton
-                      onClick={() => setHousingType(true)}
-                      type="button"
-                    >
-                      <div className={housingType ? 'active' : ''} />
-                      <p>Casa</p>
-                    </RadioButton>
+                  {typeOfContract === 'cpf' && (
+                    <>
+                      <p>Tipo de Moradia</p>
+                      <GroupButton>
+                        <RadioButton
+                          onClick={() => setHousingType(true)}
+                          type="button"
+                        >
+                          <div className={housingType ? 'active' : ''} />
+                          <p>Casa</p>
+                        </RadioButton>
 
-                    <RadioButton
-                      onClick={() => setHousingType(false)}
-                      type="button"
-                    >
-                      <div className={!housingType ? 'active' : ''} />
-                      <p>Condominio</p>
-                    </RadioButton>
-                  </GroupButton>
+                        <RadioButton
+                          onClick={() => setHousingType(false)}
+                          type="button"
+                        >
+                          <div className={!housingType ? 'active' : ''} />
+                          <p>Condominio</p>
+                        </RadioButton>
+                      </GroupButton>
+                    </>
+                  )}
 
                   {housingType ? (
                     <>
@@ -553,83 +642,315 @@ const SignUp: React.FC = () => {
                   animate={{ opacity: 1, transition: { duration: 0.6 } }}
                   className="step2"
                 >
-                  <ContainerCard>
-                    <Card
-                      type="button"
-                      onClick={() => setSelectedPlan('1567')}
-                      className={selectedPlan === '1567' ? 'active' : ''}
-                    >
-                      <div>
-                        <span
-                          className={selectedPlan === '1567' ? 'active' : ''}
-                        >
-                          <FaCheck size={16} />
-                        </span>
-                      </div>
-                      <div>
-                        <h1>60Mb</h1>
-                        <strong>20Upload</strong>
-                        <h2>R$80,00</h2>
-                      </div>
-                    </Card>
+                  {typeOfContract === 'cpf' ? (
+                    <ContainerCard>
+                      <Card
+                        type="button"
+                        onClick={() => setSelectedPlan('1567')}
+                        className={selectedPlan === '1567' ? 'active' : ''}
+                      >
+                        <div>
+                          <span
+                            className={selectedPlan === '1567' ? 'active' : ''}
+                          >
+                            <FaCheck size={16} />
+                          </span>
+                        </div>
+                        <div>
+                          <h1>60Mb</h1>
+                          <strong>20Upload</strong>
+                          <h2>R$80,00</h2>
+                        </div>
+                      </Card>
 
-                    <Card
-                      type="button"
-                      className={selectedPlan === '1568' ? 'active' : ''}
-                      onClick={() => setSelectedPlan('1568')}
-                    >
-                      <div>
-                        <span
-                          className={selectedPlan === '1568' ? 'active' : ''}
-                        >
-                          <FaCheck size={16} />
-                        </span>
-                      </div>
-                      <div>
-                        <h1>200Mb</h1>
-                        <strong>50Upload</strong>
-                        <h2>R$100,00</h2>
-                      </div>
-                    </Card>
-                    <Card
-                      type="button"
-                      className={selectedPlan === '1576' ? 'active' : ''}
-                      onClick={() => setSelectedPlan('1576')}
-                    >
-                      <div>
-                        <span
-                          className={selectedPlan === '1576' ? 'active' : ''}
-                        >
-                          <FaCheck size={16} />
-                        </span>
-                      </div>
-                      <div>
-                        <h1>300Mb</h1>
-                        <strong>50Upload</strong>
-                        <h2>R$120,00</h2>
-                      </div>
-                    </Card>
-                    <Card
-                      type="button"
-                      className={selectedPlan === '1571' ? 'active' : ''}
-                      onClick={() => setSelectedPlan('1571')}
-                    >
-                      <div>
-                        <span
-                          className={selectedPlan === '1571' ? 'active' : ''}
-                        >
-                          <FaCheck size={16} />
-                        </span>
-                      </div>
-                      <div>
-                        <h1>
-                          <h3>Até</h3> 1Gb
-                        </h1>
-                        <strong>300Upload</strong>
-                        <h2>R$150,00</h2>
-                      </div>
-                    </Card>
-                  </ContainerCard>
+                      <Card
+                        type="button"
+                        className={selectedPlan === '1568' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1568')}
+                      >
+                        <div>
+                          <span
+                            className={selectedPlan === '1568' ? 'active' : ''}
+                          >
+                            <FaCheck size={16} />
+                          </span>
+                        </div>
+                        <div>
+                          <h1>200Mb</h1>
+                          <strong>50Upload</strong>
+                          <h2>R$100,00</h2>
+                        </div>
+                      </Card>
+                      <Card
+                        type="button"
+                        className={selectedPlan === '1576' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1576')}
+                      >
+                        <div>
+                          <span
+                            className={selectedPlan === '1576' ? 'active' : ''}
+                          >
+                            <FaCheck size={16} />
+                          </span>
+                        </div>
+                        <div>
+                          <h1>300Mb</h1>
+                          <strong>50Upload</strong>
+                          <h2>R$120,00</h2>
+                        </div>
+                      </Card>
+                      <Card
+                        type="button"
+                        className={selectedPlan === '1571' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1571')}
+                      >
+                        <div>
+                          <span
+                            className={selectedPlan === '1571' ? 'active' : ''}
+                          >
+                            <FaCheck size={16} />
+                          </span>
+                        </div>
+                        <div>
+                          <h1>
+                            <h3>Até</h3> 1Gb
+                          </h1>
+                          <strong>300Upload</strong>
+                          <h2>R$150,00</h2>
+                        </div>
+                      </Card>
+                    </ContainerCard>
+                  ) : (
+                    <>
+                      <WrapperOptionsOfCorporatePlans>
+                        {!typeOfPlan && (
+                          <>
+                            <div>
+                              <strong>Dedicado</strong>
+                              <ul>
+                                <li>- PLANOS SIMÉTRICOS</li>
+                                <li>- ATENDIMENTO 24/7</li>
+                                <li>- SLA 4 HORAS</li>
+                                <li>- MONITORAMENTO DE LINK</li>
+                                <li>- ATENDIMENTO EXCLUSIVO</li>
+                                <li>ENTRE OUTROS BENEFÍCIOS</li>
+                              </ul>
+
+                              <Button
+                                onClick={() => {
+                                  setTypeOfPlan('dedicated');
+                                  setShowNextButton(true);
+                                }}
+                                type="button"
+                              >
+                                Contratar
+                              </Button>
+                            </div>
+
+                            <div>
+                              <strong>Banda Larga</strong>
+                              <ul>
+                                <li>- PLANOS ASSIMÉTRICOS</li>
+                                <li>- ATENDIMENTO HORÁRIO COMERCIAL</li>
+                                <li>- SLA 8 HORAS UTÉIS</li>
+                                <li>- ATENDIMENTO EXCLUSIVO</li>
+                                <li>- GARANTIA DE BANDA 70%</li>
+                              </ul>
+                              <Button
+                                onClick={() => {
+                                  setShowNextButton(true);
+                                  setTypeOfPlan('broadband');
+                                }}
+                                type="button"
+                              >
+                                Contratar
+                              </Button>
+                            </div>
+                          </>
+                        )}
+                      </WrapperOptionsOfCorporatePlans>
+                      {typeOfPlan === 'dedicated' && (
+                        <>
+                          <ContainerCard>
+                            <Card
+                              type="button"
+                              onClick={() => setSelectedPlan('50MB-50MB')}
+                              className={
+                                selectedPlan === '50MB-50MB' ? 'active' : ''
+                              }
+                            >
+                              <div>
+                                <span
+                                  className={
+                                    selectedPlan === '50MB-50MB' ? 'active' : ''
+                                  }
+                                >
+                                  <FaCheck size={16} />
+                                </span>
+                              </div>
+                              <div>
+                                <h1>50Mb</h1>
+                                <strong>50Upload</strong>
+                                <h4>FULL</h4>
+                              </div>
+                            </Card>
+
+                            <Card
+                              type="button"
+                              onClick={() => setSelectedPlan('100MB-100MB')}
+                              className={
+                                selectedPlan === '100MB-100MB' ? 'active' : ''
+                              }
+                            >
+                              <div>
+                                <span
+                                  className={
+                                    selectedPlan === '100MB-100MB'
+                                      ? 'active'
+                                      : ''
+                                  }
+                                >
+                                  <FaCheck size={16} />
+                                </span>
+                              </div>
+                              <div>
+                                <h1>100Mb</h1>
+                                <strong>100Upload</strong>
+                                <h4>FULL</h4>
+                              </div>
+                            </Card>
+
+                            <Card
+                              type="button"
+                              onClick={() => setSelectedPlan('500MB-500MB')}
+                              className={
+                                selectedPlan === '500MB-500MB' ? 'active' : ''
+                              }
+                            >
+                              <div>
+                                <span
+                                  className={
+                                    selectedPlan === '500MB-500MB'
+                                      ? 'active'
+                                      : ''
+                                  }
+                                >
+                                  <FaCheck size={16} />
+                                </span>
+                              </div>
+                              <div>
+                                <h1>500Mb</h1>
+                                <strong>500Upload</strong>
+                                <h4>FULL</h4>
+                              </div>
+                            </Card>
+
+                            <Card
+                              type="button"
+                              onClick={() => setSelectedPlan('1GB-1GB')}
+                              className={
+                                selectedPlan === '1GB-1GB' ? 'active' : ''
+                              }
+                            >
+                              <div>
+                                <span
+                                  className={
+                                    selectedPlan === '1GB-1GB' ? 'active' : ''
+                                  }
+                                >
+                                  <FaCheck size={16} />
+                                </span>
+                              </div>
+                              <div>
+                                <h1>1Gb</h1>
+                                <strong>1Gb Upload</strong>
+                                <h4>FULL</h4>
+                              </div>
+                            </Card>
+                          </ContainerCard>
+                          <OtherPlansButton
+                            onClick={() => setShowModalDescribeYourNeed(true)}
+                            type="button"
+                          >
+                            Outros planos e serviços
+                          </OtherPlansButton>
+                        </>
+                      )}
+
+                      {typeOfPlan === 'broadband' && (
+                        <ContainerCard>
+                          <Card
+                            type="button"
+                            onClick={() => setSelectedPlan('300Mb-50Mb')}
+                            className={
+                              selectedPlan === '300Mb-50Mb' ? 'active' : ''
+                            }
+                          >
+                            <div>
+                              <span
+                                className={
+                                  selectedPlan === '300Mb-50Mb' ? 'active' : ''
+                                }
+                              >
+                                <FaCheck size={16} />
+                              </span>
+                            </div>
+                            <div>
+                              <h1>300Mb</h1>
+                              <strong>50Mb Upload</strong>
+                              <h2>R$150,00</h2>
+                            </div>
+                          </Card>
+
+                          <Card
+                            type="button"
+                            onClick={() => setSelectedPlan('300Mb-150Mb')}
+                            className={
+                              selectedPlan === '300Mb-150Mb' ? 'active' : ''
+                            }
+                          >
+                            <div>
+                              <span
+                                className={
+                                  selectedPlan === '300Mb-150Mb' ? 'active' : ''
+                                }
+                              >
+                                <FaCheck size={16} />
+                              </span>
+                            </div>
+                            <div>
+                              <h1>300Mb</h1>
+                              <strong>150Mb Upload</strong>
+                              <h2>R$250,00</h2>
+                            </div>
+                          </Card>
+
+                          <Card
+                            type="button"
+                            onClick={() => setSelectedPlan('500Mb-250Mb')}
+                            className={
+                              selectedPlan === '500Mb-250Mb' ? 'active' : ''
+                            }
+                          >
+                            <div>
+                              <span
+                                className={
+                                  selectedPlan === '500Mb-250Mb' ? 'active' : ''
+                                }
+                              >
+                                <FaCheck size={16} />
+                              </span>
+                            </div>
+                            <div>
+                              <h1>500Mb</h1>
+                              <strong>250Mb Upload</strong>
+                              <h2>R$350,00</h2>
+                            </div>
+                          </Card>
+                        </ContainerCard>
+                      )}
+                    </>
+                  )}
                 </motion.main>
               </>
             )}
@@ -732,11 +1053,13 @@ const SignUp: React.FC = () => {
               </>
             )}
             <footer>
-              <Button type="submit">
-                {loading && <LoadingDots />}
-                {step === 5 && !loading && 'Concluir'}
-                {!loading && step !== 5 && 'Avançar'}
-              </Button>
+              {showNextButton && (
+                <Button type="submit">
+                  {loading && <LoadingDots />}
+                  {step === 5 && !loading && 'Concluir'}
+                  {!loading && step !== 5 && 'Avançar'}
+                </Button>
+              )}
 
               <ProgressBar>
                 <ContentProgressBar />
@@ -811,6 +1134,35 @@ const SignUp: React.FC = () => {
           />
         </ContainerFinish>
       )}
+
+      <AnimatePresence exitBeforeEnter>
+        {showModalDescribeYourNeed && (
+          <ModalDescribeYourNeedOverlay
+            onClick={() => setShowModalDescribeYourNeed(false)}
+            exit={{ opacity: 0 }}
+          >
+            <DescribeYourNeedBox
+              onClick={(event: MouseEvent) => event.stopPropagation()}
+              initial={{ y: -600, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -600, opacity: 0 }}
+            >
+              <header>
+                <h3>Descreva qual a sua necessidade</h3>
+
+                <IoMdClose
+                  size={18}
+                  onClick={() => setShowModalDescribeYourNeed(false)}
+                />
+              </header>
+              <Form onSubmit={handleDescribeYourNeed}>
+                <Textarea name="plan" rows={8} placeholder="Escreva aqui" />
+                <Button type="submit">Avançar</Button>
+              </Form>
+            </DescribeYourNeedBox>
+          </ModalDescribeYourNeedOverlay>
+        )}
+      </AnimatePresence>
     </Container>
   );
 };
