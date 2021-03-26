@@ -447,28 +447,46 @@ export const WrapperOptionsOfCorporatePlans = styled.div`
 
   > div {
     border: 1px solid var(--lightgray);
-    padding: 10px;
     background: none;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    overflow: hidden;
 
     border-radius: 6px;
     margin-bottom: 20px;
 
     > strong {
-      color: var(--text);
+      color: var(--lighttext);
       text-align: left;
+      width: 100%;
+      font-size: 32px;
+      background: var(--orange);
+
+      padding: 10px 0 10px 20px;
     }
 
-    > ul {
-      list-style: none;
-      margin-top: 20px;
+    > section {
+      width: 100%;
+      padding: 20px;
+      > ul {
+        list-style: none;
 
-      > li {
-        padding: 3px 0;
-        color: var(--text);
-        text-align: left;
+        > li {
+          padding: 3px 0;
+          color: var(--text);
+          text-align: left;
+          line-height: 30px;
+          font-size: 14px;
+
+          display: flex;
+          align-items: center;
+
+          > svg {
+            color: var(--orange);
+            margin-right: 10px;
+          }
+        }
       }
     }
   }

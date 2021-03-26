@@ -15,13 +15,19 @@ export {
   IoMdDownload,
   IoMdAlert,
   IoMdClose,
+  IoMdAdd,
 } from 'react-icons/io';
 
 export { CgScreen, CgFileDocument } from 'react-icons/cg';
 
 export { TiArrowLoop } from 'react-icons/ti';
 
-export { HiOutlineUser } from 'react-icons/hi';
+export {
+  HiOutlineUser,
+  HiWifi,
+  HiOutlineClock,
+  HiOutlineLocationMarker,
+} from 'react-icons/hi';
 
 export { VscLock, VscHome, VscColorMode } from 'react-icons/vsc';
 
@@ -34,6 +40,7 @@ export {
   FiXCircle,
   FiMenu,
   FiWifi,
+  FiMonitor,
 } from 'react-icons/fi';
 
 export {
@@ -43,6 +50,7 @@ export {
   FaDollarSign,
   FaWhatsapp,
   FaTrashAlt,
+  FaRegCalendar,
 } from 'react-icons/fa';
 
 export { GrInstagram, GrLogout, GrDocumentPdf } from 'react-icons/gr';
@@ -68,4 +76,4 @@ export {
   RiMoneyDollarCircleLine,
 } from 'react-icons/ri';
 
-export { MdChildCare } from 'react-icons/md';
+export { MdChildCare, MdTimeline } from 'react-icons/md';

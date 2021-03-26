@@ -22,6 +22,13 @@ import {
   FaCheck,
   IoMdClose,
   AiOutlineQuestionCircle,
+  HiWifi,
+  FaRegCalendar,
+  HiOutlineClock,
+  FiMonitor,
+  IoMdAdd,
+  MdTimeline,
+  HiOutlineLocationMarker,
 } from '../../styles/icon';
 import blackLogoImg from '../../assets/logo_preta.svg';
 import whiteLogoImg from '../../assets/logo_branca.svg';
@@ -196,7 +203,10 @@ const SignUp: React.FC = () => {
           });
           setStep(step + 1);
           setFormData({ ...formData, ...data });
-          setShowNextButton(false);
+
+          if (typeOfContract === 'cnpj') {
+            setShowNextButton(false);
+          }
         } catch (err) {
           const errors = getValidationErrors(err);
 
@@ -261,21 +271,21 @@ const SignUp: React.FC = () => {
   }, [history]);
 
   const prevStep = useCallback(() => {
-    if (step === 5) {
+    if (step === 5 && typeOfContract === 'cnpj') {
       setShowNextButton(false);
     }
 
-    if (step === 4) {
+    if (step === 4 && typeOfContract === 'cnpj') {
       setShowNextButton(true);
       setTypeOfPlan('');
     }
 
-    if (step === 5) {
+    if (step === 5 && typeOfContract === 'cnpj') {
       setShowNextButton(true);
     }
 
     step < 2 ? history.goBack() : setStep(step - 1);
-  }, [history, step]);
+  }, [history, step, typeOfContract]);
 
   const handleDueDate = useCallback((day: number) => {
     setDueDate(day);
@@ -727,44 +737,81 @@ const SignUp: React.FC = () => {
                           <>
                             <div>
                               <strong>Dedicado</strong>
-                              <ul>
-                                <li>- PLANOS SIMÉTRICOS</li>
-                                <li>- ATENDIMENTO 24/7</li>
-                                <li>- SLA 4 HORAS</li>
-                                <li>- MONITORAMENTO DE LINK</li>
-                                <li>- ATENDIMENTO EXCLUSIVO</li>
-                                <li>ENTRE OUTROS BENEFÍCIOS</li>
-                              </ul>
+                              <section>
+                                <ul>
+                                  <li>
+                                    <HiWifi size={16} /> Planos simétricos
+                                  </li>
+                                  <li>
+                                    <FaRegCalendar size={16} /> Atendimento 24/7
+                                  </li>
+                                  <li>
+                                    <HiOutlineClock size={16} /> SLA 4 horas
+                                  </li>
+                                  <li>
+                                    <FiMonitor size={16} /> Monitoramento de
+                                    link
+                                  </li>
+                                  <li>
+                                    <HiOutlineLocationMarker size={16} /> IP
+                                    público fixo
+                                  </li>
+                                  <li>
+                                    <IoMdAdd size={20} /> Entre outros
+                                    benefícios
+                                  </li>
+                                </ul>
 
-                              <Button
-                                onClick={() => {
-                                  setTypeOfPlan('dedicated');
-                                  setShowNextButton(true);
-                                }}
-                                type="button"
-                              >
-                                Contratar
-                              </Button>
+                                <Button
+                                  onClick={() => {
+                                    setTypeOfPlan('dedicated');
+                                    setShowNextButton(true);
+                                  }}
+                                  type="button"
+                                >
+                                  Contratar
+                                </Button>
+                              </section>
                             </div>
 
                             <div>
-                              <strong>Banda Larga</strong>
-                              <ul>
-                                <li>- PLANOS ASSIMÉTRICOS</li>
-                                <li>- ATENDIMENTO HORÁRIO COMERCIAL</li>
-                                <li>- SLA 8 HORAS UTÉIS</li>
-                                <li>- ATENDIMENTO EXCLUSIVO</li>
-                                <li>- GARANTIA DE BANDA 70%</li>
-                              </ul>
-                              <Button
-                                onClick={() => {
-                                  setShowNextButton(true);
-                                  setTypeOfPlan('broadband');
-                                }}
-                                type="button"
-                              >
-                                Contratar
-                              </Button>
+                              <strong>Empresarial</strong>
+                              <section>
+                                <ul>
+                                  <li>
+                                    <HiWifi size={16} /> Planos assimétricos
+                                  </li>
+                                  <li>
+                                    <FaRegCalendar size={16} /> Atendimento
+                                    horário comercial
+                                  </li>
+                                  <li>
+                                    <HiOutlineClock size={16} /> SLA 8 horas
+                                    úteis
+                                  </li>
+                                  <li>
+                                    <FiMonitor size={16} /> Atendimento
+                                    exclusivo
+                                  </li>
+                                  <li>
+                                    <HiOutlineLocationMarker size={16} /> IP
+                                    público fixo
+                                  </li>
+                                  <li>
+                                    <MdTimeline size={20} /> Garantia de banda
+                                    70%
+                                  </li>
+                                </ul>
+                                <Button
+                                  onClick={() => {
+                                    setShowNextButton(true);
+                                    setTypeOfPlan('broadband');
+                                  }}
+                                  type="button"
+                                >
+                                  Contratar
+                                </Button>
+                              </section>
                             </div>
                           </>
                         )}
