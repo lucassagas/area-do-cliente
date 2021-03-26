@@ -435,3 +435,130 @@ export const Info = styled(Tooltip)`
     }
   }
 `;
+
+export const WrapperTypeOfContract = styled.div`
+  display: flex;
+`;
+
+export const WrapperOptionsOfCorporatePlans = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    border: 1px solid var(--lightgray);
+    background: none;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow: hidden;
+
+    border-radius: 6px;
+    margin-bottom: 20px;
+
+    > strong {
+      color: var(--lighttext);
+      text-align: left;
+      width: 100%;
+      font-size: 32px;
+      background: var(--orange);
+
+      padding: 10px 0 10px 20px;
+    }
+
+    > section {
+      width: 100%;
+      padding: 20px;
+      > ul {
+        list-style: none;
+
+        > li {
+          padding: 3px 0;
+          color: var(--text);
+          text-align: left;
+          line-height: 30px;
+          font-size: 14px;
+
+          display: flex;
+          align-items: center;
+
+          > svg {
+            color: var(--orange);
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const OtherPlansButton = styled.button`
+  padding: 5px;
+  border-radius: 6px;
+  background: transparent;
+
+  border: solid 2px var(--orange);
+
+  color: var(--orange);
+
+  font-size: 20px;
+
+  transition: all 0.3s;
+
+  &:hover {
+    background: var(--orange);
+    color: var(--lighttext);
+  }
+`;
+
+export const ModalDescribeYourNeedOverlay = styled(motion.div)`
+  width: 100vw;
+  height: 100vh;
+
+  background: var(--whiteopacity);
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  overflow: auto;
+
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DescribeYourNeedBox = styled(motion.div)`
+  max-width: 600px;
+  width: 100%;
+
+  border-radius: 6px;
+
+  background: var(--background);
+
+  padding: 20px;
+
+  > header {
+    padding: 10px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > h3 {
+      color: var(--text);
+    }
+
+    > svg {
+      color: var(--text);
+      transition: color 0.2s;
+      cursor: pointer;
+      &:hover {
+        color: var(--error);
+      }
+    }
+  }
+`;
