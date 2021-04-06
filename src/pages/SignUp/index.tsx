@@ -711,12 +711,12 @@ const SignUp: React.FC = () => {
                       </Card>
                       <Card
                         type="button"
-                        className={selectedPlan === '1571' ? 'active' : ''}
-                        onClick={() => setSelectedPlan('1571')}
+                        className={selectedPlan === '1569' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1569')}
                       >
                         <div>
                           <span
-                            className={selectedPlan === '1571' ? 'active' : ''}
+                            className={selectedPlan === '1569' ? 'active' : ''}
                           >
                             <FaCheck size={16} />
                           </span>
