@@ -88,7 +88,7 @@ const ModalPlans: React.FC = () => {
                     title="Avançado"
                     price="100,00"
                     download={200}
-                    upload={50}
+                    upload={60}
                     router="Roteador Wi-Fi Gratuito"
                     tv
                     drive="10 Giga"
@@ -105,7 +105,7 @@ const ModalPlans: React.FC = () => {
                     title="Plus"
                     price="120,00"
                     download={300}
-                    upload={50}
+                    upload={90}
                     router="Roteador Wi-Fi Gratuito"
                     tv
                     drive="10 Giga"
