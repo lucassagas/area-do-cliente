@@ -944,7 +944,7 @@ const SignUp: React.FC = () => {
                             </div>
                             <div>
                               <h1>300Mb</h1>
-                              <strong>50Mb Upload</strong>
+                              <strong>90Mb Upload</strong>
                               <h2>R$150,00</h2>
                             </div>
                           </Card>
