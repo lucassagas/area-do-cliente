@@ -928,15 +928,15 @@ const SignUp: React.FC = () => {
                         <ContainerCard>
                           <Card
                             type="button"
-                            onClick={() => setSelectedPlan('300Mb-50Mb')}
+                            onClick={() => setSelectedPlan('300Mb-90Mb')}
                             className={
-                              selectedPlan === '300Mb-50Mb' ? 'active' : ''
+                              selectedPlan === '300Mb-90Mb' ? 'active' : ''
                             }
                           >
                             <div>
                               <span
                                 className={
-                                  selectedPlan === '300Mb-50Mb' ? 'active' : ''
+                                  selectedPlan === '300Mb-90Mb' ? 'active' : ''
                                 }
                               >
                                 <FaCheck size={16} />
