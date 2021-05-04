@@ -394,9 +394,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
           <TitleBillet>Boletos em Atraso</TitleBillet>
           <Container variants={variants} initial="hidden" animate="show">
             {!billets.bol_late[0] && !billets.bol_detached[0] && (
-              <strong style={{ marginTop: 10 }}>
-                Não há nenhuma pendência
-              </strong>
+              <strong style={{ marginTop: 10 }}>Não há pendências</strong>
             )}
             {billets.bol_late.map(billet => {
               const date = billet.data_vencimento.split('/');

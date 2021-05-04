@@ -3,14 +3,26 @@ import { useCustomer } from '../../hooks/customer';
 
 import ShimmerContracts from '../Shimmer/Contracts';
 
-import { RiMoneyDollarCircleLine } from '../../styles/icon';
+import {
+  RiMoneyDollarCircleLine,
+  AiOutlineQuestionCircle,
+} from '../../styles/icon';
 
-import { Container, Card, Title } from './styles';
+import { Container, Card, Title, Wrapper, ReductionCard, Info } from './styles';
+import { useToast } from '../../hooks/toast';
+import { useAuth } from '../../hooks/auth';
+import api from '../../services/api';
+import LoadingDots from '../LoadingDots';
 
 const Contracts: React.FC = () => {
   const [active, setActive] = useState<string>();
+  const [contractStatus, setContractStatus] = useState<string>();
   const { customer, handleLoadBillets } = useCustomer();
+  const { addToast } = useToast();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
 
+  console.log(contractStatus);
   const handleSelectContract = useCallback(
     (data: string) => {
       handleLoadBillets(data);
@@ -19,9 +31,58 @@ const Contracts: React.FC = () => {
     [handleLoadBillets],
   );
 
+  const handleUnblockCustomer = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await api.get(
+        `customers/${user.code}/${active}/trust_unlock`,
+      );
+
+      addToast({
+        type: 'info',
+        title: 'ATENÇÃO',
+        description: response.data.result,
+        timer: true,
+      });
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Error',
+        description: err.response ? err.response.data.message : err.message,
+        timer: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [active, addToast, user.code]);
+
+  const handleRemoveReduction = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await api.get(`customers/${user.code}/${active}/reduce`);
+
+      addToast({
+        type: 'info',
+        title: 'ATENÇÃO',
+        description: response.data.result,
+        timer: true,
+      });
+    } catch (err) {
+      addToast({
+        type: 'info',
+        title: 'ATENÇÃO',
+        description: err.response ? err.response.data.message : err.message,
+        timer: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [active, addToast, user.code]);
+
   useEffect(() => {
     if (customer) {
       setActive(customer.contracts[0].id);
+      setContractStatus(customer.contracts[0].status);
     }
   }, [customer]);
 
@@ -29,8 +90,75 @@ const Contracts: React.FC = () => {
     return <ShimmerContracts />;
   }
 
+  console.log(contractStatus);
+
   return (
     <Container>
+      {contractStatus !== 'A' && (
+        <>
+          <Title className="large-title">
+            <RiMoneyDollarCircleLine size={24} />
+            <strong>Desbloqueios de confiança</strong>
+          </Title>
+          <Wrapper>
+            {contractStatus === 'FA' && (
+              <ReductionCard>
+                <header>
+                  <strong>Redução</strong>
+                  <Info
+                    title="Será efetuada liberação da redução de velocidade de sua conexão.
+              Vale lembrar, que as liberações são limitadas, e duram 03 dias, contado a partir do momento que é efetuada liberação. Após este prazo, se não houver compensação do pagamento em questão, sua conexão voltará a ser reduzida."
+                  >
+                    <AiOutlineQuestionCircle size={20} color="var(--text)" />
+                  </Info>
+                </header>
+
+                <p>
+                  Será efetuada a liberação da redução de <br /> velocidade de
+                  sua conexão.
+                </p>
+
+                <button type="button" onClick={handleRemoveReduction}>
+                  {loading ? (
+                    <span>
+                      <LoadingDots />
+                    </span>
+                  ) : (
+                    <span>Liberar</span>
+                  )}
+                </button>
+              </ReductionCard>
+            )}
+
+            {contractStatus === 'CA' && (
+              <ReductionCard className="block">
+                <header>
+                  <strong>Bloqueio</strong>
+                  <Info
+                    title="Será efetuado desbloqueio de sua conexão.
+                      Vale lembrar, que os desbloqueios são limitados, e duram 03 dias, contando a partir do momento que é efetuado o desbloqueio. Após este prazo, se não houver compensação do pagamento em questão, sua conexão voltará a ser bloqueada."
+                  >
+                    <AiOutlineQuestionCircle size={20} color="var(--text)" />
+                  </Info>
+                </header>
+
+                <p>Será efetuado desbloqueio de sua conexão.</p>
+
+                <button onClick={handleUnblockCustomer} type="button">
+                  {loading ? (
+                    <span>
+                      <LoadingDots />
+                    </span>
+                  ) : (
+                    <span>Liberar</span>
+                  )}
+                </button>
+              </ReductionCard>
+            )}
+          </Wrapper>
+        </>
+      )}
+
       <Title>
         <RiMoneyDollarCircleLine size={24} />
         <strong>Contratos</strong>
@@ -45,7 +173,10 @@ const Contracts: React.FC = () => {
           // const formattedDate = `${day}/${month}/${year}`;
           return (
             <Card
-              onClick={() => handleSelectContract(contract.id)}
+              onClick={() => {
+                handleSelectContract(contract.id);
+                setContractStatus(contract.status);
+              }}
               key={contract.id}
               type="button"
               className={active === contract.id ? 'active' : ''}

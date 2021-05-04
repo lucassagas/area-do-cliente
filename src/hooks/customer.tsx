@@ -24,7 +24,7 @@ interface ICustomerData {
   contracts: Array<{
     id: string;
     plan: string;
-    ativacao: string;
+    status: string;
   }>;
 }
 
