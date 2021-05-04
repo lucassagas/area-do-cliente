@@ -22,7 +22,6 @@ const Contracts: React.FC = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  console.log(contractStatus);
   const handleSelectContract = useCallback(
     (data: string) => {
       handleLoadBillets(data);
@@ -89,8 +88,6 @@ const Contracts: React.FC = () => {
   if (!customer) {
     return <ShimmerContracts />;
   }
-
-  console.log(contractStatus);
 
   return (
     <Container>
