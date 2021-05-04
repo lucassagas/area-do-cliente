@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Tooltip from '../Tooltip';
 
 export const Container = styled.div`
   width: 100%;
@@ -11,8 +12,6 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
-
-  overflow-x: auto;
 
   @media (max-width: 1920px) {
     max-width: 1630px;
@@ -84,6 +83,10 @@ export const Title = styled.div`
   align-items: center;
   gap: 5px;
   margin-bottom: 25px;
+
+  &.large-title {
+    max-width: 300px;
+  }
 `;
 
 export const Card = styled.button`
@@ -108,5 +111,91 @@ export const Card = styled.button`
 
   & + button {
     margin-left: 30px;
+  }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+
+  @media (max-width: 430px) {
+    flex-direction: column;
+  }
+`;
+
+export const ReductionCard = styled.div`
+  border: solid 1px var(--lightgray);
+  padding: 10px;
+  border-radius: 0 10px 10px 0;
+  border-left: 5px solid var(--yellowNotification);
+  margin-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  > header {
+    display: flex;
+    > strong {
+      margin-right: 10px;
+    }
+  }
+
+  > p {
+    margin: 10px 0 20px;
+  }
+
+  > button {
+    width: 100%;
+    border-radius: 10px;
+    background: var(--yellowNotification);
+    border: 0;
+    cursor: pointer;
+    padding: 10px;
+    color: var(--lighttext);
+  }
+
+  &.block {
+    border-left: 5px solid var(--redNotification);
+
+    > button {
+      background: var(--redNotification);
+    }
+  }
+
+  &:first-child {
+    margin-right: 10px;
+  }
+`;
+
+export const Info = styled(Tooltip)`
+  z-index: 11;
+
+  > svg {
+    &:hover {
+      fill: var(--tooltipbg);
+
+      transition: all 0.3s;
+    }
+  }
+  > span {
+    width: 400px;
+
+    z-index: 11;
+    background: var(--tooltipbg);
+    &::before {
+      border-color: var(--tooltipbg) transparent;
+    }
+
+    @media (max-width: 1200px) {
+      width: 350px;
+    }
+
+    @media (max-width: 730px) {
+      width: 250px;
+    }
+
+    @media (max-width: 430px) {
+      width: 250px;
+    }
   }
 `;

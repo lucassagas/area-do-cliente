@@ -25,14 +25,17 @@ const Toast: React.FC<ToastProps> = ({ message, style }) => {
   const { removeToast } = useToast();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      removeToast(message.id);
-    }, 3000);
+    const progress = setTimeout(
+      () => {
+        removeToast(message.id);
+      },
+      message.timer ? 10000 * 10 : 3000,
+    );
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(progress);
     };
-  }, [removeToast, message.id]);
+  }, [removeToast, message.id, message.timer]);
 
   return (
     <Container type={message.type} style={style}>
