@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
             </span>
           </div>
 
-          <Arrow>
+          <Arrow href="#youraccount">
             <Lottie
               isClickToPauseDisabled
               options={defaultOptions}
@@ -83,7 +83,7 @@ const Dashboard: React.FC = () => {
         </RollToDown> */}
       </Main>
 
-      <section>
+      <section id="youraccount">
         <div className="YourAccount">
           <HiOutlineUser size={25} color="#FFF" />
           <span>Sua Conta</span>

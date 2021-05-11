@@ -20,25 +20,41 @@ const SideMenu: React.FC = () => {
       <nav>
         <ul>
           <li>
-            <NavLink activeClassName="selected" to="/dashboard">
+            <NavLink
+              title="Dashboard"
+              activeClassName="selected"
+              to="/dashboard"
+            >
               <VscHome size={25} />
             </NavLink>
           </li>
 
           <li>
-            <NavLink activeClassName="selected" to="/customer">
+            <NavLink
+              title="Meus Dados"
+              activeClassName="selected"
+              to="/customer"
+            >
               <HiOutlineUser size={25} />
             </NavLink>
           </li>
 
           <li>
-            <NavLink activeClassName="selected" to="/finances">
+            <NavLink
+              title="Financeiro"
+              activeClassName="selected"
+              to="/finances"
+            >
               <RiMoneyDollarCircleLine size={27} />
             </NavLink>
           </li>
 
           <li>
-            <NavLink activeClassName="selected" to="/speedtest">
+            <NavLink
+              title="Teste de Velocidade"
+              activeClassName="selected"
+              to="/speedtest"
+            >
               <BiTachometer size={25} />
             </NavLink>
           </li>

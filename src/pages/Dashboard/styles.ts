@@ -8,6 +8,7 @@ export const Container = styled.div`
   color: var(--text);
   margin: auto;
   width: 100%;
+  scroll-behavior: smooth;
 
   > section {
     max-width: 1620px;
@@ -251,9 +252,15 @@ export const RollToDown = styled.div`
   }
 `;
 
-export const Arrow = styled.div`
+export const Arrow = styled.a`
   display: flex;
   flex-direction: center;
   align-items: center;
   max-width: 300px;
+  color: var(--white);
+  text-decoration: none;
+
+  @media (max-width: 430px) {
+    display: none;
+  }
 `;
