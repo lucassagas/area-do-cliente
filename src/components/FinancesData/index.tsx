@@ -172,8 +172,6 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
           <div>
             <strong>Contrato: {customer.contracts[0].id}</strong>
 
-            {/* <span>{`${dayContract}/${monthContract}/${yearContract}`}</span> */}
-
             <span>{customer.contracts[0].plan}</span>
           </div>
         </Header>
