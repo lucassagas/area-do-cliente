@@ -711,21 +711,19 @@ const SignUp: React.FC = () => {
                       </Card>
                       <Card
                         type="button"
-                        className={selectedPlan === '1569' ? 'active' : ''}
-                        onClick={() => setSelectedPlan('1569')}
+                        className={selectedPlan === '1605' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1605')}
                       >
                         <div>
                           <span
-                            className={selectedPlan === '1569' ? 'active' : ''}
+                            className={selectedPlan === '1605' ? 'active' : ''}
                           >
                             <FaCheck size={16} />
                           </span>
                         </div>
                         <div>
-                          <h1>
-                            <h3>Até</h3> 1Gb
-                          </h1>
-                          <strong>300Upload</strong>
+                          <h1>500Mb</h1>
+                          <strong>150Upload</strong>
                           <h2>R$150,00</h2>
                         </div>
                       </Card>
