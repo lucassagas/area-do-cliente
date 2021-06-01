@@ -119,11 +119,11 @@ const ModalPlans: React.FC = () => {
 
                 <section>
                   <Cards
-                    receivedValue="1569"
+                    receivedValue="1605"
                     title="Elite"
                     price="150,00"
-                    download="Até 1000"
-                    upload={300}
+                    download="500"
+                    upload={150}
                     router="Roteador Wi-Fi Gratuito"
                     tv
                     drive="50 Giga"
