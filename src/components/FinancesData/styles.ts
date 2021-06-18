@@ -4,34 +4,57 @@ import styled from 'styled-components';
 export const FilterContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 28px;
   margin-bottom: 25px;
 
-  > button {
-    width: 130px;
-    height: 42px;
-    border: 1px solid rgba(112, 112, 112, 0.4);
-    border-radius: 6px;
-    background: transparent;
-    color: var(--text);
+  flex-wrap: wrap;
+
+  > div {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.4s;
-    gap: 5px;
+    margin-bottom: 25px;
 
-    > svg {
-      display: none;
-    }
-
-    &.active {
-      border: 1px solid var(--darkgreen);
+    flex-wrap: wrap;
+    > button {
+      width: 130px;
+      height: 42px;
+      border: 1px solid rgba(112, 112, 112, 0.4);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.4s;
 
+      :nth-child(1) {
+        margin: 0 25px;
+
+        @media (max-width: 721px) {
+          margin: 0 25px 0 0;
+        }
+      }
+
+      :nth-child(3) {
+        @media (max-width: 571px) {
+          margin-top: 10px;
+        }
+      }
+
+      margin-right: 25px;
+
       > svg {
-        color: var(--darkgreen);
+        display: none;
+      }
+
+      &.active {
+        border: 1px solid var(--darkgreen);
         transition: all 0.4s;
-        display: block;
+
+        > svg {
+          color: var(--darkgreen);
+          transition: all 0.4s;
+          display: block;
+        }
       }
     }
   }
