@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Overlay = styled(motion.div)`
   position: fixed;
@@ -67,6 +67,7 @@ export const Wrapper = styled(motion.div)`
 
     top: 0;
     left: 0;
+    z-index: 4;
 
     > h1 {
       font-size: 20px;
@@ -99,7 +100,11 @@ export const Wrapper = styled(motion.div)`
   }
 `;
 
-export const Invoice = styled.div`
+interface InvoiceProps {
+  loading: boolean;
+}
+
+export const Invoice = styled.div<InvoiceProps>`
   display: flex;
 
   align-items: center;
@@ -129,9 +134,22 @@ export const Invoice = styled.div`
 
     background: var(--green);
 
+    ${({ loading }) =>
+      loading &&
+      css`
+        background: var(--lightgray);
+      `}
+
     border: 0;
 
     z-index: 3;
+
+    overflow: hidden;
+
+    [disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
 
     > svg {
       fill: var(--lighttext);

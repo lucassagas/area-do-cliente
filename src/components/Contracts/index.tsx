@@ -26,7 +26,7 @@ import {
 const Contracts: React.FC = () => {
   const [active, setActive] = useState<string>();
   const [contractStatus, setContractStatus] = useState<string>();
-  const { customer, handleLoadBillets } = useCustomer();
+  const { customer, handleLoadBillets, setContractId } = useCustomer();
   const { addToast } = useToast();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -87,32 +87,34 @@ const Contracts: React.FC = () => {
     }
   }, [active, addToast, user.code]);
 
-  const handleDownloadContract = useCallback(async (id: string): Promise<
-    void
-  > => {
-    try {
-      setLoading(true);
+  const handleDownloadContract = useCallback(
+    async (id: string): Promise<void> => {
+      try {
+        setLoading(true);
 
-      const response = await api.get(`customers/${user.code}/${id}/term`);
+        const response = await api.get(`customers/${user.code}/${id}/term`);
 
-      window.open(response.data.link, 'target_blank');
-    } catch (err) {
-      addToast({
-        type: 'error',
-        title: 'Error',
-        description: err.response ? err.response?.data.message : err.message,
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+        window.open(response.data.link, 'target_blank');
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Error',
+          description: err.response ? err.response?.data.message : err.message,
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [addToast, user.code],
+  );
 
   useEffect(() => {
     if (customer) {
       setActive(customer.contracts[0].id);
       setContractStatus(customer.contracts[0].status);
+      setContractId(customer.contracts[0].id);
     }
-  }, [customer]);
+  }, [customer, setContractId]);
 
   if (!customer) {
     return <ShimmerContracts />;
@@ -201,6 +203,7 @@ const Contracts: React.FC = () => {
             <Card
               onClick={() => {
                 handleSelectContract(contract.id);
+                setContractId(contract.id);
                 setContractStatus(contract.status);
               }}
               key={contract.id}

@@ -52,6 +52,8 @@ interface CustomerContextData {
   setDisplayModalFirstAccess(data: boolean): void;
   handleLoadBillets(contract: string): Promise<void>;
   handleLoadCustomer(): Promise<void>;
+  contractId: string;
+  setContractId: (data: string) => void;
 }
 
 const CustomerContext = createContext<CustomerContextData>(
@@ -61,6 +63,7 @@ const CustomerContext = createContext<CustomerContextData>(
 const CustomerProvider: React.FC = ({ children }) => {
   const [customer, setCustomer] = useState<ICustomerData>();
   const [billets, setBillets] = useState<IBilletData>();
+  const [contractId, setContractId] = useState<string>('');
   const [displayModalPassword, setDsiplayModalPassword] = useState<boolean>(
     false,
   );
@@ -99,6 +102,8 @@ const CustomerProvider: React.FC = ({ children }) => {
         setDsiplayModalPassword,
         displayModalFirstAccess,
         setDisplayModalFirstAccess,
+        contractId,
+        setContractId,
       }}
     >
       {children}
