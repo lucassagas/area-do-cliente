@@ -111,8 +111,10 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
   }, []);
 
   const redirectToWhatsapp = useCallback(() => {
-    window.location.href =
-      'https://api.whatsapp.com/send?phone=554830398888&text=Oi';
+    window.open(
+      'https://api.whatsapp.com/send?phone=554830398888&text=Oi',
+      '_blank',
+    );
   }, []);
 
   const sendBilletToEmail = useCallback(async () => {
@@ -137,7 +139,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
     api
       .get(`customers/${user.code}/info/billet/${billetId}/archive`)
       .then(response => {
-        window.location.href = `${response.data.link}`;
+        window.open(response.data.link, '_blank');
       })
       .catch(() => {
         addToast({

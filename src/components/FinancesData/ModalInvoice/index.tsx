@@ -69,7 +69,7 @@ export function ModalInvoice(): JSX.Element | null {
   return (
     <>
       <Button onClick={() => setDisplayModalInvoice(true)} type="button">
-        Histórico de pagamentos
+        Notas fiscais
       </Button>
       <AnimatePresence>
         {displayModalInvoice && (
@@ -81,7 +81,7 @@ export function ModalInvoice(): JSX.Element | null {
               exit="hidden"
             >
               <header>
-                <h1>Histórico de Pagamentos</h1>
+                <h1>Notas fiscais</h1>
                 <button
                   onClick={() => setDisplayModalInvoice(false)}
                   type="button"
