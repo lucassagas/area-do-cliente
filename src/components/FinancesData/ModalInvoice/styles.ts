@@ -159,7 +159,7 @@ export const Invoice = styled.div<InvoiceProps>`
 
 export const Button = styled.button`
   display: flex;
-  min-width: 230px;
+  min-width: 160px;
   background: var(--green) !important;
   color: var(--lighttext) !important;
 `;
