@@ -26,18 +26,22 @@ export function ModalInvoice(): JSX.Element | null {
   const { user } = useAuth();
 
   useEffect(() => {
-    api
-      .get(`/customers/${user?.code}/info/financial/${contractId}/invoices`)
-      .then(response => {
-        setInvoices(response.data);
-      })
-      .catch(err => {
-        addToast({
-          type: 'error',
-          title: 'Error',
-          description: err.response ? err.response?.data.message : err.message,
+    if (contractId) {
+      api
+        .get(`/customers/${user?.code}/info/financial/${contractId}/invoices`)
+        .then(response => {
+          setInvoices(response.data);
+        })
+        .catch(err => {
+          addToast({
+            type: 'error',
+            title: 'Error',
+            description: err.response
+              ? err.response?.data.message
+              : err.message,
+          });
         });
-      });
+    }
   }, [addToast, contractId, user]);
 
   const handleDownloadInvoice = useCallback(
