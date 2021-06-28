@@ -109,6 +109,8 @@ export const Card = styled.button`
   flex-direction: column;
   text-align: left;
 
+  position: relative;
+
   & + button {
     margin-left: 30px;
   }
@@ -197,5 +199,26 @@ export const Info = styled(Tooltip)`
     @media (max-width: 430px) {
       width: 250px;
     }
+  }
+`;
+
+export const DownloadButton = styled.button`
+  width: 34px;
+  height: 32px;
+
+  border-radius: 4px;
+
+  background: var(--green);
+
+  border: 0;
+
+  position: absolute;
+
+  right: 5px;
+  bottom: -16px;
+  z-index: 3;
+
+  > svg {
+    fill: var(--lighttext);
   }
 `;

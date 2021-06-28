@@ -156,7 +156,7 @@ const Carrousel: React.FC = () => {
               title="Instagram"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.instagram.com/neoredetelecom/"
+              href="https://www.instagram.com/neoredeinternet/"
             >
               <GrInstagram size={27} color="var(--lighttext)" />
             </a>

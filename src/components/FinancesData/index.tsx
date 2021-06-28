@@ -30,6 +30,7 @@ import {
 } from './styles';
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
+import { ModalInvoice } from './ModalInvoice';
 
 const variants = {
   hidden: { opacity: 0 },
@@ -183,25 +184,30 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
             <strong>Faturas</strong>
           </Title>
 
-          <button
-            type="button"
-            onClick={() => setFilter('all')}
-            className={filter === 'all' ? 'active' : ''}
-          >
-            <BsCheck size={22} />
-            Todos
-          </button>
+          <div>
+            <button
+              type="button"
+              onClick={() => setFilter('all')}
+              className={filter === 'all' ? 'active' : ''}
+            >
+              <BsCheck size={22} />
+              Todos
+            </button>
 
-          <button
-            onClick={() => setFilter('overdue')}
-            className={filter === 'overdue' ? 'active' : ''}
-            type="button"
-          >
-            <BsCheck size={22} />
-            Em atraso
-          </button>
+            <button
+              onClick={() => setFilter('overdue')}
+              className={filter === 'overdue' ? 'active' : ''}
+              type="button"
+            >
+              <BsCheck size={22} />
+              Em atraso
+            </button>
+
+            <ModalInvoice />
+          </div>
         </FilterContainer>
       )}
+
       {filter === 'all' && (
         <>
           <TitleBillet

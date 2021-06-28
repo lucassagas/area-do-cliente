@@ -1,23 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useCustomer } from '../../hooks/customer';
+import { useToast } from '../../hooks/toast';
+import { useAuth } from '../../hooks/auth';
 
 import ShimmerContracts from '../Shimmer/Contracts';
+import api from '../../services/api';
+import LoadingDots from '../LoadingDots';
 
 import {
   RiMoneyDollarCircleLine,
   AiOutlineQuestionCircle,
+  HiDownload,
 } from '../../styles/icon';
 
-import { Container, Card, Title, Wrapper, ReductionCard, Info } from './styles';
-import { useToast } from '../../hooks/toast';
-import { useAuth } from '../../hooks/auth';
-import api from '../../services/api';
-import LoadingDots from '../LoadingDots';
+import {
+  Container,
+  Card,
+  Title,
+  Wrapper,
+  ReductionCard,
+  Info,
+  DownloadButton,
+} from './styles';
 
 const Contracts: React.FC = () => {
   const [active, setActive] = useState<string>();
   const [contractStatus, setContractStatus] = useState<string>();
-  const { customer, handleLoadBillets } = useCustomer();
+  const { customer, handleLoadBillets, setContractId } = useCustomer();
   const { addToast } = useToast();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -30,7 +39,7 @@ const Contracts: React.FC = () => {
     [handleLoadBillets],
   );
 
-  const handleUnblockCustomer = useCallback(async () => {
+  const handleUnblockCustomer = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
       const response = await api.get(
@@ -55,7 +64,7 @@ const Contracts: React.FC = () => {
     }
   }, [active, addToast, user.code]);
 
-  const handleRemoveReduction = useCallback(async () => {
+  const handleRemoveReduction = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
       const response = await api.get(`customers/${user.code}/${active}/reduce`);
@@ -78,12 +87,34 @@ const Contracts: React.FC = () => {
     }
   }, [active, addToast, user.code]);
 
+  const handleDownloadContract = useCallback(
+    async (id: string): Promise<void> => {
+      try {
+        setLoading(true);
+
+        const response = await api.get(`customers/${user.code}/${id}/term`);
+
+        window.open(response.data.link, 'target_blank');
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Error',
+          description: err.response ? err.response?.data.message : err.message,
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [addToast, user.code],
+  );
+
   useEffect(() => {
     if (customer) {
       setActive(customer.contracts[0].id);
       setContractStatus(customer.contracts[0].status);
+      setContractId(customer.contracts[0].id);
     }
-  }, [customer]);
+  }, [customer, setContractId]);
 
   if (!customer) {
     return <ShimmerContracts />;
@@ -172,6 +203,7 @@ const Contracts: React.FC = () => {
             <Card
               onClick={() => {
                 handleSelectContract(contract.id);
+                setContractId(contract.id);
                 setContractStatus(contract.status);
               }}
               key={contract.id}
@@ -181,6 +213,14 @@ const Contracts: React.FC = () => {
               <h3>{contract.id}</h3>
               {/* <span>ATIVAÇÃO {formattedDate}</span> */}
               <p>{contract.plan}</p>
+
+              <DownloadButton
+                onClick={() => handleDownloadContract(contract.id)}
+                title="Download Contrato"
+                type="button"
+              >
+                <HiDownload size={24} color="var(--text)" />
+              </DownloadButton>
             </Card>
           );
         })}

@@ -27,6 +27,7 @@ export {
   HiWifi,
   HiOutlineClock,
   HiOutlineLocationMarker,
+  HiDownload,
 } from 'react-icons/hi';
 
 export { VscLock, VscHome, VscColorMode } from 'react-icons/vsc';
