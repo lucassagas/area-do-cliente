@@ -27,7 +27,7 @@ export const Container = styled.div`
 
   .active {
     background: var(--lightgreen);
-    border-left: 4px solid var(--green);
+    border: 4px solid var(--green);
     border-radius: 0 10px 10px 0;
   }
 
@@ -73,7 +73,7 @@ export const Container = styled.div`
 export const Title = styled.div`
   color: var(--lighttext);
   background: var(--green);
-  max-width: 141px;
+  max-width: 300px;
   padding: 10px;
   border-radius: 10px;
   font-size: 15px;

@@ -189,7 +189,7 @@ const Contracts: React.FC = () => {
 
       <Title>
         <RiMoneyDollarCircleLine size={24} />
-        <strong>Contratos</strong>
+        <strong>Selecione o contrato abaixo</strong>
       </Title>
       <section>
         {customer.contracts.map(contract => {
