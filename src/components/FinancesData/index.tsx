@@ -106,6 +106,11 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
   }, [addToast]);
 
   const OpenModal = useCallback(({ billet_code, billet_id }: BilletProps) => {
+    if (!billet_code) {
+      setDisplayModal('nobilletcode');
+
+      return;
+    }
     setDisplayModal(billet_code);
     setBilletId(billet_id);
   }, []);
@@ -472,7 +477,7 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
         </>
       )}
       <AnimatePresence exitBeforeEnter>
-        {displayModal && (
+        {displayModal && displayModal !== 'nobilletcode' && (
           <Modal exit={{ opacity: 0 }} key="modalbillets">
             <motion.div
               initial={{ y: -600, opacity: 0 }}
@@ -516,6 +521,29 @@ const FinancesData: React.FC<FinancesProps> = ({ show = false }) => {
                     Baixar boleto (PDF)
                   </button>
                 </Actions>
+              </div>
+            </motion.div>
+          </Modal>
+        )}
+
+        {displayModal === 'nobilletcode' && (
+          <Modal exit={{ opacity: 0 }} key="modalbillets">
+            <motion.div
+              initial={{ y: -600, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -600, opacity: 0 }}
+            >
+              <header>
+                <h1>Oops!</h1>
+                <button onClick={() => setDisplayModal('')} type="button">
+                  <FiXCircle size={20} />
+                </button>
+              </header>
+              <div>
+                <h1 style={{ marginTop: 20 }}>
+                  Esta fatura ainda não esta disponível, tente novamente mais
+                  tarde.
+                </h1>
               </div>
             </motion.div>
           </Modal>

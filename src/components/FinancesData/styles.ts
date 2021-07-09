@@ -317,6 +317,10 @@ export const Modal = styled(motion.div)`
       flex-direction: column;
       width: 100%;
 
+      > h1 {
+        font-size: 2rem;
+      }
+
       > p {
         margin: 10px 0;
       }
