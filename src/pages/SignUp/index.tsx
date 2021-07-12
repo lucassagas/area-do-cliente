@@ -656,75 +656,57 @@ const SignUp: React.FC = () => {
                     <ContainerCard>
                       <Card
                         type="button"
-                        onClick={() => setSelectedPlan('1567')}
-                        className={selectedPlan === '1567' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1611')}
+                        className={selectedPlan === '1611' ? 'active' : ''}
                       >
                         <div>
                           <span
-                            className={selectedPlan === '1567' ? 'active' : ''}
+                            className={selectedPlan === '1611' ? 'active' : ''}
                           >
                             <FaCheck size={16} />
                           </span>
                         </div>
                         <div>
-                          <h1>60Mb</h1>
-                          <strong>20Upload</strong>
+                          <h1>120Mb</h1>
+                          <strong>40Upload</strong>
                           <h2>R$80,00</h2>
                         </div>
                       </Card>
 
                       <Card
                         type="button"
-                        className={selectedPlan === '1568' ? 'active' : ''}
-                        onClick={() => setSelectedPlan('1568')}
+                        className={selectedPlan === '1613' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1613')}
                       >
                         <div>
                           <span
-                            className={selectedPlan === '1568' ? 'active' : ''}
+                            className={selectedPlan === '1613' ? 'active' : ''}
                           >
                             <FaCheck size={16} />
                           </span>
                         </div>
                         <div>
-                          <h1>240Mb</h1>
-                          <strong>72Upload</strong>
+                          <h1>400Mb</h1>
+                          <strong>120Upload</strong>
                           <h2>R$100,00</h2>
                         </div>
                       </Card>
                       <Card
                         type="button"
-                        className={selectedPlan === '1576' ? 'active' : ''}
-                        onClick={() => setSelectedPlan('1576')}
+                        className={selectedPlan === '1614' ? 'active' : ''}
+                        onClick={() => setSelectedPlan('1614')}
                       >
                         <div>
                           <span
-                            className={selectedPlan === '1576' ? 'active' : ''}
+                            className={selectedPlan === '1614' ? 'active' : ''}
                           >
                             <FaCheck size={16} />
                           </span>
                         </div>
                         <div>
-                          <h1>300Mb</h1>
-                          <strong>90Upload</strong>
+                          <h1>600Mb</h1>
+                          <strong>180Upload</strong>
                           <h2>R$120,00</h2>
-                        </div>
-                      </Card>
-                      <Card
-                        type="button"
-                        className={selectedPlan === '1605' ? 'active' : ''}
-                        onClick={() => setSelectedPlan('1605')}
-                      >
-                        <div>
-                          <span
-                            className={selectedPlan === '1605' ? 'active' : ''}
-                          >
-                            <FaCheck size={16} />
-                          </span>
-                        </div>
-                        <div>
-                          <h1>500Mb</h1>
-                          <strong>150Upload</strong>
-                          <h2>R$150,00</h2>
                         </div>
                       </Card>
                     </ContainerCard>

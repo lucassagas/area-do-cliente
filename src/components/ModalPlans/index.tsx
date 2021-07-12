@@ -68,11 +68,11 @@ const ModalPlans: React.FC = () => {
               <ContainerCards>
                 <section>
                   <Cards
-                    receivedValue="1567"
+                    receivedValue="1611"
                     title="Light"
                     price="80,00"
-                    download={60}
-                    upload={20}
+                    download={120}
+                    upload={40}
                     router="Roteador Wi-Fi Gratuito"
                     tv
                     drive="10 Giga"
@@ -84,11 +84,11 @@ const ModalPlans: React.FC = () => {
                 </section>
                 <section>
                   <Cards
-                    receivedValue="1568"
+                    receivedValue="1613"
                     title="Avançado"
                     price="100,00"
-                    download={240}
-                    upload={72}
+                    download={400}
+                    upload={120}
                     router="Roteador Wi-Fi Gratuito"
                     tv
                     drive="10 Giga"
@@ -101,32 +101,14 @@ const ModalPlans: React.FC = () => {
                 </section>
                 <section>
                   <Cards
-                    receivedValue="1576"
+                    receivedValue="1614"
                     title="Plus"
                     price="120,00"
-                    download={300}
-                    upload={90}
+                    download={600}
+                    upload={180}
                     router="Roteador Wi-Fi Gratuito"
                     tv
                     drive="10 Giga"
-                    paramount
-                    noggin
-                  />
-                  <Arrow>
-                    <Lottie options={defaultOptions} width={45} height={45} />
-                  </Arrow>
-                </section>
-
-                <section>
-                  <Cards
-                    receivedValue="1605"
-                    title="Elite"
-                    price="150,00"
-                    download="500"
-                    upload={150}
-                    router="Roteador Wi-Fi Gratuito"
-                    tv
-                    drive="50 Giga"
                     paramount
                     noggin
                   />
